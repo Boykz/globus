@@ -1,0 +1,487 @@
+﻿@model EntGlobus.ViewModels.LoginViewModel
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://cdn.plyr.io/3.5.2/plyr.css" />
+<script src="https://cdn.plyr.io/3.5.2/plyr.polyfilled.js"></script>
+
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<title>@ViewData["Title"] - entEdu</title>
+
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/matsau.css" />
+<style>
+    .treiler {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(93, 75, 75, 0.67);
+        position: fixed;
+        top: 0px;
+        display: none;
+    }
+
+    #my-video {
+        z-index: 555;
+    }
+
+    #backtoside {
+        z-index: 9999;
+        color: #fff;
+        position: absolute;
+        right: 5px;
+        font-size: 21px;
+    }
+    .plyr video, .plyr__video-wrapper {
+        height: 100%;
+    }
+   
+ 
+</style>
+<div class="blok1">
+    <div class="topnav">
+        <p class="pull-left log">ENTGlobus<br /> Education</p>
+        <p class="pull-right ph"> <a target="_blank" href="https://wa.me/77059196447?text=Сәлеметсізбе,%20Видеосабақты%20сатып%20алайын%20деп%20едім. "><span style="color:#fff!important;">87059196447</span> <img src="~/images/whats.png" alt="Alternate Text" /></a></p>
+        <div class="pull-right bars" onclick="myFunction(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+            <p class="barstp">Кіру</p>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="navmobile" id="navmob">
+        <div class="blok8">
+            <h3>
+                EntGlobus.
+            </h3>
+            <div asp-validation-summary="ModelOnly" style="color:#fff;"></div>
+            <form asp-controller="Matsau" asp-action="Index" method="post" class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input asp-for="TelNum" id="newm" type="text" value="" placeholder="Логин..." class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="Password" type="password" value="" placeholder="Пароль..." class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <div class="subm">
+                            <input type="submit" onclick="NumChange()" value="Кіру" class="btn btn-default send" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="txtxmob">
+        <div asp-validation-summary="ModelOnly" style="color:#fff;"></div>
+        <p class="txt1">
+            ҰБТ - дан жоғары балл алып, армандаған
+            оқу орныңа түскісі келетін түлектер үшін!
+        </p>
+
+        <p class="txt2">
+            Математикалық сауаттылық пәні бойынша
+            ҰБТ - да жиі келетін, басты тақырыптарды
+            талдайтын видео-курс.
+        </p>
+
+        <p class="txt3">
+            Бұл видео-курста сіз математикалық сауаттылық
+            пәні бойынша негізгі тақырыптарды толық түсініп,
+            әр тақырып бойынша есеп шығаруды үйренесіз!
+        </p>
+        <div class="twobtn">
+            <p class="pull-left btn1" onclick="ShowTreiler()"> <a id="ach" href="#"><img src="~/images/b1img.png" alt="Alternate Text" />     Видео</a></p>
+            <p class="pull-right btn2"><img src="~/images/b2img.png" alt="Alternate Text" id="alber" /> <a target="_blank" href="https://wa.me/77059196447?text=Сәлеметсізбе,%20Видеосабақты%20сатып%20алайын%20деп%20едім. "> <img src="~/images/whats.png" alt="Alternate Text" />Видео-курсты сатып алу</a></p>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="blok2">
+    <h2>Видео-курстың артықшылықтары</h2>
+
+    <p>
+        <img src="~/images/matico1.png" alt="Alternate Text" />
+        Мат-Сауаттылық бойынша жиі келетін басты тықырыптар жеке-жеке талданып,
+        әр тақырып бойынша есеп шығару жолдары қарастырылған.
+    </p>
+    <p>
+        Біз дайындыққа қажет барлық материалды бір жерге жинақтадық
+        және оларды үйренуге ыңғайлы болатындай етіп жүйеледік <img src="~/images/ico1.png" alt="Alternate Text" />
+    </p>
+    <p>
+        <img src="~/images/ico1.png" alt="Alternate Text" />   Курс форматы онлайн, яғни сіз оны қалаған уақытта және кез-келген жерде қарай аласыз
+    </p>
+</div>
+<div class="blok2mobile">
+    <h2>Видео-курстың артықшылықтары</h2>
+    <div class="row">
+        <div class="col-xs-3"><img src="~/images/matico1.png" alt="Alternate Text" /></div>
+        <div class="col-xs-9">
+            <p>
+                Мат-Сауаттылық бойынша жиі келетін басты тықырыптар жеке-жеке талданып,
+                әр тақырып бойынша есеп шығару жолдары қарастырылған.
+            </p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-xs-3"><img src="~/images/matico1.png" alt="Alternate Text" /></div>
+        <div class="col-xs-9">
+            <p>
+
+                Біз дайындыққа қажет барлық материалды бір жерге жинақтадық және оларды үйренуге ыңғайлы болатындай етіп жүйеледік
+            </p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-xs-3"><img src="~/images/matico1.png" alt="Alternate Text" /></div>
+        <div class="col-xs-9">
+            <p>
+
+                Курс форматы онлайн, яғни сіз оны қалаған уақытта және кез-келген жерде қарай аласыз
+            </p>
+        </div>
+    </div>
+    <hr />
+</div>
+<div class="clear"></div>
+<div class="blok3">
+    <p>&ldquo;Сенің қаншалықты көп оқығаның емес, қалай оқып<br /> жатқаның маңызды!!!&rdquo;</p>
+</div>
+<div class="clear"></div>
+<div class="blok4">
+    <img src="~/images/book icon.png" alt="Alternate Text" class="pull-left" />
+    <p class="pull-right">
+        Біздің дайындаған видео-курс арқылы сен ҰБТ-да жиі келетін негізгі тақырыптарды толық түсініп,
+        есептер қалай дұрыс шығаруды үйрену арқылы тестке жылдам әрі тиімді түрде дайындаласың...
+    </p>
+</div>
+<div class="blok4mobile">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="unbox">
+                <img src="~/images/book icon.png" alt="Alternate Text" />
+            </div>
+        </div>
+        <div class="col-xs-8">
+            <p>
+                Біздің дайындаған видео-курс арқылы сен ҰБТ-да жиі келетін негізгі тақырыптарды толық түсініп,
+                есептер қалай дұрыс шығаруды үйрену арқылы тестке жылдам әрі тиімді түрде дайындаласың...
+            </p>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+<div class="blok5">
+    <div class="kub1">
+        <div>Бонус</div>  <br /><br /><br /><br /><br />
+        <img src="~/images/s2.png" alt="Alternate Text" />
+        <span>+</span> <img src="~/images/s1.png" alt="Alternate Text" />
+        <br /><br /><br />
+        <p>Тақырып бойынша формула мен шпоргалкалар</p>
+    </div>
+    <div class="kub12">
+        <div class="row">
+            <div class="col-md-3 mecol">
+                <div class="panel">
+                    <p class="modep">Модуль-1</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Теңдеулер және теңсіздіктер</p>
+                </div>
+            </div>
+            <div class="col-md-3 mecol">
+                <div class="panel">
+                    <p class="modep">Модуль-2</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Комбинаторика </p>
+                </div>
+            </div>
+            <div class="col-md-3 mecol">
+                <div class="panel">
+                    <p class="modep">Модуль-3</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Геометриялық есептер</p>
+                </div>
+            </div>
+            <div class="col-md-3 mecol">
+                <div class="panel">
+                    <p class="modep">Модуль-4</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Процент</p>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="col-md-3 mecol">
+                <div class="panel">
+                    <p class="modep">Модуль-5</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Сандар теориясы</p>
+                </div>
+            </div>
+            <div class="col-md-3 mecol">
+                <div class="panel">
+                    <p class="modep">Модуль-6</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Ықтималдылық теориясы</p>
+                </div>
+            </div>
+            <div class="col-md-3 mecol">
+                <div class="panel">
+                    <p class="modep">Модуль-7</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Қосымша есептер</p>
+                </div>
+            </div>
+            <div class="col-md-3 mecol">
+                <div class="panel">
+                    <p class="modep">Модуль-8</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Нұсқа талдау</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blok5mobile">
+    <div class="bigrec">
+        <p>
+            Біз мат-сауаттылық бойынша ҰБТ-да қажетті барлық негізгі
+            тақырыптарды
+            қамтып, тестке қажетті барлық формулаларды бір жерге жинақтадық!
+            <img src="~/images/down.png" alt="Alternate Text" />
+        </p>
+    </div>
+    <div class="mobrecs">
+        <div class="">
+            <div class="col-xs-6">
+                <div class="panel pull-right">
+                    <p class="modep">Модуль-1</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Теңдеулер және теңсіздіктер</p>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel pull-left">
+                    <p class="modep">Модуль-2</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Комбинаторика </p>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel pull-right">
+                    <p class="modep">Модуль-3</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Геометриялық есептер</p>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel pull-left">
+                    <p class="modep">Модуль-4</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Процент</p>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel pull-right">
+                    <p class="modep">Модуль-5</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Сандар теориясы</p>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel pull-left">
+
+                    <p class="modep">Модуль-6</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Ықтималдылық теориясы</p>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel pull-right">
+                    <p class="modep">Модуль-7</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Қосымша есептер</p>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel pull-left">
+                    <p class="modep">Модуль-8</p>
+                    <img src="~/images/s.png" alt="Alternate Text" />
+                    <p class="modetp">Нұсқа талдау</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+@*<div class="blok6">
+        <h2>Видео-курсты 3 тәсілмен сатып алуға болады:</h2>
+        <div class="rowa">
+            <div class="col-md-4">
+                <div class="panel">
+                    <p class="mt1">Тәсіл</p>
+                    <hr />
+                    <p>8 видео сабақ</p>
+                    <p>Әр сабақ бойынша қажетті формулалар</p>
+                    <div class="prs"><span class="oldp">15000</span> <span class="newp">1000</span> </div>
+                    <div class="buy">Сатып алу</div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel">
+                    <p class="mt1">Тәсіл</p>
+                    <hr />
+                    <p>8 видео сабақ</p>
+                    <p>Әр сабақ бойынша қажетті формулала</p>
+                    <div class="prs"><span class="oldp">1500</span> <span class="newp">1000</span> </div>
+                    <div class="buy">Сатып алу</div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel">
+                    <p class="mt1">Тәсіл</p>
+                    <hr />
+                    <p>8 видео сабақ</p>
+                    <p>Әр сабақ бойынша қажетті формулалар</p>
+                    <div class="prs"><span class="oldp">1700</span> <span class="newp">1500</span> </div>
+                    <div class="buy">Сатып алу</div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<div class="clear"></div>
+<div class="blok7">
+    <h4>Неліктен видео-курс басқа дайындалу тәсілдеріне қарағанда әлдеқайда үнемдірек?</h4>
+    <div class="">
+        <div class="col-md-8">
+            <div class="prim">
+                <p>Репититордың 1 күндік орташа бағасы<span class="sright">1 500-3 000 тг</span></p>
+                <div class="clear"></div>
+                <p><span>Онлайн курстар</span> <span class="sright">9 000-15 000 тг</span></p>
+                <div class="clear"></div>
+                <p><span>Ақылы айлық курстар</span> <span class="sright">20 000-30 000 тг</span></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="ourvideo">
+                <p class="biz">Біздің видео-курс</p>
+                <p>* Басты 8 тақырыпты толық талдау.</p>
+                <p>* Барлық қажетті формулалар.</p>
+                <p>* Уақыт және ақшаны үнемдеу.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blok7mobile">
+    <h4>Неліктен видео-курс басқа дайындалу тәсілдеріне қарағанда әлдеқайда үнемдірек?</h4>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="others">
+                <p class="bizmob">Басқалары</p>
+                <p>Репититордың 1 күндік орташа бағасы<span><br /> 1 500-3 000 тг</span></p>
+                <div class="clear"></div>
+                <hr />
+                <p>Онлайн курстар <span><br />9 000-15 000 тг</span></p>
+                <div class="clear"></div>
+                <hr />
+                <p>Ақылы айлық курстар <span><br />20 000-30 000 тг</span></p>
+                <hr />
+            </div>
+        </div>
+
+        <div class="col-xs-6">
+            <p class="bizmob">Біздің видео-курс</p>
+            <p>* Басты 8 тақырыпты <span>толық</span> талдау.</p>
+            <p>* Барлық <span>қажетті формулалар</span>.</p>
+            <p>* Уақыт және <span>ақшаны үнемдеу</span>.</p>
+
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="blok8">
+    <h3>
+        Видео-курс жайлы толық ақпарат алу үшін өз номеріңізді
+        қалдырыңыз!
+    </h3>
+    <form action="/matsau/resept" method="post" class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" name="Comment" value="" placeholder="Есіміңіз..." class="form-control" required />
+            </div>
+            <div class="col-md-4">
+                <input type="number" name="Phone" value="" placeholder="Номер..." class="form-control" required />
+            </div>
+            <div class="col-md-4">
+                <div class="subm">
+                    <input type="submit" value="Жіберу" class="btn btn-default send" />
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<div class="clear"></div>
+<div class="treiler" id="treiler">
+    <div style="width:100%;height:100vh;">
+        <span id="backtoside" onclick="StopTr()">X</span>
+        <video poster="" id="player" playsinline controls>
+            <source src="http://entapp-001-site1.itempurl.com/untitled.mp4" type="video/mp4" />
+            <source src="/path/to/video.webm" type="video/webm" />
+
+            <!-- Captions are optional -->
+            <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default />
+        </video>
+
+    </div>                        
+</div>
+<footer>
+    <p>&copy; EntGlobus Education 2019</p>
+</footer>
+<script>
+    const player = new Plyr('#player');
+</script>
+<script>
+    function myFunction(x) {
+        x.classList.toggle("change");
+        var navmob = document.getElementById("navmob");
+        var disp = navmob.style.display;
+
+        var txtxmob = document.getElementById("txtxmob");
+        if (disp == "block") {
+            navmob.style.display = "none";
+            txtxmob.style.display = "block";
+        } else {
+            navmob.style.display = "block";
+            txtxmob.style.display = "none";
+        }
+    }
+    function NumChange() {
+        var number = document.getElementById("newm").value;
+        var str = number.charAt(0);
+        if (str == "+") {
+            var newnum = number.replace(str, "");
+            var nn = number.value = newnum;
+            document.getElementById("newm").value = newnum;
+        }
+    }
+    function ShowTreiler() {
+        var tr = document.getElementById("treiler");
+        tr.style.display = "block";
+    }
+    function StopTr() {
+        var tr = document.getElementById("treiler");
+        tr.style.display = "none";
+        const player = new Plyr('#player', {
+            clickToPlay: false,
+        });
+
+    }
+
+
+</script>

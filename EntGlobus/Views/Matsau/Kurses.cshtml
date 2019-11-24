@@ -1,0 +1,11 @@
+﻿@model IEnumerable<EntGlobus.Models.Kurs>
+@{
+    ViewData["Title"] = "Kurses";
+}
+
+<h2>Уроки</h2>
+@foreach(var ur in Model)
+{
+    <a href="/matsau/kurs?id=@ur.Id">@ur.subject</a>
+}
+

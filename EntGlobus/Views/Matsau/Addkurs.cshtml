@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Добавить урок для курса";
+}
+
+<h2>Добавить урок для курса</h2>
+
+<form method="post" enctype="multipart/form-data" asp-controller="matsau" asp-action="addkurs">
+
+    <label>Выберите курс:</label>
+    <select name="course" class="form-control">
+        @foreach(var cr in (List<AllCourses>)ViewBag.allcurses)
+        {
+        <option value="@cr.Id">@cr.Name</option>
+
+        }
+    </select>
+    <label>Названия:</label>
+    <input name="subject" type="text" class="form-control" required />
+    <label>Описания:</label>
+    <textarea rows="8" name="text" type="text" class="form-control" required></textarea>
+    <label>Видео:</label>
+    <input type="text" placeholder="video ssilkasi" required name="video" class="form-control"/>
+    <label>Продолжительность:</label>
+    <input name="time" type="text" placeholder="например: 1сағ 15мин или 35мин" class="form-control" />
+    <label>Cүрет:</label>
+    <input type="file" value="Сүрет еңгізіңіз" required name="photo" multiple accept="image/png" /> <br />
+
+    <label>Материал1:</label>
+    <input type="file" value="Сүрет еңгізіңіз"  name="mat1" multiple  /> <br />
+     <label>Материал2:</label>
+    <input type="file" value="Сүрет еңгізіңіз"  name="mat2" multiple  /> <br />
+     <label>Материал3:</label>
+    <input type="file" value="Сүрет еңгізіңіз"  name="mat3" multiple  /> <br />
+    <label>Материал4:</label>
+    <input type="file" value="Сүрет еңгізіңіз"  name="mat4" multiple  /> <br />
+
+    <input type="submit" value="Сохранить" class="btn btn-success" />
+    <a href="/Matsau/Kurses">Все уроки</a>
+
+</form>
+
+

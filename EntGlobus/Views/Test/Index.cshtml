@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<div onclick="GetCities()">fff</div>
+
+<script>
+
+    function createNode(element) {
+        return document.createElement(element);
+    }
+
+    function append(parent, el) {
+        return parent.appendChild(el);
+    }
+
+    function GetCities() {
+        const url = 'https://api.vk.com/method/database.getCities?v=5.52&access_token=0705d2640705d2640705d264fd076d4f70007050705d2645b64cb204ebf9c095e11bb1c&country_id=4';
+
+        //$.get(url, function (data, status) {
+        //    alert("Data: " + data + "\nStatus: " + status);
+        //});
+
+        fetch(url, {
+           // 'Content-Type': 'application/json',
+            //mode: 'cors',
+            method: 'GET',
+            //credentials: 'include',
+            //cache: 'no-cache',
+            "Access-Control-Allow-Credentials": "true",
+             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+
+        })
+            .then((resp) => resp.json())
+            .then(function (data) {
+                console.log(data);
+                let cities = data.response;
+                return cities.map(function (citi) {
+                    console.log(citi.title);
+
+                })
+            })
+
+
+    }
+</script>
+

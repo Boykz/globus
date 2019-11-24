@@ -1,0 +1,38 @@
+﻿@model IEnumerable<EntGlobus.Models.Post>
+@{
+    ViewData["Title"] = "List";
+}
+
+
+<style>
+    .panel {
+        padding: 5px;
+    }
+</style>
+<a href="Studentd/Posts/Index" >new page</a>
+@Html.ActionLink("ares","Index",new  { area= "students",controller ="posts"   })
+<cache enabled="true"  expires-after="TimeSpan.FromMinutes(10)">
+    @DateTime.Now
+
+    @foreach (var md in Model)
+    {
+        <div class="panel">
+            <h2>Тақырыбы: @md.subject</h2>
+            <img src="~/Postimages/@md.pathimg" style="width:50px;height:50px;" />
+            <p> @md.date</p>
+            <p>Видео: @md.pathvideo</p>
+            <p>Текст: @md.text</p>
+            <a href="/Loads/Newdel?id=@md.Id" class="pull-right"><span class="glyphicon glyphicon-trash"></span></a>
+            <a href="/Loads/Edit?id=@md.Id" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+        </div>
+
+
+    }</cache>
+
+
+
+    @*<script>
+            $(function () {
+                $("#datepicker").datepicker();
+            });
+        </script>*@

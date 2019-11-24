@@ -1,0 +1,35 @@
+﻿@model EntGlobus.Models.Post
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Өзгерту</h2>
+<form method="post" enctype="multipart/form-data" asp-controller="loads" asp-action="Delimg">
+    <input hidden name="Id" value="@Model.Id" />
+    <label>Тақырыбы:</label>
+    <input name="subject" type="text" value="@Model.subject" class="form-control" required />
+    <label>Хэш:</label>
+    <input name="hashtag" type="text" value="@Model.hashtag" class="form-control" required />
+    <label>Видео:</label>
+    <input name="pathvideo" type="text" value="@Model.pathvideo" class="form-control" />
+    <label>Мәлімет:</label>
+    <textarea rows="8" name="text" type="text" class="form-control" required>@Model.text</textarea>
+    <label>Cүрет:</label>
+    @if (Model.pathimg != null)
+    {<br /><br /> <img src="~/Postimages/@Model.pathimg" style="width:100px;height:100px;" alt="Alternate Text" />
+                                                                                                        
+            <a class="btn btn-danger" href="/loads/delimg?Id=@Model.Id">Удалить</a>
+   
+    }
+    else
+    {
+        <input type="file" value="Сүрет еңгізіңіз" required name="file" multiple accept="image/png" /> <br />
+    }
+    <br /><br />
+
+    <input type="submit" value="Өзгерту" class="btn btn-success" />
+
+    <a href="/Loads/List">Все новости</a>
+
+</form>
+        <br /><br /> <br /><br />

@@ -1,0 +1,165 @@
+﻿@model EntGlobus.ViewModels.KursWatchViewModel
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
+
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+<title>@ViewData["Title"] - entEdu</title>
+
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/matsau.css" />
+<style>
+    h3 {
+        width: 80%;
+        text-align: center;
+        margin: auto;
+        padding-top: 25px;
+    }
+
+    body {
+        background-color: #eee;
+    }
+
+    hr {
+        color: #000;
+        border-top: 1px solid #4e4747;
+    }
+    .nextv img{
+        width:100%;
+        height:100%;
+    }
+    .vds p {
+        padding-left: 24px;
+        margin: 0 0 10px;
+        font-weight: 700;
+    }
+    .nnnnn {
+        width: 80%;
+        text-align: center;
+        font-size: 21px;
+        font-weight: 600;
+    }
+</style>
+<br />
+      <p class="nnnnn">@Model.Kurs.subject</p>
+<div class="watch">
+    <div class="bigw">
+        <video id='my-video' class='video-js' controls preload='auto' width='640' height='264'
+               poster='MY_VIDEO_POSTER.jpg' data-setup='{}'>
+            @if (!Model.acces)
+            {
+                @foreach (var md in Model.Kurses)
+                {
+                    @if (md.Id == 1)
+                    {
+                        <source src='~/Kurs/@md.video' type='video/mp4'>
+                    }
+
+                }
+            }
+            else
+            {
+                <source src='~/Kurs/@Model.Kurs.video' type='video/mp4'>
+            }
+
+            <source src='MY_VIDEO.webm' type='video/webm'>
+            <p class='vjs-no-js'>
+                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+            </p>
+        </video>
+
+        <script src='https://vjs.zencdn.net/7.4.1/video.js'></script>
+    </div>
+    @{ 
+       int i = 0;
+    }
+    <div class="vds">
+        @foreach (var md in Model.Kurses)
+        {  i++;
+            @if (Model.acces)
+            {
+                <p>@md.subject  <span class="glyphicon glyphicon-eye-open">1523</span> <span class="glyphicon glyphicon-time">@md.time</span> </p>
+                <a href="/matsau/sabak?id=@md.Id">
+                    <div class="nextv">
+                        <img src="~/Kurs/@md.photo" alt="Alternate Text" />
+                    </div>
+                </a>
+                    }                    
+            else if (!Model.acces)
+                    {
+                <p>@md.subject  <span class="glyphicon glyphicon-eye-open">1523</span> <span class="glyphicon glyphicon-time">@md.time</span> </p>
+                <a id="@i"  href="#" onclick="alertt(@i)">
+                    <div class="nextv">
+                        <img src="~/Kurs/@md.photo" alt="Alternate Text" />
+                    </div>
+                </a>
+            }
+
+        }
+
+
+    </div>
+</div>
+<div class="clear"></div>
+
+<h3 class="hht">
+  
+        @Model.Kurs.text
+
+</h3>
+<div class="clear"></div>
+<hr />
+<div class="optons">
+    <p style="font-weight:bold;font-size:17px;">Сабақ бойынша материлдар</p>
+    @if (@Model.Kurs.mat1 != null && Model.acces)
+    {
+        <p>
+            @Model.Kurs.mat1  <a download href="~/Kurs/@Model.Kurs.mat1"><span class="glyphicon glyphicon-download-alt"></span>  Жүктеу</a>
+        </p>
+    }
+
+    @if (@Model.Kurs.mat2 != null && Model.acces)
+    {
+        <p>
+            @Model.Kurs.mat2  <a download href="~/Kurs/@Model.Kurs.mat2"><span class="glyphicon glyphicon-download-alt"></span>  Жүктеу</a>
+        </p>
+    }
+    @if (@Model.Kurs.mat3 != null && Model.acces)
+    {
+        <p>
+            @Model.Kurs.mat3  <a download href="~/Kurs/@Model.Kurs.mat3"><span class="glyphicon glyphicon-download-alt"></span>  Жүктеу</a>
+        </p>
+    }
+    @if (@Model.Kurs.mat4 != null)
+    {
+        <p>
+            @Model.Kurs.mat4  <a download href="~/Kurs/@Model.Kurs.mat4"><span class="glyphicon glyphicon-download-alt"></span>  Жүктеу</a>
+        </p>
+    }
+</div>
+<div hidden id="ddd" class="m_modal">
+    <span onclick="Close()" class="clss">X</span>
+    <p style="color:red;">Бұл видео сабақтар жабық!</p>
+    <p>Видео сабақтарды ашу үшін ватсаптан жазыңыз <a target="_blank" href="https://wa.me/77059196447?text=Сәлеметсізбе,(@ViewBag.num)%20номеріне%20Видеосабақты%20ашайын%20деп%20едім. "><span class="glyphicon glyphicon-arrow-right"></span> <img src="~/images/whats.png" alt="Alternate Text" /></a></p>
+</div>
+<div class="clear"></div>                                        
+<br /><br />
+<footer>
+    <p>&copy; EntGlobus Education 2019</p>
+</footer>
+<script>
+    function alertt(sw){
+        if (sw == 1) {
+            console.log(sw);
+        } else {
+            var els = document.getElementById("ddd");
+            els.style.display = "block";
+        }
+    }
+    function Close() {
+        var els = document.getElementById("ddd");
+        els.style.display = "none";
+    }
+</script>

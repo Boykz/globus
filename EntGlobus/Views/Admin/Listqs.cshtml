@@ -1,0 +1,80 @@
+﻿@model IEnumerable<EntGlobus.Models.Dayliquestion>
+@{
+    ViewData["Title"] = "Listqs";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+    .panel {
+        background-color: #bccebd !important;
+        padding: 5px !important;
+    }
+
+    .cor {
+        color: greenyellow;
+    }
+
+    .incor {
+        color: red;
+    }
+</style>
+<h2>Күн сұрақтары. <span style="color:blue">@ViewBag.count сұрақ</span></h2>
+     <h2></h2>
+@{
+    int i = 5000,j=1000;
+}
+
+@foreach (var qs in Model)
+
+{
+    i++; j++;
+   
+    <div id="@j" class="col-md-12">
+        <div class="panel">
+            <p><span style="color:blue">Пән: </span>@qs.subject</p>
+            <p><span style="color:red">Сұрақ:</span> @qs.question</p>
+            <p><span style="color:blue">Жауап 1:</span> @qs.ans1 (<span class="glyphicon glyphicon-bullhorn"></span> @qs.A1)</p>
+            <p><span style="color:blue">Жауап 2:</span> @qs.ans2 (<span class="glyphicon glyphicon-bullhorn"></span> @qs.A2)</p>
+            <p><span style="color:blue">Жауап 3:</span> @qs.ans3 (<span class="glyphicon glyphicon-bullhorn"></span> @qs.A3)</p>
+            <p><span style="color:blue">Жауап 4:</span> @qs.ans4 (<span class="glyphicon glyphicon-bullhorn"></span> @qs.A4)</p>
+            <p><span style="color:blue">Жауап 5:</span> @qs.ans5 (<span class="glyphicon glyphicon-bullhorn"></span> @qs.A5)</p>
+            <p><span style="color:green">Дұрыс жауап:</span> @qs.Correctans</p>
+            <p class="qss"><span class="glyphicon glyphicon-time" style="color:blue" ></span> @qs.qstime </p>
+            <p class="qss">   <a href="/Admin/Delqs?id=@qs.Id"><span class=" glyphicon glyphicon-trash"></span></a>     <a href="/Admin/Editqs?id=@qs.Id">   <span class=" glyphicon glyphicon-pencil" style="padding-left:5px;"></span></a></p>
+
+        </div>
+    </div>
+}
+<script>
+    function codeAddress() {
+        for (var i = 1000; i <= @Model.Count() +1000; i++) {
+            var p = $('.panel').find("p")
+            var tets = p.text();
+
+            var inpt = $('.panel').find("li").text();
+            console.log(tets);
+            console.log(inpt);
+            if (tets == inpt) {
+                p.css("color", "red");
+            }
+
+        }
+
+      //var a =  $('#1009').children();
+        @*for (var i = 1000; i <= @Model.Count() +1000; i++) {
+            var a = $(`#${i}`).children();                               
+           
+    
+            // var p = $(`#${5001}`).children();
+            console.log(a.text());
+            
+
+            
+            if (a.text() == "Ахун") {
+                //console.log(a)
+            }
+        }*@
+    }
+    window.onload = codeAddress;
+
+</script>
+

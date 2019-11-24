@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Post";
+}
+
+
+<h2>Post</h2>
+
+<form method="post" enctype="multipart/form-data" asp-controller="loads" asp-action="post">
+
+    <label>Тақырыбы:</label>
+    <input name="subject" type="text" class="form-control" required />
+    <label>Хэш:</label>
+    <input name="hashtag" type="text" class="form-control" required />
+    <label>Видео:</label>
+    <input name="pathvideo" type="text" class="form-control" />
+    <label>Мәлімет:</label>
+    <textarea rows="8" name="text" type="text" class="form-control" required></textarea>
+    <label>Cүрет:</label>
+    <input type="file" value="Сүрет еңгізіңіз" onchange="readURL(this);" required name="file" multiple accept="image/png" /> <br />
+    <img id="blah" src="#" alt="your image" />
+
+    <input type="submit" value="Жариялау" class="btn btn-success" />
+    <a href="/Loads/List">Все новости</a>
+
+</form>
+<script>
+
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+    $('#blah')
+    .attr('src', e.target.result)
+    .width(150)
+    .height(200);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+    }
+    }
+</script>

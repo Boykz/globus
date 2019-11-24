@@ -1,0 +1,994 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding: 0 !important;
+}
+/*nones mob*/
+
+.blok2mobile, .blok4mobile, .blok7mobile, .bizmob, .blok5mobile {
+    display: none !important;
+}
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+.clear {
+    clear: both;
+}
+.ph img,.btn2 img{
+    width:35px;
+}
+.barstp{
+    display:none;
+}
+.phonnav {
+    display: none !important;
+}
+/* top nav */
+.topnav {
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 15px 0;
+    color: #fff;
+    font-size: 21px;
+}
+/* blok1
+    */
+.blok1 {
+    background-image: url("/images/fon1.png");
+    background-color: #cccccc;
+    height: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    text-align: center;
+}
+
+.ph {
+    text-decoration: underline;
+}
+
+.txt1 {
+    padding-top: 40px;
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    width: 47%;
+    margin: 0 auto;
+}
+
+.txt2 {
+    padding-top: 40px;
+    color: aqua;
+    font-weight: 600;
+    font-size: 27px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.txt3 {
+    padding-top: 40px;
+    color: #fff;
+    font-size: 21px;
+    padding-bottom: 25px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.twobtn {
+    width: 40%;
+    margin: 20px auto;
+    padding-bottom: 100px;
+}
+
+.btn1 {
+    background-color: greenyellow;
+    padding: 5px;
+    border-radius: 7px;
+    text-decoration: underline;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn2 {
+    background-color: #ef6767;
+    padding: 1px;
+    border-radius: 7px;
+    text-decoration: underline;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+    .btn2 a {
+        color: #fff !important;
+    }
+
+    .btn1 img, .btn2 img {
+        padding-right: 1px;
+    }
+/*blok2*/
+.blok2 h2 {
+    text-align: center;
+    color: #214fa5;
+    font-family: 'Sitka Text';
+}
+
+.blok2 p {
+    color: #214fa5;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    padding-bottom: 21px;
+    font-weight: 600;
+    width: 70%;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+.blok2 img {
+    width: 31px;
+}
+/*blok3*/
+.blok3 {
+    background-image: url("/images/fon2.png");
+    background-color: #cccccc;
+    height: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    text-align: center;
+}
+
+    .blok3 p {
+        font-size: 27px;
+        font-family: Consolas;
+        color: #ffef13;
+        padding: 80px;
+    }
+/*blok4*/
+.blok4 {
+    width: 90%;
+    margin: 0 auto;
+}
+.m_modal {
+    display: none;
+    position: fixed;
+    top: 50px;
+    background-color: #f1f1f1;
+    width: 33%;
+    height: 30%;
+    text-align: center;
+    margin: 0 auto;
+    left: 33%;
+    z-index: 999999;
+    box-shadow: -1px 5px 20px 1px;
+    border-radius: 7px;
+    padding: 15px;
+    font-size: 21px;
+    font-weight: bold;
+}
+.m_modal img{
+    width:45px;
+}
+.clss {
+    right: 5px;
+    top: 2px;
+    position: absolute;
+}
+.clss:hover{
+    cursor:pointer;
+}
+
+.blok4 img {
+    width: 230px;
+}
+
+    .blok4 p {
+        color: #00bcfe;
+        font-size: 19px;
+        font-weight: 600;
+        padding-right: 4%;
+        padding-left: 0;
+        padding-top: 80px;
+        width: 62%;
+        margin: 0 auto;
+    }
+/*blok5*/
+.blok5 {
+    margin: 0 auto;
+    width: 100%;
+    height: 400px;
+    background-image: url("/images/fon block.png");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.kub1 {
+    width: 20%;
+    float: left;
+    height: 290px;
+    background-color: aqua;
+    margin-top: 65px;
+    margin-left: 0px;
+    position: absolute;
+    left: 11%;
+    background-color: #00b5f3;
+    text-align:center;
+
+}
+    .kub1 span {
+
+        font-size: 34px;
+        font-weight: 600;
+        color: #ff063e;
+        padding: 7px;
+    }
+    .kub1 div {
+        float: left;
+        background-color: #feff1a;
+        font-size: 21px;
+        padding: 0px 72px 5px 9px;
+        border-top-right-radius: 50px;
+        font-weight: 600;
+        font-style: italic;
+        color: #cf0505;
+    }
+    .kub1 p {
+        color: #fff;
+        font-size: 16px;
+        font-style: italic;
+        padding: 5px;
+    }
+.mecol {
+    padding-right: 5px!important;
+    padding-left: 5px!important;
+    padding-bottom: 10px!important;
+}
+.kub12 {
+    float: left;
+    width: 53%;
+    /* margin-right: 20px; */
+    margin-top: 65px;
+    position: absolute;
+    left: 33%;
+}
+.modep {
+    color: #000 !important;
+    background-color: #feff1a;
+    width: 91%;
+    margin: 0px auto 5px auto;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.modetp {
+    font-size: 16px;
+    color: #feff1a !important;
+    padding-top: 5px;
+}
+/*blok6*/
+.blok6 {
+    width: 80%;
+    margin: 20px auto;
+}
+
+    .blok6 h2 {
+        text-align: center;
+        color: #214fa5;
+        font-family: 'Sitka Text';
+        margin-bottom: 30px;
+    }
+
+.mt1 {
+    text-align: center;
+    color: #00bcfe;
+    font-size: 21px;
+    font-weight: 600;
+    background-color: #fff668;
+    width: 60%;
+    margin: 0 auto;
+    border-radius: 7px;
+    border: 1px solid #dbd03b;
+    box-shadow: rgba(0, 0, 0, 0.36) 1px 5px 5px 1px;
+}
+
+.panel {
+    margin-bottom: 0px;
+    background-color: #00b5f3;
+    border-radius: 0px;
+    box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.36);
+
+    width: 100%;
+    height: 140px;
+    text-align: center;
+    padding: 4px 15px !important;
+
+}
+
+    .panel hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.49);
+        width: 80%;
+        box-shadow: 0px 4px 7px 0px;
+    }
+
+    .panel p {
+        color: #00bcfe;
+        font-weight: 600;
+    }
+
+    .panel > .prs {
+        padding-top: 60px;
+    }
+
+.oldp {
+    text-decoration: line-through;
+}
+
+.newp {
+    font-size: 17px;
+    color: red;
+    text-decoration: underline;
+    padding-left: 15px;
+}
+
+.buy {
+    background-color: #00bcfe;
+    padding: 5px;
+    text-align: center;
+    color: #fff;
+    margin: 15px auto 0 auto;
+    width: 80%;
+    border-radius: 9px;
+    box-shadow: 0px 1px 12px 2px rgba(0, 0, 0, 0.36);
+}
+
+/*blok7*/
+.blok7 {
+    background-color: #3c7aec;
+    background-image: linear-gradient(to right,#00bcfe, #667bc7,#6f6ed6);
+    padding: 20px 0;
+    height: 315px;
+}
+
+    .blok7 h4 {
+        text-align: center;
+        color: #ffef13;
+        font-weight: 600;
+        width: 40%;
+        margin: 0 auto;
+    }
+
+.prim {
+    width: 60%;
+    margin: 30px auto;
+}
+
+    .prim p {
+        color: #ffef13;
+        text-decoration: underline;
+        text-decoration-color: #fff;
+        text-decoration-skip: none;
+        text-underline-position: under;
+        font-size:21px;
+    }
+
+.sright {
+    float: right;
+    text-align: right;
+    text-decoration-color: #fff;
+    text-decoration-skip: none;
+    text-underline-position: under;
+}
+
+.ourvideo {
+    background-color: #fff894;
+    width: 45%;
+    padding: 15px 10px;
+}
+
+.biz {
+    color: #00bcfe !important;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-position: under;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.ourvideo p {
+    color: #ef6767;
+    font-weight: 600;
+}
+
+.blok8 h3 {
+    color: #ef6767;
+    text-align: center;
+    width: 70%;
+    margin: 0 auto 40px auto;
+}
+
+.blok8 {
+    width: 70%;
+    margin: 20px auto 50px auto;
+}
+
+    .blok8 input {
+        border-radius: 15px !important;
+        margin: 0 auto;
+        width: 80%;
+        box-shadow: rgba(0, 0, 0, 0.36) 1px 5px 5px 1px;
+    }
+
+.send {
+    background-color: #f855a0 !important;
+    color: #ffffff !important;
+    box-shadow: rgba(0, 0, 0, 0.36) 1px 5px 5px 1px !important;
+    padding: 5px 20px !important;
+    border: 1px solid #ef6767 !important;
+    outline: none !important;
+}
+
+    .send:hover {
+        background-color: #ef6767 !important;
+        color: #ffffff !important;
+        border: 1px solid #ef6767 !important;
+        box-shadow: rgba(0, 0, 0, 0.36) 1px 5px 5px 1px;
+    }
+/*footer*/
+footer {
+    background-color: #8292cb;
+    height: 100px;
+}
+
+    footer p {
+        color: #ffffff;
+        text-align: center;
+        padding-top: 30px;
+        font-family: 'Microsoft New Tai Lue';
+    }
+/* acccount*/
+.lblok1 {
+    background-image: url("/images/fon-portal.png");
+    background-color: #cccccc;
+    height: 750px;
+    background-position: initial;
+    background-repeat: round;
+    background-size: cover;
+    width: 100%;
+    text-align: center;
+}
+
+.main {
+    width: 70%;
+    float: left;
+}
+
+.rnav {
+    background-color: #6464e0db;
+    height: 750px;
+    width: 30%;
+    float: right;
+    box-shadow: -6px 6px 23px 3px rgba(14, 14, 14, 0.5882352941176471);
+    padding: 100px 15px 50px 15px;
+}
+
+.vidos {
+    width: 80%;
+    margin: 0 auto;
+    height: 760px;
+    /*background-color: #eee;*/
+    padding: 20px 5px 20px 5px;
+}
+
+.acl {
+    text-align: center;
+    margin: auto;
+    padding: 0px !important;
+    width: 100% !important;
+    margin-bottom: 20px;
+    border: 0px solid transparent !important;
+    height:auto!important;
+}
+
+    .acl p {
+        padding-top: 10px;
+        position: absolute;
+        text-align: center;
+        font-size: 21px;
+        color: #ffef13;
+        margin: 0 auto;
+    }
+
+    .acl img {
+        width: 100%;
+        height: 350px;
+    }
+
+.watch {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.bigw {
+    width: 70%;
+    height: 500px;
+    background-color: #eee;
+    float: left
+}
+
+.vds {
+    width: 30%;
+    height: 500px;
+    background-color: #ccc;
+    float: right;
+    border: 2px solid blue;
+    overflow: scroll;
+    padding-top: 15px;
+}
+
+.video-js {
+    width: 100%;
+    height: 100%;
+}
+
+.nextv {
+    width: 90%;
+    height: 150px;
+    background-color: #eee;
+    margin: -11px auto 15px auto;
+    border: 2px solid blue;
+    cursor: pointer;
+}
+
+.optons {
+    width: 80%;
+    margin: auto;
+    height: auto;
+    background-color: #fff;
+    padding: 16px 15px;
+    border: 2px dotted;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    /* nav*/
+    .log {
+        font-size: 16px;
+        text-align: left;
+    }
+
+    .ph {
+        display: none;
+    }
+
+    /*bar*/
+    .bar1, .bar2, .bar3 {
+        width: 35px;
+        height: 4px;
+        background-color: #fff;
+        margin: 6px 0;
+        transition: 0.4s;
+    }
+
+    .change .bar1 {
+        -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+        transform: rotate(-45deg) translate(-9px, 6px);
+    }
+
+    .change .bar2 {
+        opacity: 0;
+    }
+
+    .change .bar3 {
+        -webkit-transform: rotate(45deg) translate(-8px, -8px);
+        transform: rotate(45deg) translate(-8px, -8px);
+    }
+
+    .bars p {
+        font-size: 14px !important;
+    }
+
+    .bars {
+        text-align: center;
+    }
+
+    .txt1 {
+        padding-top: 12px;
+        color: #fff;
+        width: 90%;
+        font-size: 13px;
+        margin: 0 auto;
+    }
+
+    .txt2 {
+        padding-top: 28px;
+        color: aqua;
+        font-weight: 600;
+        font-size: 15px;
+        width: 97%;
+        margin: 0 auto;
+    }
+
+    .txt3 {
+        padding-top: 29px;
+        color: #fff;
+        font-size: 14px;
+        padding-bottom: 25px;
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .twobtn {
+        width: 80%;
+    }
+
+        
+
+    .blok2 {
+        display: none;
+    }
+
+    .blok2mobile {
+        width: 95%;
+    }
+
+        .blok2mobile h2 {
+            text-align: center;
+            color: #214fa5;
+            font-family: 'Sitka Text';
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .blok2mobile img {
+            padding-left: 15px;
+        }
+
+        .blok2mobile p {
+            font-size: 12px;
+        }
+
+        .blok2mobile hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 0;
+            border-top: 1px solid #1433c97d;
+            /* text-align: center; */
+            /* margin: 0 auto; */
+            margin-left: 15px;
+        }
+
+    .blok3 p {
+        font-size: 12px;
+        font-family: Consolas;
+        color: #fff132;
+        padding: 20px 0;
+        font-weight: 600;
+    }
+
+    .blok4 {
+        display: none;
+    }
+
+    .blok4mobile p {
+        color: #00bcfe;
+        font-size: 13px;
+        font-weight: 600;
+        padding-left: 20px;
+    }
+
+    .blok4mobile {
+        padding-left: 15px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-right: 15px;
+    }
+
+    .unbox {
+        height: 150px;
+    }
+
+    .bigrec {
+        padding: 15px;
+        background-color: #00b5f3;
+        margin: 20px 15px;
+    }
+
+    .mobrecs .panel {
+        margin-bottom: 20px;
+        background-color: #00b5f3;
+        border-radius: 0;
+        box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.36);
+        padding: 2px 15px !important;
+        width: 88%;
+        height: 140px;
+        margin: 7px auto;
+        text-align: center;
+    }
+    .modep {
+        color: #000!important;
+      
+        background-color: #feff1a;
+        width: 91%;
+        margin: 0px auto 5px auto;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    .modetp {
+        font-size: 12px;
+        color: #feff1a!important;
+    }
+
+    .bigrec p {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .blok6 {
+        width: 100%;
+    }
+
+        .blok6 h2 {
+            text-align: center;
+            color: #4978d2;
+            font-family: 'Sitka Text';
+            margin-top: 40px;
+            margin-bottom: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            width: 90%;
+            margin: 5px auto;
+        }
+
+        .blok6 .panel {
+            margin-bottom: 20px;
+            background-color: #eeeeee;
+            border-radius: 4px;
+            box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.36);
+            padding: 20px 15px !important;
+            width: 85%;
+            margin: 25px auto;
+        }
+
+    .mt1 {
+        text-align: center;
+        color: #00bcfe;
+        font-size: 19px;
+        font-weight: 600;
+        background-color: #fff668;
+        width: 60%;
+        margin: 0 auto;
+        border-radius: 7px;
+        border: 1px solid #dbd03b;
+        box-shadow: rgba(214, 142, 20, 0.36) 1px 5px 5px 1px;
+    }
+
+    .panel hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 0;
+        border-top: 1px solid rgb(0, 0, 0);
+        width: 80%;
+        box-shadow: unset;
+    }
+
+    .blok7 {
+        display: none;
+    }
+
+    .blok7mobile h4 {
+        text-align: center;
+        color: #f7e81d;
+        font-weight: 600;
+        width: 90%;
+        margin: 0 auto;
+        font-size: 14px;
+        padding-bottom: 25px;
+    }
+
+    .blok7mobile {
+        background-color: #3c7aec;
+        background-image: linear-gradient(to right,#00bcfe, #667bc7,#6f6ed6);
+        padding: 20px 0;
+        padding-right: 15px;
+    }
+
+        .blok7mobile p {
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .blok7mobile span {
+            color: #76d9ff !important;
+        }
+
+    .bizmob {
+        font-size: 16px;
+        text-decoration: underline;
+        color: #fdf33c !important;
+    }
+
+    .others {
+        padding: 0px 15px;
+        border-right: 1px solid #fff;
+        padding-bottom: 25px;
+    }
+
+        .others p {
+            color: #fdf33c !important;
+        }
+
+        .others hr {
+            margin-top: -7px;
+            margin-bottom: 7px;
+            border: 0;
+            border-top: 1px solid #eee;
+        }
+
+    .blok8 {
+        width: 91%;
+        margin: 20px auto 50px auto;
+    }
+
+        .blok8 h3 {
+            /* font-weight: unset; */
+            color: #131313;
+            text-align: center;
+            width: 95%;
+            font-size: 16px;
+            margin: 0px auto 7px auto;
+        }
+
+        .blok8 input {
+            width: 70%;
+            margin: 15px auto !important;
+        }
+
+    .subm {
+        width: 70%;
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+
+    .bigrec img {
+        position: absolute;
+        width: 25px;
+        right: 52px;
+    }
+    /*mobile nav*/
+    .navmobile {
+        display: none;
+        padding-bottom: 20px;
+    }
+
+    .blok2mobile, .blok4mobile, .blok7mobile, .bizmob, .blok5mobile, .blok2mobile, .bizmob {
+        display: block !important;
+    }
+
+    /*account*/
+    .lblok1 {
+        background-image: url("/images/fon-portal.png");
+        background-color: #cccccc;
+        height: 220px;
+        background-position: initial;
+        background-repeat: round;
+        background-size: cover;
+        width: 100%;
+        text-align: center;
+    }
+
+    .rnav {
+        background-color: #6464e0db;
+        height: 220px;
+        width: 30%;
+        float: right;
+        box-shadow: -6px 6px 23px 3px rgba(14, 14, 14, 0.5882352941176471);
+        padding: 11px 9px 22px 8px !important;
+    }
+
+        .rnav h2 {
+            font-size: 14px !important;
+        }
+
+    .acl img {
+        width: 100%;
+        height: 180px;
+    }
+
+    .vidos {
+        height: unset !important;
+        background-color: #eee;
+    }
+
+    .bigw {
+        width: 100%;
+        height: 300px;
+        background-color: #eee;
+        /* float: left; */
+    }
+
+    .vds {
+        width: 100%;
+        height: 191px;
+        overflow: auto;
+    }
+
+        .vds p {
+            float: right;
+            width: 47%;
+            font-size: 14px;
+            padding-top: 11px;
+            font-weight: 700;
+            padding-left:unset!important;
+        }
+
+    .nextv {
+        width: 46%;
+        height: 87px;
+        margin: 15px 15px;
+    }
+    /*watch*/
+    .hht {
+        width: 80%;
+        text-align: left;
+        margin: auto;
+        padding-top: 17px;
+        font-size: 15px;
+    }
+    .m_modal {
+        display: none;
+        position: fixed;
+        top: 50px;
+        background-color: #f1f1f1;
+        width: 77%;
+        height: 47%;
+        text-align: center;
+        margin: 0 auto;
+        left: 12%;
+        z-index: 999999;
+        box-shadow: -1px 5px 20px 1px;
+        border-radius: 7px;
+    }
+    .unbox img {
+        width: 117px;
+    }
+    .blok5{
+        display:none;
+    }
+    #alber{
+        display:none;
+    }
+    .btn1, .btn2{
+        font-size:11px;
+    }
+    .barstp {
+        display: block;
+    }
+
+}

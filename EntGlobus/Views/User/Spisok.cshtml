@@ -1,0 +1,55 @@
+﻿@model IEnumerable<EntGlobus.Models.Satilim>
+@{
+    ViewData["Title"] = "Spisok";
+}
+   <style>
+       #hehe{
+           display:none;            
+       }
+   </style>
+<h2>Сатып алу</h2>
+<p style="color:green;">Әр пәннің қасында сәкес төлем жолдары берілген. Сәтті төлемнен кейін  автоматты түрде "Личный кабинет"-те пайда болады.  </p>
+<p style="color:red;">ЕСКЕРТУ! НАҒЫЗ ҰБТ-ДА ЖАУАПТАРДЫҢ ШЫҒУЫНА ГАРАНТИЯ ЖОҚ! ПРОБНЫЙДЫҢ СҰРАҚТАРЫ ҚОСЫЛҒАН. ҰБТ-ДА ҚОЛДАНУҒА БОЛМАЙДЫ!</p>
+<table class="table">
+    <tr>
+        <th>Пән</th>
+        <th>Бағасы</th>
+        <th>Банк карточкасы/единица</th>
+        <th>Терминал арқылы төлем</th>
+    </tr>
+    @{
+        int i = 0;
+    }
+    @foreach (var md in Model)
+    {
+        i++;        
+        <tr>
+
+            <td>@md.Name</td>
+            <td>@md.Price тг</td>
+            <td id="@i"><a class="btn btn-success gettt" target="_blank" href="http://ansar-gsa.kz/pp.php?type=@md.Name&user_id=@ViewBag.user_id&price=@md.Price&description=@md.Name&pan=pan">Карт/Ед</a></td>
+            <td id="@i"><form action="/user/qiwiorder" method="post">
+                            <input hidden name="pan" value="@md.Name" />
+    <img src="~/images/qiwi_logo.jpg" alt="Alternate Text" style="width:70px;cursor:pointer;" />
+    <input type="submit" class="btn btn-info" name="name" value="Төлем" />
+</form>  </td>
+        </tr>
+       
+    }
+
+</table>
+<button hidden  onclick="Modal()">fhgsd</button>
+
+<script>
+    function Modal() {
+        document.getElementById("hehe").style.display = "block";
+        var main = document.getElementById("hehe");
+        var buy = document.createElement("BUTTON");
+        var txt = document.createTextNode("Купить");
+        buy.appendChild(txt);
+        main.appendChild(buy);
+        for (var i = 1; i <=@ViewBag.length; i++) {
+     }
+     }
+
+</script>

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EntGlobus.Models.Ofpay>
+@{
+    ViewData["Title"] = "Personal";
+}
+
+
+    <h2>Сатып алған пәндер бойынша ақпарат</h2>
+
+    <table class="table">
+        <tr>
+            <th>Пән</th>
+            
+        </tr>
+
+        @foreach (var md in Model)
+        {
+            <tr>
+                <td>@md.type</td>
+               
+            </tr>
+        }
+
+    </table>
+
+

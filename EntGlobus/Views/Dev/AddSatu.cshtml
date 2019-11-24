@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "AddSatu";
+}
+
+<h2>Jana satilim qosu</h2>
+
+<div class="col-md-3">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form asp-action="AddSatu" method="post">
+        <div class="form-group">
+            <label for="Name">ati:</label>
+            <input name="Name" class="form-control" />
+            <label for="Price">bagasy:</label>
+            <input name="Price" class="form-control" />
+            <label for="Type">tipi(eger pan bolsa <span style="color:red">pan</span>):</label>
+            <input name="Type" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Qosu</button>
+    </form>
+</div>

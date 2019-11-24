@@ -1,0 +1,32 @@
+﻿@model IEnumerable<EntGlobus.Models.Reseption>
+@{
+    ViewData["Title"] = "Resept";
+}
+
+
+
+<h3>Заявки-@ViewBag.see </h3>
+<table class="table table-bordered">
+    <tr>
+        <th>№</th>
+        <th>Имя</th>
+        <th>Номер</th>
+        <th>Время заявки</th>
+      
+    </tr>
+
+    @{
+        int i = 0;
+    }
+    @foreach (var all in Model)
+    {
+        i++;
+        <tr>
+            <td>@i</td>
+            <td>@all.Name</td>
+            <td>@all.Phone</td>
+            <td>@all.DateTime</td>
+        </tr>
+    }
+
+</table>

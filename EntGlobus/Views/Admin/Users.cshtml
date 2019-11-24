@@ -1,0 +1,216 @@
+﻿@model EntGlobus.ViewModels.SatesViewModel;
+@{
+    ViewData["Title"] = "Users";
+}
+<style>
+    .container {
+        width: 95% !important;
+    }
+
+    .table {
+        font-size: 13px !important;
+    }
+</style>
+<h2>Онлайн пользователи-@ViewBag.onuser</h2>
+<h2>Offline пользователи-@ViewBag.offuser</h2>
+<p>Поиск @ViewBag.serches раз = @ViewBag.pr тг </p>
+<p>Блок @ViewBag.bloks раз = @ViewBag.priceb тг </p>
+<div class="row">
+    <form action="/admin/users" method="get" class="form-horizontal">
+        <div class="pull-right">
+        </div>
+        <div class="clear"></div>
+        <div class="col-md-2">
+            <label>Номер телефона</label> <br />
+            <input name="pageSize" value="@ViewBag.pagesize" hidden />
+            <input type="text" name="number" class="form-control" />
+
+        </div>
+        <div class="col-md-2" hidden>
+            <label>Поиск-От</label> <br />
+            <input type="number" name="sot" class="form-control" value="" />
+        </div>
+        <div class="col-md-2" hidden>
+            <label>Поиск-До</label> <br />
+            <input type="number" name="sdo" class="form-control" value="" />
+
+        </div>
+        <div class="col-md-2" hidden>
+            <label>Блок</label>  <br />
+            <input type="text" name="blok" class="form-control" value="" />
+        </div>
+        <div class="col-md-2" hidden>
+            <label>Статус</label>  <br />
+            <select name="sts" class="form-control">
+                <option value="all">Все</option>
+                <option value="fail">Не обработан</option>
+                <option value="break">Отказ</option>
+                <option value="done">Выполнен</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <br />
+            <input type="submit" name="name" value="Фильтр" class="btn btn-info">   <span class="glyphicon glyphicon-filter"></span> </input>
+        </div>
+
+
+    </form>
+</div>  <br />
+
+<table class="table table-bordered">
+    <tr>
+        <th>№</th>
+        <th>Аты-жөні</th>
+        <th>Пән1</th>
+        <th>Пән2</th>
+        <th>Номер</th>
+        <th id="srch" onclick="Gett()">Поиск</th>
+        <th>Блок</th>
+        <th>Статус</th>
+        <th>Комментарий</th>
+        <th>Дата</th>
+    </tr>
+    @{
+
+        int i = 0;
+    }
+
+    @foreach (var user in Model.Users)
+    {
+        i++;
+        string ID = "id" + i;
+        string IDs = "#id" + i;
+        bool checket; checket = false;
+        string comment; comment = "null";
+
+
+        <tr id="@ID">
+            <td>@i</td>
+            <td>@user.FirstName @user.LastName</td>
+            <td>@user.pan1</td>
+            <td>@user.pan2</td>
+            <td>@user.UserName   </td>
+            <td>
+
+                @foreach (var sr in Model.Searches)
+                {
+                    if (user.Id == sr.IdentityId && sr.pay == true)
+                    {
+
+                        <span>+</span>
+                    }
+                    else if (user.Id == sr.IdentityId && sr.pay == false && sr.count == 0)
+                    {
+                        <span>-</span>
+                    }
+                    else if (user.Id == sr.IdentityId && sr.enable == true)
+                    {
+                        <span>Осталось @sr.count пт</span>
+                    }
+                }
+            </td>
+            <td>
+                <span>-</span>
+            </td>
+            @{
+                string status; status = "uncheked";
+            }
+
+            @foreach (var sts in Model.UserSatuses)
+            {
+                @if (user.UserName == sts.Number)
+                {
+                    <td>
+                        <span>@sts.Status</span>
+                    </td>
+                    checket = true;
+                    comment = sts.Comment;
+                    status = sts.Status;
+                }
+
+            }
+
+            @if (checket)
+            {
+                <td>@comment </td>
+            }
+            else
+            {
+                <form action="status" method="post">
+                    <td>
+                        <select name="Status">
+                            <option value="Не обработан">Не обработан</option>
+                            <option value="Выполнен">Выполнен</option>
+                            <option value="Отказ">Отказ</option>
+                        </select>
+                        <input hidden name="Number" value="@user.UserName" />
+                    </td>
+                    <td>
+                        <input type="text" name="Comment" value="" required /> <input type="submit" name="name" value="Назначить" />
+                    </td>
+                </form>
+            }
+
+            <td>
+
+                @foreach (var sts in Model.UserSatuses)
+                {
+                    @if (user.UserName == sts.Number)
+                    {
+                        <span>@sts.CheckDate.ToString("d")</span>
+                    }
+                }
+
+
+            </td>
+        </tr>
+
+        @if (status == "uncheked")
+        {
+            <style>
+               @IDs {
+                    background-color: gray;
+                }
+            </style>
+        }
+        else if (status == "Отказ")
+        {
+            <style>
+                @IDs {
+                    background-color: red;
+                }
+            </style>
+        }
+        else if (status == "Выполнен")
+        {
+            <style>
+                @IDs {
+                    background-color: green;
+                }
+            </style>
+        }
+
+
+
+    }
+
+</table>
+@{
+    int size;
+    size = ViewBag.pagesize + 20;
+}
+<form action="/Admin/Users" method="get" class="pull-right">
+
+    <input name="pageSize" value="@size" hidden />
+    <input type="submit" class="btn btn-info" value="Показать еще 20" />
+</form>
+<br /><br />
+<script>
+
+
+    function Gett() {
+        var id = document.getElementById("id=1");
+        console.log(id);
+    }
+
+</script>

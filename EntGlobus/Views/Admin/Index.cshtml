@@ -1,0 +1,52 @@
+﻿@model EntGlobus.Helpers.PaginatedLists<EntGlobus.Models.AppUsern>
+@{
+    ViewData["Title"] = "UserList";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="col-md-3">
+
+    <form action="/admin/index" method="get">
+        <div class="col-md-9">
+            <input type="text" name="search" value="" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <input type="submit" value="Іздеу" class="btn btn-default" />
+        </div>   <br /><br />
+        <p style="color:red;"> @ViewBag.str</p>
+    </form>
+    <p>@ViewBag.count Пользователь</p>
+    <table class="table">
+        @foreach (var user in Model)
+        {                                 
+            <tr>
+                <td>@user.FirstName @user.LastName @user.UserName</td>
+                <td>
+                    @if (user.UserName == null)
+                    {
+                        <p>Не найден пользователей</p>
+                    }
+
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Информация о пользователя</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="col-md-3">
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageIndex - 1)"
+       class="btn btn-default @prevDisabled">
+        Артқа көшу
+    </a>
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageIndex + 1)"
+       class="btn btn-default @nextDisabled">
+        Келесі
+    </a>
+</div>

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<EntGlobus.Models.Suvariant>
+@{
+    ViewData["Title"] = "Sutest";
+}
+
+<h2>Фото-тест</h2>
+<a href="/Admin/AddVariant">Добавить вариант</a>
+<hr />
+
+<table class="table  table-bordered">
+    <tr>
+        <th>№</th>
+        <th>Названия</th>
+        <th>Добавить вопрос</th>
+        <th>Изменить</th>
+        @{
+            int i = 0;
+        }
+    </tr>
+
+    @foreach (var md in Model)
+    { i++;
+    <tr>
+
+        <td>@i</td>
+        <td>@md.Name</td>
+        <td><a href="/Admin/AddSuQs?Id=@md.Id&Name=@md.Name&PanID=4">Добавить вопрос</a></td>
+        <td><a href="/Admin/Changevar?Id=@md.Id">Изменить</a></td>
+    </tr>
+}
+
+
+</table>
+

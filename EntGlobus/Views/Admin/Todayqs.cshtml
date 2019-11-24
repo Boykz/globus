@@ -1,0 +1,45 @@
+﻿@model EntGlobus.ViewModels.TodayQsViewModel;
+@{
+    ViewData["Title"] = "Todayqs";
+}
+
+<h2>Күн сұpағын жариялау</h2>
+
+<div class="col-md-6">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <form asp-action="Todayqs" method="post">
+        <div class="form-group">
+            <label for="subject">Пән:</label>
+            @{
+                int i = 0;
+            }
+            <select name="subject" class="form-control" required >
+                <option>Выберите предмет</option>
+                @foreach (var md in Model.Satilims)
+                {
+                    i++;
+                    <option id="@i">@md.Name</option>
+                }
+            </select>
+            <label for="question">Сұрақ:</label>
+            <input name="question" class="form-control" required />
+
+            <label style="color:green" for="ans1">Жауап 1 (дұрыс жауап):</label>
+            <input name="ans1" class="form-control" required />
+            <label for="ans2">Жауап 2:</label>
+            <input name="ans2" class="form-control" required />
+            <label for="ans3">Жауап 3:</label>
+            <input name="ans3" class="form-control" required/>
+            <label for="ans4">Жауап 4:</label>
+            <input name="ans4" class="form-control"required />
+            <label for="ans5">Жауап 5:</label>
+            <input name="ans5" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Сұрақты жариялау</button>
+    </form>
+</div>
+ <div class="col-md-6">
+     <a href="/Admin/Listqs">Кун сұрақтарына өту</a> 
+ </div>
+
+

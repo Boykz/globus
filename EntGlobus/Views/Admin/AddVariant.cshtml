@@ -1,0 +1,20 @@
+﻿@model IEnumerable<EntGlobus.Models.Sublok>
+@{
+    ViewData["Title"] = "AddVariant";
+}
+
+<h2>Добавте вариант</h2>
+<div style="width:30%;">
+    <form action="/admin/addvariant" method="post">
+        <select name="Blok" class="form-control">
+            @foreach (var md in Model)
+            {
+                <option value="@md.Id">@md.Name</option>
+            }
+
+        </select>     <br />
+        <input type="text" name="V_name" value="" class="form-control" />  <br />
+        <input type="submit" class="btn btn-success" value="Сохранить" />
+    </form>
+
+</div>

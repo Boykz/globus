@@ -1,0 +1,111 @@
+﻿@model EntGlobus.ViewModels.AdminBuyViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<div class="container">
+    <hr />
+    <h3 style="color:red;font-weight:700">Ескерту тек төлем жасалған пәндерге ғана доступ беріңіз!!!</h3>
+    <hr>
+    <div class="col-md-6">
+        <form action="/admin/entry" method="post">
+
+            <input name="userId" value="@ViewBag.user_id" hidden />
+
+            <input type="checkbox" name="onn" id="onn" value="true" @(Model.IUser.enable ? "checked=\"checked\"" : "") />Онлайн <br />
+            <input type="checkbox" name="off" id="off" value="true" @(Model.IUser.offenable ? "checked=\"checked\"" : "") />Оффлайн <br />   <br />
+
+            <input type="submit" name="name" value="Сактау" class="btn btn-danger" />
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form action="/admin/resetpass" method="post">
+
+            <input name="Id" value="@ViewBag.user_id" hidden />
+
+            <input type="text" name="NewPassword" required /> <br />
+
+
+            <input type="submit" name="name" value="Өзгерту" class="btn btn-success" />
+            <p style="color:green;"> @ViewBag.change</p>
+        </form>
+      
+
+    </div>
+    <div class="clear"></div>
+
+    <hr />
+    <form asp-action="Edit" method="post">
+        <input type="hidden" name="userId" value="@ViewBag.user_id" />
+        <div class="form-group">
+            <p>Номер: @ViewBag.num</p>
+            <p>Пәнге доступ беру</p>
+            <select name="pans" onclick="Trycss()" id="parent">
+                @{
+                    int i = 20;
+                    int j = 2;
+                }
+                <option>Выберите предмет</option>
+                <option id="1">search</option>
+                <option id="2">bloks</option>
+                @foreach (var st in Model.Satilims)
+                {
+                    j++;
+
+                    <option id="@j">@st.Name</option>
+                }
+
+                @foreach (var st in Model.Bought)
+                {
+
+                    i++;
+                    <option hidden id="@i">@st</option>
+
+                }
+            </select>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+    <hr />
+    <div>
+        <h2>Сатып алған пәндері:</h2>
+        @foreach (var st in Model.Bought)
+        {
+
+            <p>@st  <a href="/Admin/Delete?pan=@st&userId=@ViewBag.user_id" class="glyphicon glyphicon-trash"> </a></p>
+
+        }
+    </div>
+
+</div>
+<script>
+    function myFunction1() {
+        document.getElementById("onn").checked = !document.getElementById("onn").value
+        console.log(document.getElementById("onn").value);
+    }
+    function myFunction2() {
+        document.getElementById("off").checked = !document.getElementById("off").value
+
+    }
+
+    function Trycss() {
+        for ( var d = 1; d <=@Model.Satilims.Count(); d++) {
+            var id1 = document.getElementById([d]);
+            var val = id1.value;
+            var result1 = val.split(' ').join('');
+            for (var g = 21; g <=@Model.Bought.Count()+20; g++) { 
+                var id2 = document.getElementById([g])
+                var valg = id2.value;                    
+                var result2 = valg.split(' ').join('');
+                if (result1 == result2) {
+                    id1.style.color = "red";         
+                }
+            }         
+        }  
+
+    }
+</script>

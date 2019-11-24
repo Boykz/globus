@@ -1,0 +1,21 @@
+﻿@model EntGlobus.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<h2>Index</h2>
+
+<div class="login2">
+    <form asp-controller="Admin" asp-action="Index" method="post" asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly"></div>
+        <label><span class="glyphicon glyphicon-log-in"></span> LOGIN </label>
+        <label asp-for="TelNum"></label><br />
+        <input asp-for="TelNum" type="text" placeholder="login" class="form-control" required /><br />
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" type="password" placeholder="password" class="form-control" required /><br />
+        <input type="submit" value="Login" class="btn btn-primary" />
+    </form>
+</div>
+

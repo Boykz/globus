@@ -1,0 +1,22 @@
+﻿@model IEnumerable<EntGlobus.Models.Sublok>
+@{
+    ViewData["Title"] = "Changevar";
+}
+
+<h2>Изменить  вариант</h2>
+<div style="width:30%;">
+    <form action="/admin/Changevar" method="post">
+        <select name="Blok" class="form-control">
+            @foreach (var md in Model)
+            {
+                <option value="@md.Id">@md.Name</option>
+            }
+
+        </select>     <br />
+        <input type="text" name="V_name" value="@ViewBag.vr" class="form-control" />  <br />
+        <p style="font-weight:bold;">@ViewBag.bl</p>
+        <input hidden type="type" name="v_id" value="@ViewBag.vId" />
+        <input type="submit" class="btn btn-success" value="Сохранить" />
+    </form>
+
+</div>

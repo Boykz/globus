@@ -1,0 +1,109 @@
+﻿@model EntGlobus.Models.Kurs
+@{
+    ViewData["Title"] = "Kurs";
+}
+<link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
+
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+<h2>@Model.subject</h2>
+
+<form method="post" enctype="multipart/form-data" asp-controller="matsau" asp-action="editkurs">
+    <input name="Id" value="@Model.Id" hidden />
+    <label>Курс:</label>
+    @ViewBag.curse
+    <select name="course" class="form-control">
+        @*@foreach (var cr in ViewBag.Curses)
+        {
+            <option value="0" >еще не присвоен курс</option>
+            <option value="@cr.Id">@cr.Name</option>
+
+        }*@
+    </select>
+    <label>Названия:</label>
+    <input name="subject" type="text" value="@Model.subject" class="form-control" required />
+    <label>Описания:</label>
+    <textarea rows="8" name="text" type="text" class="form-control" required>@Model.text</textarea>
+    <label>Видео:</label>
+    @if (Model.video != null)
+    {
+        <video id='my-video' class='video-js' controls preload='auto' width='640' height='264'
+               poster='MY_VIDEO_POSTER.jpg' data-setup='{}'>
+            <source src='~/Kurs/@Model.video' type='video/mp4'>
+            <source src='MY_VIDEO.webm' type='video/webm'>
+            <p class='vjs-no-js'>
+                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+            </p>
+        </video>
+
+        <script src='https://vjs.zencdn.net/7.4.1/video.js'></script>
+        <a href="/matsau/del?id=@Model.Id&type=video&name=@Model.video"><span class="btn btn-danger">удалить видео</span></a> <br />
+    }
+    else
+    {
+        <input type="text" placeholder="video ssilkasi" required name="video" class="form-control" />
+    }
+
+
+
+    <label>Продолжительность:</label>
+    <input name="time" type="text" value="@Model.time" placeholder="например: 1сағ 15мин или 35мин" class="form-control" />
+    <label>Cүрет:</label>
+    @if (Model.photo != null)
+    {
+        <img src="~/Kurs/@Model.photo" style="width:100px;height:100px;" />
+        <a href="/matsau/del?id=@Model.Id&type=photo&name=@Model.photo"><span class="btn btn-danger">удалить фото</span></a> <br />
+    }
+    else
+    {
+        <input type="file" value="Сүрет еңгізіңіз" required name="photo" multiple accept="image/png" /> <br />
+    }
+
+
+    <label>Материал1:</label>
+    @if (Model.mat1 != null)
+    {
+        <input value="@Model.mat1" readonly />
+        <a href="/matsau/del?id=@Model.Id&type=mat1&name=@Model.mat1"><span class="btn btn-danger">удалить материал</span></a> <br />
+    }
+    else
+    {
+        <input type="file" value="Сүрет еңгізіңіз" name="mat1" multiple /> <br />
+    }
+
+    <label>Материал2:</label>
+    @if (Model.mat2 != null)
+    {
+        <input value="@Model.mat2" readonly />
+        <a href="/matsau/del?id=@Model.Id&type=mat2&name=@Model.mat2"><span class="btn btn-danger">удалить материал</span></a> <br />
+    }
+    else
+    {
+        <input type="file" value="Сүрет еңгізіңіз" name="mat2" multiple /> <br />
+    }
+    <label>Материал3:</label>
+    @if (Model.mat3 != null)
+    {
+        <input value="@Model.mat3" readonly />
+        <a href="/matsau/del?id=@Model.Id&type=mat3&name=@Model.mat3"><span class="btn btn-danger">удалить материал</span></a> <br />
+    }
+    else
+    {
+        <input type="file" value="Сүрет еңгізіңіз" name="mat3" multiple /> <br />
+    }
+    <label>Материал4:</label>
+    @if (Model.mat4 != null)
+    {
+        <input value="@Model.mat4" readonly />
+        <a href="/matsau/del?id=@Model.Id&type=mat4&name=@Model.mat4"><span class="btn btn-danger">удалить материал</span></a> <br />
+    }
+    else
+    {
+        <input type="file" value="Сүрет еңгізіңіз" name="mat4" multiple /> <br />
+    }
+
+    <input type="submit" value="Обновить" class="btn btn-success" />
+    <a href="/Matsau/Kurses">Все уроки</a>
+
+</form>

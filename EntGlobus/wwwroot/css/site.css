@@ -1,0 +1,115 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+}
+.panel {
+  background-color:#bccebd!important;
+}
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+.login2 {
+    width: 30%;
+    margin: auto;
+}
+
+.main{
+
+    padding-top:100px;
+    
+}
+.clear{
+    clear:both;
+}
+
+.mnav {
+    float: right;
+    width: 100%;
+    position: fixed;
+    height: auto;
+    background-color: #3681c7;
+    color: #fff !important;
+    font-size: 21px;
+    font-weight: bold;
+    padding: 10px 10px;
+    cursor: auto;
+    margin-bottom: 50px;
+    z-index: 999;
+}
+.mnav p{
+    float:left;
+}
+    .mnav a {
+        color: #fff !important;
+        text-decoration: unset !important;
+        padding: 10px 5px;
+        margin-left: 5px;
+    }
+    .mnav a:hover {
+        color:#808080;      
+    }
+    .navout{
+        display:none;
+    }
+.log input {
+    background-color: unset!important;
+    border: unset!important;
+}
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+@media screen and (max-width: 500px) {
+    #mnav,.mnav {
+        display: none;
+    }
+        .mnav p{
+        float:unset;
+    }
+    .navout {
+        width: 100%;
+        height: 45px;
+        background-color: #3681c7!important;
+        position: fixed;
+        z-index: 9999;
+        display:block;
+    }
+        .navout a {
+            position: fixed;
+            top: 7px;
+            color: #fff;
+            left: 33px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .navout img {
+            width: 123px!important;
+           
+        }
+
+}

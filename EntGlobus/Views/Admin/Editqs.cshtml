@@ -1,0 +1,68 @@
+﻿@model EntGlobus.ViewModels.TodayQsViewModel;
+@{
+    ViewData["Title"] = "Editqs";
+}
+
+<h2>Күн сұpағын жариялау</h2>
+
+<div class="col-md-6">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <form asp-action="Editqs" method="post">
+        <div class="form-group">
+            <label for="subject">Пән:</label>
+            @{
+                int i = 0;
+            }
+            <select name="subject" class="form-control" required>
+                <option style="color:red">@Model.Dayliquestion.subject</option>
+                @foreach (var md in Model.Satilims)
+                {
+                    i++;
+                    <option id="@i">@md.Name</option>
+                }
+            </select>
+            <label for="question">Сұрақ:</label>
+            <input name="question" class="form-control" required value="@Model.Dayliquestion.question" />
+            <label for="ans1">Жауап 1:</label>
+            <input id="100" name="ans1" class="form-control" required value="@Model.Dayliquestion.ans1" />
+            <label for="ans2">Жауап 2:</label>
+            <input id="101" name="ans2" class="form-control" required value="@Model.Dayliquestion.ans2" />
+            <label for="ans3">Жауап 3:</label>
+            <input id="102" name="ans3" class="form-control" required value="@Model.Dayliquestion.ans3" />
+            <label for="ans4">Жауап 4:</label>
+            <input id="103" name="ans4" class="form-control" required value="@Model.Dayliquestion.ans4" />
+            <label for="ans5">Жауап 5:</label>
+            <input id="104" name="ans5" class="form-control" required value="@Model.Dayliquestion.ans5" />
+            <input name="id" hidden value="@Model.Dayliquestion.Id" />
+       
+        <label>  (дұрыс жауап):</label>
+        <input readonly name="cor" id="corr" class="form-control" required value="@Model.Dayliquestion.Correctans" />
+             </div>
+        <button type="submit" class="btn btn-primary">Сұрақты жариялау</button>
+    </form>
+</div>
+<div class="col-md-6">
+    <a href="/Admin/Listqs">Кун сұрақтарына өту</a>
+</div>
+
+<script>
+    function Changevalues() {
+        
+        for (var i = 100; i <= 104; i++) {
+            var anses = document.getElementById(i);
+            anses.style.color = "red";
+            var correct = document.getElementById("corr");
+            if (anses.value == correct.value) {
+                anses.style.color = "green";
+                anses.onkeyup = function () { myfunction(this.value) }
+            }        
+        }
+        
+      
+    }
+    function myfunction( vll) {
+        var correct = document.getElementById("corr");
+        correct.value = vll;
+    }
+    window.onload = Changevalues;
+</script>

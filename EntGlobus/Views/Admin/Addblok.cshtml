@@ -1,0 +1,28 @@
+﻿@model IEnumerable<EntGlobus.Models.SellBlok>
+@{
+    ViewData["Title"] = "Addblok";
+}
+
+<h2>Добавить блок</h2>
+
+<form method="post" enctype="multipart/form-data" asp-controller="Admin" asp-action="Addblok">
+
+    <label>Аты:</label>
+    <input name="Name" type="text" class="form-control" required />
+    <label>Типі:</label>
+    <input name="Typi" type="text" class="form-control" required />
+    <label>Вариант:</label>
+    <input name="Variants" type="text" class="form-control" required />
+
+    <label>Cүрет:</label>
+    <input type="file" value="Сүрет еңгізіңіз" required name="File" multiple accept="image/png" /> <br />
+    <input type="submit" value="Сақтау" class="btn btn-success" />
+
+</form>
+  <hr />
+<h2>Блоктар</h2>
+
+@foreach(var bl in Model)
+{
+    <p>@bl.Name,@bl.Typi,@bl.Variants,@bl.Date, @bl.Imgurl <a href="/addblok/delblok?id=@bl.Id"><span class="glyphicon glyphicon-trash"></span></a></p>
+}

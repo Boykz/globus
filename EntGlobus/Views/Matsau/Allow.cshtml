@@ -1,0 +1,60 @@
+﻿@model IEnumerable<EntGlobus.Models.Allowkurs>
+@{
+    ViewData["Title"] = "Allow";
+}
+<style>
+    td > a {
+        background-color: blue;
+        color: #fff !important;
+        padding: 5px;
+        border-radius: 5px;
+    } 
+</style>
+<h2>Доступ</h2>
+<h3>Заинтересовался @ViewBag.see раз</h3>
+<h3>Оплачен @ViewBag.pay раз</h3>
+<form action="/matsau/allow" method="get">
+    <div class="col-md-9">
+        <input type="text" name="search" value="" placeholder="номер" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <input type="submit" value="Искать" class="btn btn-default" />
+    </div>   <br /><br />
+    <p style="color:red;"> @ViewBag.str</p>
+</form>
+
+<table class="table table-bordered">
+    <tr>
+        <th>№</th>
+        <th>Номер</th>
+        <th>Оплата</th>
+        <th>Сумма</th>
+        <th>Время (Посмотр/Оплата)</th>
+    </tr>
+
+    @{
+        int i = 0;
+    }
+    @foreach (var all in Model)
+    {
+        i++;
+    <tr>
+        <td>@i</td>
+        <td>@all.UserPhone</td>
+
+        @if (all.pay)
+        {
+            <td>@all.pay</td>
+        }
+        else
+        {
+            <td>@all.pay<a href="/matsau/dostup?id=@all.Id">Доступ</a> </td>
+        }
+        <td>@all.Price</td>
+        <td>@all.DateTime</td>
+    </tr>
+    }
+
+</table>
+
+

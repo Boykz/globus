@@ -1,0 +1,46 @@
+﻿@model  IEnumerable<EntGlobus.Models.Kurs>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
+
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+<title>@ViewData["Title"] - entEdu</title>
+
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/matsau.css" />
+<div class="main">
+    <div class="lblok1">
+
+    </div>
+</div>
+<div class="rnav">
+    <h2 style="color:#ffd800">ENTGLOBUS EDUCATION</h2><br /><br />
+    <h2 style="color:#fff"><span style="color:#f7ff00!important">ҰБТ</span>- ҒА БІЗБЕН БІРГЕ ДАЙЫНДАЛ</h2>
+</div>
+<div class="clear"></div>
+<h2 style="text-align:center;color:#2079ff">Видео курстар</h2>
+<div class="clear"></div>
+<div>
+    <div class="vidos">
+        @foreach (var di in Model)
+        {
+            <div class="col-md-4 col-sm-6">
+                <a href="/matsau/sabak?id=1">
+                    <div class="panel acl">
+                        
+                        <img src="~/Kurs/@di.photo" alt="Alternate Text" />
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+</div>
+<br /><br />
+
+
+<div class="clear"></div>
+<footer>
+    <p>&copy; EntGlobus Education 2019</p>
+</footer>

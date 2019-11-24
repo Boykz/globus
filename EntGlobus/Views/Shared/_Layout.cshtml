@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EntGlobus</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136580103-1"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-136580103-1');
+    </script>
+    <style>
+        .navigs {
+            display: inline-block;
+            cursor: pointer;
+            float: right;
+            right: 17px;
+            position: fixed;
+            z-index: 99999;
+            top: 3px;
+        }
+
+        .bar1, .bar2, .bar3 {
+            width: 35px;
+            height: 5px;
+            background-color: #fcf8e3;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+            transform: rotate(-45deg) translate(-9px, 6px);
+        }
+
+        .change .bar2 {
+            opacity: 0;
+        }
+
+        .change .bar3 {
+            -webkit-transform: rotate(45deg) translate(-8px, -8px);
+            transform: rotate(45deg) translate(-8px, -8px);
+        }
+    </style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <div class="navout">
+        <p><a href="/Acount/"><img src="~/images/ico_white.png" alt="Alternate Text" /></a></p>
+        <div class="navigs" onclick="myFunction(this)">
+
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+
+
+    @if (User.Identity.IsAuthenticated && this.User.IsInRole("user"))
+    {
+
+        <div class="headMenu">
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="#">О&nbsp;нас</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </div>
+        <div class="toggle2"></div>
+
+        <div class="mnav" id="mnav">
+            <div class="container">
+                <p> <a href="/Acount/">Главная</a></p>
+                <p> <a href="/User/Spisok">Купить</a></p>
+                <p><a href="/User/Personal">Личный кабинет</a></p>
+                <div class="pull-right log">
+                    <form method="post" asp-controller="Acount" asp-action="Logoff">
+                        <input type="submit" value="Выход" /><span class="glyphicon glyphicon-log-out"></span>
+                    </form>
+                </div>
+
+                <p class="pull-right">(@User.Identity.Name)</p>
+            </div>
+        </div>
+    }
+
+    @if (User.Identity.IsAuthenticated && this.User.IsInRole("admin"))
+    {
+
+        <div class="mnav" id="mnav">
+            <div class="container">
+                <p><a href="/">Главная</a></p>
+                <p><a href="/Admin/Index">Админ</a></p>
+                <p><a href="/Admin/Money">Покупки</a></p>
+                <p><a href="/Admin/Todayqs">Вопрос дня</a></p>
+                <p><a href="/Loads/Post">Пост</a></p>
+                <p><a href="/Admin/Offers">Вопросы ???</a></p>
+                <p><a href="/Admin/Addblok">Блок</a></p>
+                <p><a href="/Admin/Sutest">Фото-тест</a></p>
+                <p><a href="/Admin/Users?pageSize=20">Связь</a></p>
+
+                <div class="pull-right log">
+                    <form method="post" asp-controller="Acount" asp-action="Logoff">
+                        <input type="submit" value="Выход" /><span class="glyphicon glyphicon-log-out"></span>
+                    </form>
+                </div>
+
+                <p class="pull-right">(@User.Identity.Name)</p>
+            </div>
+        </div>
+    }
+
+    @if (User.Identity.IsAuthenticated && this.User.IsInRole("developer"))
+    {
+        <div class="mnav" id="mnav">
+            <div class="container">
+                <p><a href="/">Главная</a></p>
+
+                <p> <a href="/dev/index">Developer</a></p>
+
+                <p><a href="/dev/satilim">Satilim</a></p>
+
+                <div class="pull-right log">
+                    <form method="post" asp-controller="Acount" asp-action="Logoff">
+                        <input type="submit" value="Выход" /><span class="glyphicon glyphicon-log-out"></span>
+                    </form>
+                </div>
+
+                <p class="pull-right">(@User.Identity.Name)</p>
+            </div>
+        </div>
+    }
+
+    @if (User.Identity.IsAuthenticated && this.User.IsInRole("bloger"))
+    {
+        <div class="mnav" id="mnav">
+            <div class="container">
+                <p><a href="/">Главная</a></p>
+
+                <p> <a href="/matsau/addcourse">Все курсы</a></p>
+                <p> <a href="/matsau/addkurs">Добавить урок курса</a></p>
+
+                <p><a href="/matsau/allow">Доступ</a></p>
+                <p><a href="/matsau/resepts">Заявки</a></p>
+                <p><a href="/course/courses/index">Курсы</a></p>
+
+                <div class="pull-right log">
+                    <form method="post" asp-controller="Acount" asp-action="Logoff">
+                        <input type="submit" value="Выход" /><span class="glyphicon glyphicon-log-out"></span>
+                    </form>
+                </div>
+
+                <p class="pull-right">(@User.Identity.Name)</p>
+            </div>
+        </div>
+    }
+
+    <div class="clear"></div>
+    <partial name="_CookieConsentPartial" />
+    <div class="main">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    <script>
+        $(".toggle").click(function () {
+            $(this).toggleClass("on");
+            $(".headMenu").toggleClass("active");
+            $(".toggle2").toggleClass("active");
+        });
+        $(".toggle2").click(function () {
+            $(this).toggleClass("on");
+            $(".headMenu").toggleClass("active");
+            $(".toggle2").toggleClass("active");
+        });
+    </script>
+    <script>
+        function myFunction(x) {
+            x.classList.toggle("change");
+            var chan = document.getElementById("change");
+            var manv = document.getElementById("mnav");
+            var stl = manv.style.display;
+            if (stl == "block") {
+                console.log(stl);
+
+                manv.style.display = "none";
+
+            } else {
+                console.log(stl);
+
+                manv.style.display = "block";
+
+            }
+
+
+        }
+    </script>
+
+    <!-- WhatsHelp.io widget -->
+    <script type="text/javascript">
+        (function () {
+            var options = {
+                whatsapp: "+77078849697", // WhatsApp number
+                call: "+77078849697", // Call phone number
+                call_to_action: "Связь с разработчиком", // Call to action
+                button_color: "#A8CE50", // Color of button
+                position: "right", // Position may be 'right' or 'left'
+                order: "whatsapp,call", // Order of buttons
+            };
+            var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
+            var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+            s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+            var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+        })();
+    </script>
+    <!-- /WhatsHelp.io widget -->
+    <script>
+        function Testview() {
+
+             document.getElementById("myForm").submit();
+
+        }
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

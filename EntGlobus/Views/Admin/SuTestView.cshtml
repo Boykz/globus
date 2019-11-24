@@ -1,0 +1,70 @@
+﻿@model EntGlobus.ViewModels.SuTestViewModel
+@{
+    ViewData["Title"] = "SuTestView";
+}
+
+<form id="myForm" action="/admin/sutestview" method="get" enctype="multipart/form-data">
+    <select onchange="Testview()" name="PanID">
+        <option>Выберите предмет</option>
+        @foreach (var md in Model.Satilims)
+        {
+
+            <option value="@md.Id">@md.Name</option>
+        }
+    </select>
+    <input hidden  name="v_id" value="@ViewBag.vd" />   
+</form>
+
+
+<h2>Предварительный просмотр варианта </h2>
+<h3>@ViewBag.s_name</h3>
+<div class="col-md-6">
+    @foreach (var img in Model.Su_Ques_Phs)
+    {
+        @if (img.Path_1 != null)
+        {
+
+            <img style="width:400px; height:400px;" src="~/SuTESt_photos/@img.Path_1" /> <br />
+        }
+        @if (img.Path_2 != null)
+        {
+
+            <img style="width:400px; height:400px;" src="~/SuTESt_photos/@img.Path_2" /> <br />
+        }
+        @if (img.Path_3 != null)
+        {
+
+            <img style="width:400px; height:400px;" src="~/SuTESt_photos/@img.Path_3" /> <br />
+        }
+        @if (img.Path_4 != null)
+        {
+
+            <img style="width:400px; height:400px;" src="~/SuTESt_photos/@img.Path_4" /> <br />
+        }
+        @if (img.Path_5 != null)
+        {
+
+            <img style="width:400px; height:400px;" src="~/SuTESt_photos/@img.Path_5" /> <br />
+        }
+        @if (img.Path_6 != null)
+        {
+
+            <img style="width:400px; height:400px;" src="~/SuTESt_photos/@img.Path_6" /> <br />
+        }
+        @if (img.Path_7 != null)
+        {
+
+            <img style="width:400px; height:400px;" src="~/SuTESt_photos/@img.Path_7" /> <br />
+        }
+
+    }
+</div>
+@{
+    int a = 0;
+}
+@foreach (var ans in Model.Su_Right_Ans)
+{
+    a++;
+    <p> @ans.Ques_id -  @ans.Right_ans</p>
+}
+

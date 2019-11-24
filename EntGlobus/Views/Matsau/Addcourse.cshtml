@@ -1,0 +1,25 @@
+﻿@model List<EntGlobus.Models.AllCourses>
+@{
+    ViewData["Title"] = "Addcourse";
+}
+
+<form action="/matsau/addcourse" method="post">
+    <input type="text" class="input-sm" name="name" placeholder="название курса" />
+    <input type="submit"  class="btn btn-success btn-sm" value="добавить курс" />
+</form><br />
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Created Date</th>
+    </tr>
+@foreach(var a in Model)
+{
+    <tr>
+        <td>@a.Id</td>
+        <td>@a.Name</td>
+        <td>@a.dateTime</td>
+    </tr>
+}
+</table>
+

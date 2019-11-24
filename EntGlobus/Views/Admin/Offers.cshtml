@@ -1,0 +1,47 @@
+﻿@model IEnumerable<EntGlobus.Models.Newqs>
+@{
+    ViewData["Title"] = "Offers";
+}
+<style>
+    .panel{
+        padding:5px;
+    }
+    .openm img {
+        width:200px;
+        height:200px;
+    }
+</style>
+<h2>Оқушылардан келіп түскен сұрақтар: @ViewBag.count</h2>
+
+@{ 
+    int i; i = 0;
+}
+@foreach (var ofn in Model)
+{
+    i++;
+<div class="panel">
+
+    <p><span class="glyphicon glyphicon-phone-alt"></span> @ofn.Number</p>
+    <p><span class="glyphicon glyphicon-time"></span> @ofn.Offerdate</p>
+    <p><span class="glyphicon glyphicon-bookmark"></span> @ofn.Subject</p>
+    <p><span class="glyphicon glyphicon-question-sign"></span> @ofn.Question</p>
+    <img src="@ofn.Uriphoto" alt="Alternate Text" id="img" onclick="Open(i)" style="height:100px;width:100px;" />
+    <a href="@ofn.Uriphoto" download><span class="glyphicon glyphicon-download-alt"></span> Сүрет</a> <br/><br />
+
+    <a href="/Admin/Deloffer?id=@ofn.Id"> <span class="glyphicon glyphicon-trash"></span>  </a>
+
+    <div style="display:none;" id="@i">
+        <img src="@ofn.Uriphoto" alt="Alternate Text" />
+    </div>
+</div>
+}
+<script>
+    function Open(i) {
+      
+            var id = document.getElementById(i);
+            console.log(id);
+            //id.css.display = "block";
+
+        
+    }
+</script>

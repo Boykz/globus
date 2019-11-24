@@ -1,0 +1,315 @@
+﻿@model EntGlobus.ViewModels.SuTestViewModel
+@{
+    ViewData["Title"] = "AddSuQs";
+}
+<style>
+    .pe p {
+        float: left;
+        margin-right: 5px;
+    }
+</style>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .img-magnifier-container {
+        position: relative;
+    }
+
+    .img-magnifier-glass {
+        position: absolute;
+        border: 3px solid #000;
+        border-radius: 50%;
+        cursor: pointer;
+        /*Set the size of the magnifier glass:*/
+        width: 100px;
+        height: 100px;
+    }
+</style>
+<script>
+    function magnify(imgID, zoom) {
+        var img, glass, w, h, bw;
+        img = document.getElementById(imgID);
+        /*create magnifier glass:*/
+        glass = document.createElement("DIV");
+        glass.setAttribute("class", "img-magnifier-glass");
+        /*insert magnifier glass:*/
+        img.parentElement.insertBefore(glass, img);
+        /*set background properties for the magnifier glass:*/
+        glass.style.backgroundImage = "url('" + img.src + "')";
+        glass.style.backgroundRepeat = "no-repeat";
+        glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+        bw = 3;
+        w = glass.offsetWidth / 2;
+        h = glass.offsetHeight / 2;
+        /*execute a function when someone moves the magnifier glass over the image:*/
+        glass.addEventListener("mousemove", moveMagnifier);
+        img.addEventListener("mousemove", moveMagnifier);
+        /*and also for touch screens:*/
+        glass.addEventListener("touchmove", moveMagnifier);
+        img.addEventListener("touchmove", moveMagnifier);
+        function moveMagnifier(e) {
+            var pos, x, y;
+            /*prevent any other actions that may occur when moving over the image*/
+            e.preventDefault();
+            /*get the cursor's x and y positions:*/
+            pos = getCursorPos(e);
+            x = pos.x;
+            y = pos.y;
+            /*prevent the magnifier glass from being positioned outside the image:*/
+            if (x > img.width - (w / zoom)) { x = img.width - (w / zoom); }
+            if (x < w / zoom) { x = w / zoom; }
+            if (y > img.height - (h / zoom)) { y = img.height - (h / zoom); }
+            if (y < h / zoom) { y = h / zoom; }
+            /*set the position of the magnifier glass:*/
+            glass.style.left = (x - w) + "px";
+            glass.style.top = (y - h) + "px";
+            /*display what the magnifier glass "sees":*/
+            glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+        }
+        function getCursorPos(e) {
+            var a, x = 0, y = 0;
+            e = e || window.event;
+            /*get the x and y positions of the image:*/
+            a = img.getBoundingClientRect();
+            /*calculate the cursor's x and y coordinates, relative to the image:*/
+            x = e.pageX - a.left;
+            y = e.pageY - a.top;
+            /*consider any page scrolling:*/
+            x = x - window.pageXOffset;
+            y = y - window.pageYOffset;
+            return { x: x, y: y };
+        }
+    }
+</script>
+<h2>@ViewBag.Name</h2>
+@*<a href="/admin/sutestview?v_id=@ViewBag.v_id&PanID=4">Пред просмотр</a>*@
+
+<form action="/admin/checktest" method="post" id="myForm">
+    <select onchange="Testview()" id="pnOps" name="PanID">
+        <option>Выбери предмет</option>
+        @foreach (var md in Model.Satilims)
+        {
+            <option value="@md.Id">@md.Name</option>
+        }
+    </select>
+    <input hidden name="v_id" value="@ViewBag.v_id" />
+    <input hidden name="V_name" value="@ViewBag.Name" />
+</form>
+<h3>@ViewBag.s_name</h3>
+
+<div class="pe">
+    @foreach (var mod in Model.Su_Right_Ans)
+    {
+        <p>@mod.Ques_id)@mod.Right_ans </p>
+    }
+</div>
+
+<form action="/admin/AddSuQs" method="post" enctype="multipart/form-data">
+    <input hidden id="pnID" name="PanID" value="@ViewBag.PanID" />
+    <hr />
+    <div class="col-md-6">
+        @foreach (var mdd in Model.Su_Ques_Phs)
+        {
+            @if (mdd.Path_1 != null)
+            {<p style="font-weight:bold;">Фото1</p>
+                <div class="img-magnifier-container">
+                    <img src="~/SuTESt_photos/@mdd.Path_1" id="suret1" style="width:300px;height:300px;" /> <br />
+                </div>
+                <a href="/admin/delsuph?Id=@ViewBag.v_id&PanId=@ViewBag.PanID&Name=@ViewBag.Name&Path=1" class="btn btn-danger">Удалить фото</a> <br />
+            }
+            else
+            {
+                <label>Материал1:</label>
+
+                <input type="file" value="Сүрет еңгізіңіз" name="mat1" multiple /> <br />
+            }
+
+            @if (mdd.Path_2 != null)
+            {<p style="font-weight:bold;">Фото2</p>
+                <div class="img-magnifier-container">
+                    <img src="~/SuTESt_photos/@mdd.Path_2" id="suret2" style="width:300px;height:300px;" />
+                </div><br />
+                <a href="/admin/delsuph?Id=@ViewBag.v_id&PanId=@ViewBag.PanID&Name=@ViewBag.Name&Path=2" class="btn btn-danger">Удалить фото</a> <br />
+            }
+            else
+            {
+
+                <label>Материал2:</label>
+                <input type="file" value="Сүрет еңгізіңіз" name="mat2" multiple /> <br />
+            }
+
+            @if (mdd.Path_3 != null)
+            {<p style="font-weight:bold;">Фото3</p>
+                <div class="img-magnifier-container">
+                    <img src="~/SuTESt_photos/@mdd.Path_3" id="suret3" style="width:300px;height:300px;" />
+                </div> <br />
+                <a href="/admin/delsuph?Id=@ViewBag.v_id&PanId=@ViewBag.PanID&Name=@ViewBag.Name&Path=3" class="btn btn-danger">Удалить фото</a> <br />
+            }
+            else
+            {
+
+
+                <label>Материал3:</label>
+                <input type="file" value="Сүрет еңгізіңіз" name="mat3" multiple /> <br />
+            }
+
+            @if (mdd.Path_4 != null)
+            {<p style="font-weight:bold;">Фото4</p>
+                <div class="img-magnifier-container">
+                    <img src="~/SuTESt_photos/@mdd.Path_4" id="suret4" style="width:300px;height:300px;" />
+                </div> <br />
+                <a href="/admin/delsuph?Id=@ViewBag.v_id&PanId=@ViewBag.PanID&Name=@ViewBag.Name&Path=4" class="btn btn-danger">Удалить фото</a> <br />
+            }
+            else
+            {
+
+
+                <label>Материал4:</label>
+                <input type="file" value="Сүрет еңгізіңіз" name="mat4" multiple /> <br />
+            }
+
+            @if (mdd.Path_5 != null)
+            {<p style="font-weight:bold;">Фото5</p>
+                <div class="img-magnifier-container">
+                    <img src="~/SuTESt_photos/@mdd.Path_5" id="suret5" style="width:300px;height:300px;" />
+                </div> <br />
+                <a href="/admin/delsuph?Id=@ViewBag.v_id&PanId=@ViewBag.PanID&Name=@ViewBag.Name&Path=5" class="btn btn-danger">Удалить фото</a> <br />
+            }
+            else
+            {
+
+
+                <label>Материал5:</label>
+                <input type="file" value="Сүрет еңгізіңіз" name="mat5" multiple /> <br />
+            }
+
+            @if (mdd.Path_6 != null)
+            {<p style="font-weight:bold;">Фото6</p>
+                <div class="img-magnifier-container">
+                    <img src="~/SuTESt_photos/@mdd.Path_6" id="suret6" style="width:300px;height:300px;" />
+                </div> <br />
+                <a href="/admin/delsuph?Id=@ViewBag.v_id&PanId=@ViewBag.PanID&Name=@ViewBag.Name&Path=6" class="btn btn-danger">Удалить фото</a> <br />
+            }
+            else
+            {
+
+
+                <label>Материал6:</label>
+                <input type="file" value="Сүрет еңгізіңіз" name="mat6" multiple /> <br />
+            }
+
+            @if (mdd.Path_7 != null)
+            {<p style="font-weight:bold;">Фото7</p>
+                <div class="img-magnifier-container">
+                    <img src="~/SuTESt_photos/@mdd.Path_7" id="suret7" style="width:300px;height:300px;" />
+                </div> <br />
+                    <a href="/admin/delsuph?Id=@ViewBag.v_id&PanId=@ViewBag.PanID&Name=@ViewBag.Name&Path=7" class="btn btn-danger">Удалить фото</a> <br />
+                    }
+                    else
+                    {
+
+
+                    <label>Материал7:</label>
+                    <input type="file" value="Сүрет еңгізіңіз" name="mat7" multiple /> <br />
+                    }
+
+
+                    }
+
+                    <br />
+                    <input hidden name="v_id" value="@ViewBag.v_id" />
+                    <input hidden name="V_name" value="@ViewBag.Name" />
+                    <input onclick="Gels()" type="submit" name="name" value="Сохранить" class="btn btn-success" />
+                    @{
+                        int q = 1; string ss;
+                    }
+                    @while (q <= 30)
+                    {
+                        ss = "q" + q;
+                        <input hidden type="text" id="@ss" name="@ss" /> <br />
+                        q++;
+                    }
+                </div>
+                <div class="col-md-6">
+
+                    <table class="table">
+                        <tr>
+                            <th>№</th>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>C</th>
+                            <th>D</th>
+                            <th>E</th>
+                            <th>F</th>
+                            <th>G</th>
+                            <th>H</th>
+                        </tr>
+                        @{
+                            int a = 1; string str;
+                        }
+                        @while (a <= 30)
+                        {
+                            str = "A" + a;
+
+                            <tr id="@str">
+                                <td>@a</td>
+                                <td><input type="checkbox" name="A1" value="A" /></td>
+                                <td><input type="checkbox" name="A2" value="B" /></td>
+                                <td><input type="checkbox" name="A3" value="C" /></td>
+                                <td><input type="checkbox" name="A4" value="D" /></td>
+                                <td><input type="checkbox" name="A5" value="E" /></td>
+                                <td><input type="checkbox" name="A6" value="F" /></td>
+                                <td><input type="checkbox" name="A7" value="G" /></td>
+                                <td><input type="checkbox" name="A8" value="H" /></td>
+                            </tr>
+                            a++;
+                        }
+
+                        <tr>
+                            <th>№</th>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>C</th>
+                            <th>D</th>
+                            <th>E</th>
+                            <th>F</th>
+                            <th>G</th>
+                            <th>H</th>
+                        </tr>
+
+                    </table>
+                </div>
+</form>
+
+<script>
+    function Gels() {
+        for (var i = 1; i <= 30; i++) {
+            var str = "A" + i;
+            var ss = "q" + i;
+            var number = [];
+            for (var j = 0; j < 8; j++) {
+                if (document.getElementById(str).getElementsByTagName("input")[j].checked) {
+                    // console.log(document.getElementById(str).getElementsByTagName("input")[j].value);
+                    number.push(document.getElementById(str).getElementsByTagName("input")[j].value)
+                    document.getElementById(ss).value = number.join(",");
+                }
+            }
+        }
+    }
+
+
+</script>
+<script>
+    /* Initiate Magnify Function
+    with the id of the image, and the strength of the magnifier glass:*/
+
+    magnify("suret1", 4);
+    magnify("suret2", 4);
+    magnify("suret3", 4);
+    magnify("suret4", 4);
+    magnify("suret5", 4);
+    magnify("suret6", 4);
+    magnify("suret7", 4);
+</script>
