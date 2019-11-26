@@ -1,0 +1,17 @@
+﻿
+    /* TinyMCE specific rules */
+    body.mceContentBody {
+        font-family: Tahoma;
+        font-size: 11px;
+        color: black;
+        width: 100%;
+    }
+
+.mceContentBody p {
+    margin: 0px;
+}
+
+.mceContentBody a, .mceContentBody a:hover, .mceContentBody a:active, .mceContentBody a:visited {
+    color: #0560A6 !important; /* FF requires a important here */
+    text-decoration: none !important;
+}

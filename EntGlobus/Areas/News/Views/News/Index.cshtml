@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/tinymce/jquery.tinymce.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input [type='sumbit']").click(function () { prompt("aradrg"); });
+
+        $('textarea.tinymce').tinymce({
+            script_url: '/tiny_mce/tiny_mce.js',
+            theme: "advanced",
+            plugins: "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+            theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,forecolor,backcolor,|,formatselect,fontselect,fontsizeselect",
+            theme_advanced_buttons2: "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,files_list,link,unlink,anchor,image,images_gallery,cleanup",
+            theme_advanced_buttons3: "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,advhr,|,fullscreen",
+            theme_advanced_toolbar_location: "top",
+            theme_advanced_toolbar_align: "left",
+            theme_advanced_statusbar_location: "bottom",
+            theme_advanced_resizing: true,
+            theme_advanced_resize_horizontal: false,
+            theme_advanced_resizing_use_cookie: false,
+            content_css: "~/css/tinymce.css?" + new Date().getTime(),
+            convert_urls: false
+        });
+
+
+
+    });
+</script>
+<form action="/news/news/index" method="post">
+<textarea rows="7" name="area" class="text tinymce"></textarea>
+    <input type="submit" value="ok" />
+</form>
