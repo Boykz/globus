@@ -5,38 +5,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EntGlobus.Areas.News.Controllers
+namespace EntGlobus.Controllers
 {
-    [Area("News")]
-    public class NewsController : Controller
+    public class MainController : Controller
     {
-        // GET: News
+        // GET: Main
         public ActionResult Index()
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Index(string area)
-        {
-           
-            Microsoft.Extensions.Primitives.StringValues pp;
-            Request.Form.TryGetValue("area", out pp);
-            return View();
-        }
 
-        // GET: News/Details/5
+        // GET: Main/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: News/Create
+        // GET: Main/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: News/Create
+        // POST: Main/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -53,13 +44,13 @@ namespace EntGlobus.Areas.News.Controllers
             }
         }
 
-        // GET: News/Edit/5
+        // GET: Main/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: News/Edit/5
+        // POST: Main/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -76,13 +67,13 @@ namespace EntGlobus.Areas.News.Controllers
             }
         }
 
-        // GET: News/Delete/5
+        // GET: Main/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: News/Delete/5
+        // POST: Main/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

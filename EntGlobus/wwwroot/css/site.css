@@ -43,13 +43,18 @@ body {
 .clear{
     clear:both;
 }
+.mnav{
 
-.mnav {
+    background-color: #3681c7;
+}
+.unav {
+    background-color: #259c69;
+}
+.mnav,.unav {
     float: right;
     width: 100%;
     position: fixed;
     height: auto;
-    background-color: #3681c7;
     color: #fff !important;
     font-size: 21px;
     font-weight: bold;
@@ -58,16 +63,16 @@ body {
     margin-bottom: 50px;
     z-index: 999;
 }
-.mnav p{
+.mnav p,.unav p{
     float:left;
 }
-    .mnav a {
+    .mnav a,.unav a {
         color: #fff !important;
         text-decoration: unset !important;
         padding: 10px 5px;
         margin-left: 5px;
     }
-    .mnav a:hover {
+    .mnav a:hover, .unav a:hover{
         color:#808080;      
     }
     .navout{
@@ -85,10 +90,10 @@ body {
     }
 }
 @media screen and (max-width: 500px) {
-    #mnav,.mnav {
+    #mnav,.mnav,.unav {
         display: none;
     }
-        .mnav p{
+        .mnav p,.unav p{
         float:unset;
     }
     .navout {

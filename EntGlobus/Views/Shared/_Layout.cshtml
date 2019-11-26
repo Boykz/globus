@@ -172,6 +172,26 @@
         </div>
     }
 
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="unav" id="mnav">
+            <div class="container">
+                <p><a href="/">EntGlobus</a></p>
+                <p><a href="/matsau/allow">Видео курсы</a></p>
+                <p><a href="/course/courses/index">О Нас</a></p>
+                <p><a href="/course/courses/index">Контакты</a></p>
+
+                <div class="pull-right log">
+                    <form method="post" asp-controller="Acount" asp-action="Logoff">
+                        <input type="submit" value="Вход" /><span class="glyphicon glyphicon-log-out"></span>
+                    </form>
+                </div>
+
+              
+            </div>
+        </div>
+    }
+
     <div class="clear"></div>
     <partial name="_CookieConsentPartial" />
     <div class="main">
@@ -256,7 +276,7 @@
     <script>
         function Testview() {
 
-             document.getElementById("myForm").submit();
+            document.getElementById("myForm").submit();
 
         }
     </script>

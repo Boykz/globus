@@ -65,7 +65,7 @@ namespace EntGlobus.Controllers
         public IActionResult UserList(string search)
         {
 
-            IEnumerable<AppUsern> user = from s in db.Usernew select s;
+            IEnumerable<AppUsern> user = from s in db.Usernew where s.regdate < DateTime.Today.AddDays(-7) select s;
             var count = user.Count();
             ViewBag.count = count;
             ViewBag.str = search;

@@ -43,6 +43,7 @@ namespace EntGlobus
          
             
             string connection = Configuration.GetConnectionString("DefaultConnection");
+            
             services.AddDbContext<entDbContext>(options => options.UseSqlServer(connection));
             //services.AddTransient<entDbContext>();
 
@@ -137,7 +138,7 @@ namespace EntGlobus
                    template: "{area:exists}/{controller=Home}/{action=Index}");
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Acount}/{action=Index}/{id?}");
+                    template: "{controller=Main}/{action=Index}/{id?}");
             });
         }
     }
