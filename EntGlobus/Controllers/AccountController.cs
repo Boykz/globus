@@ -28,7 +28,7 @@ namespace EntGlobus.Controllers
         private readonly IMapper mapper;
         private IMemoryCache cache;
 
-        public AccountController(IMapper _mapper, entDbContext _db, UserManager<AppUsern> _userManager, SignInManager<AppUsern> _signInManager,IMemoryCache memory)
+        public AccountController(IMapper _mapper, entDbContext _db, UserManager<AppUsern> _userManager, SignInManager<AppUsern> _signInManager, IMemoryCache memory)
         {
             this.db = _db;
             mapper = _mapper;
@@ -44,21 +44,21 @@ namespace EntGlobus.Controllers
         [HttpPost("checkingmail")]
         public async Task<ActionResult> CheckingMail([FromBody] CheckingMailModel checkingMail)
 
-        {  
+        {
             Random random = new Random();
             var code = random.Next(1, 999999).ToString("D6");
             string sub = "Жүйеге тіркелу";
             string mess = @"Сәлем </br> Сіздің тіркелу кодыңыз: <b>" + code + "</b> </br> Бұл код 5 минутқа ғана жарамды! </br><b>Бізбен бірге 140 балл!</b>";
             Mailing mailing = new Mailing();
             cache.Set(checkingMail.email, code, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
-           await mailing.SendEmailAsync(checkingMail.email,sub,mess);
+            await mailing.SendEmailAsync(checkingMail.email, sub, mess);
             return Json(checkingMail.email);
         }
         [HttpPost("GetCodeFromCahe")]
         public ActionResult GetCodeFromCahe([FromBody] CheckingMailModel checkingMail)
         {
-            var cd ="";
-            var code = cache.TryGetValue(checkingMail.email,out cd);
+            var cd = "";
+            var code = cache.TryGetValue(checkingMail.email, out cd);
             return Json(cd);
         }
         [HttpPost("register")]
@@ -69,13 +69,13 @@ namespace EntGlobus.Controllers
                 return new ObjectResult(new { result = "all required" });
             }
             var userIdentity = mapper.Map<AppUsern>(body);
-                var ext = await userManager.FindByNameAsync(body.TelNum);
+            var ext = await userManager.FindByNameAsync(body.TelNum);
 
             if (ext != null)
             {
                 return new ObjectResult(new { result = "number" });
             }
-           // var cd = "";
+            // var cd = "";
             //var code = cache.TryGetValue(body.Email, out cd);
             //if(body.Code != cd)
             //{
@@ -121,7 +121,7 @@ namespace EntGlobus.Controllers
             var id = userIdentity.Id;
 
 
-            return new ObjectResult(new { result = "success",id,tokenstring });
+            return new ObjectResult(new { result = "success", id, tokenstring });
         }
 
         [HttpPost("checknum")]
@@ -140,6 +140,7 @@ namespace EntGlobus.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel request)
         {
+            #region
             //if (!ModelState.IsValid)
             //{
             //    return new ObjectResult(new { result = "all required" });
@@ -160,17 +161,18 @@ namespace EntGlobus.Controllers
             //{
             //    return new ObjectResult(new { result = "not found" });
             //}
+            #endregion
+
             AppUsern reUser = await userManager.FindByNameAsync(request.TelNum);
-       
+
             if (reUser == null)
             {
                 return new ObjectResult(new { result = "not found" });
             }
             var sign = signInManager.PasswordSignInAsync(reUser.UserName, request.Password, false, false);
-            //if (enables)
-            //{
-                if (sign.Result.Succeeded)
-                {
+            if (sign.Result.Succeeded)
+            {
+                #region
                 //if (bar)
                 //{
                 //    var claims = new[]
@@ -191,16 +193,19 @@ namespace EntGlobus.Controllers
                 //    await db.SaveChangesAsync();
                 //    return new OkObjectResult(new { tokenstring = tokenstring, reUser.Id });
                 //}
+                #endregion
+
                 var tokenstring = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiODc0NzkwODE4OTgiLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.pjbZR4Ac6Axl4qrM1YucW1lokXjPshbcOZEXLm2nj3c";
                 return new OkObjectResult(new { tokenstring, reUser.Id });
             }
-                return new ObjectResult(new { result = "username or password" });
-            }
-        
+            return new ObjectResult(new { result = "username or password" });
+        }
+
 
         [HttpPost("offlogin")]
         public async Task<IActionResult> Offlogin([FromBody] LoginViewModel request)
         {
+            #region
             //if (!ModelState.IsValid)
             //{
             //    return new ObjectResult(new { result = "all required" });
@@ -216,11 +221,12 @@ namespace EntGlobus.Controllers
             //        enables = s.offenable;
             //    }
             //}
-              
+
             //if (!bar)
             //{
             //    return new ObjectResult(new { result = "not found" });
             //}
+            #endregion
 
             AppUsern reUser = await userManager.FindByNameAsync(request.TelTrue);
             if (reUser == null)
@@ -232,6 +238,7 @@ namespace EntGlobus.Controllers
             //{
             if (sign.Result.Succeeded)
             {
+                #region
                 //        if (bar)
                 //        {
                 //            var claims = new[]
@@ -252,6 +259,7 @@ namespace EntGlobus.Controllers
                 //            await db.SaveChangesAsync();
                 //            return new OkObjectResult(new { tokenstring = tokenstring, reUser.Id });
                 //        }
+                #endregion
                 var tokenstring = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiODc0NzkwODE4OTgiLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.pjbZR4Ac6Axl4qrM1YucW1lokXjPshbcOZEXLm2nj3c";
                 return new OkObjectResult(new { tokenstring, reUser.Id });
             }
@@ -277,6 +285,7 @@ namespace EntGlobus.Controllers
             {
                 return new ObjectResult(new { result = "not found" });
             }
+            #region
             //if (model.Email != user.Email)
             //{
             //    return new ObjectResult(new { result = "not found" });
@@ -287,6 +296,8 @@ namespace EntGlobus.Controllers
             //{
             //    return new ObjectResult(new { result = "Code" });
             //}
+            #endregion
+
             var _passwordValidator =
                HttpContext.RequestServices.GetService(typeof(IPasswordValidator<AppUsern>)) as IPasswordValidator<AppUsern>;
             var _passwordHasher =
@@ -303,7 +314,7 @@ namespace EntGlobus.Controllers
             }
             return BadRequest();
         }
-        
+
         [HttpPost("resetnum")]
         public async Task<IActionResult> Resetnum([FromBody] ResetNumViewModel model)
         {
@@ -334,7 +345,7 @@ namespace EntGlobus.Controllers
             {
                 return new ObjectResult(new { result = "number" });
             }
-         
+
             user.UserName = model.NewTelNum;
             await userManager.UpdateAsync(user);
             return new OkObjectResult(new { result = "success" });
@@ -345,8 +356,8 @@ namespace EntGlobus.Controllers
         public async Task<IActionResult> Quite([FromBody] CheckViewModel request)
         {
             var user = await userManager.FindByNameAsync(request.num);
-            
-            if(user == null)
+
+            if (user == null)
             {
                 return Json(BadRequest());
             }
@@ -389,5 +400,11 @@ namespace EntGlobus.Controllers
 
         }
 
+
+
+        public async Task<JsonResult> Social()
+        {
+            return Json("");
+        }
     }
 }
