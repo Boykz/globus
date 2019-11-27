@@ -10,6 +10,11 @@ namespace EntGlobus.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Decription { get; set; }
+        public string Url_Img { get; set; }
         public DateTime dateTime { get; set; }
+
+
     }
+    
 }

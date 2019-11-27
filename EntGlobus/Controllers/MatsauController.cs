@@ -414,14 +414,93 @@ namespace EntGlobus.Controllers
             return View(await db.AllCourses.ToListAsync());
         }
         [HttpPost]
-        public async Task<IActionResult> Addcourse(AllCourses course)
+        public async Task<IActionResult> Addcourse(AllcourseViewModel course)
         {
-            await db.AllCourses.AddAsync(new AllCourses { Name = course.Name, dateTime = DateTime.Now });
+            string imgname = null;
+            if (course.Url_Img != null && course.Url_Img.Length > 0)
+            {
+                 imgname = (course.Name + course.Url_Img.FileName).Trim();
+                string path_Root = _appEnvironment.WebRootPath;
+                string path_to_Images = path_Root + "\\Kurs\\" + imgname;
+
+                using (var stream = new FileStream(path_to_Images, FileMode.Create))
+                {
+                    await course.Url_Img.CopyToAsync(stream);
+                }
+            
+            }
+            await db.AllCourses.AddAsync(new AllCourses { Name = course.Name, dateTime = DateTime.Now, Url_Img = imgname,Decription = course.Decription });
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Addcourse));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Editcourse(AllcourseViewModel course)
+        {
+            if(course != null && course.Id > 0)
+            {
+                AllCourses cr = await db.AllCourses.Where(x=>x.Id == course.Id).FirstOrDefaultAsync();
+                
+                cr.Name = course.Name;
+             
+                cr.Decription = course.Decription;
 
+                if (course.Url_Img != null && course.Url_Img.Length > 0)
+                {
+                    var imgname = (course.Name + course.Url_Img.FileName).Trim();
+                    if(!cr.Url_Img.Equals(imgname) && cr.Url_Img.Trim() != imgname)
+                    {
+                        string path_Root = _appEnvironment.WebRootPath;
+                        string path_to_Images = path_Root + "\\Kurs\\" + imgname;
 
+                        using (var stream = new FileStream(path_to_Images, FileMode.Create))
+                        {
+                            await course.Url_Img.CopyToAsync(stream);
+                        }
+                        cr.Url_Img = imgname;
+                    }
+                  
+                }
+            await db.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Addcourse));
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetKurs(int id)
+        {
+            return Json(await db.AllCourses.Where(x=>x.Id == id).FirstOrDefaultAsync());
+        }
+
+      /// <summary>
+      /// надо доработать еще
+      /// </summary>
+      /// <param name="id"></param>
+      /// <returns></returns>
+        public async Task<ActionResult> DelKurs(int id)
+        {
+            AllCourses rcurs = await db.AllCourses.Where(x => x.Id == id).FirstOrDefaultAsync();
+            if(rcurs != null && rcurs.Url_Img != null)
+            {
+                string path_Root = _appEnvironment.WebRootPath;
+                string path_to_Image = path_Root + "\\Kurs\\" + rcurs.Url_Img;
+
+                try
+                {
+                    System.IO.File.Delete(path_to_Image);
+                }
+                catch
+                {
+                    return NotFound();
+                }
+                db.AllCourses.Remove(rcurs);
+
+            await    db.SaveChangesAsync();
+            }
+           return RedirectToAction(nameof(Addcourse));
+        }
+
+
+
+    }
 }

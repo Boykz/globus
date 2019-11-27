@@ -1,25 +1,114 @@
 ﻿@model List<EntGlobus.Models.AllCourses>
+
 @{
     ViewData["Title"] = "Addcourse";
 }
+<link href="~/css/all.css" rel="stylesheet" />
+<link href="~/css/fontawesome.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        $("#addk").click(function () {
+            $("#addkr").toggle(100);
+        });
+      
 
-<form action="/matsau/addcourse" method="post">
-    <input type="text" class="input-sm" name="name" placeholder="название курса" />
-    <input type="submit"  class="btn btn-success btn-sm" value="добавить курс" />
-</form><br />
+    });
+    function GetAjax(id) {
+        $("#edimg").attr('src', false);
+        var uri = "/matsau/GetKurs?id=" + id;
+        $.ajax({
+            url: uri,
+            method: "GET",
+            success: function (result) {
+                $("#edname").val(result.name);
+                $("#eddesc").val(result.decription);
+                $("#eid").val(result.id);
+                var urm = "/Kurs/" + result.url_Img;
+                $("#edimg").attr('src', urm);              
+                $("#myModal").modal('toggle');
+            },
+            error: console.log("somesimgwrong")
+        });
+    };
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#edimg')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+             
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<a id="addk" href="#">Добавить курс</a>
+
+<div hidden id="addkr">
+    <div style="border:1px solid #62686c;padding:10px;" class="col-md-8">
+        <h3>Форма добавление</h3>
+        <form asp-controller="matsau" asp-action="addcourse" method="post" enctype="multipart/form-data">
+            <input type="text" class="form-control" name="name" placeholder="название курса" required />
+            <textarea rows="3" type="text" class="form-control" name="decription" placeholder="описание курса" required></textarea>
+            <input type="file" name="Url_Img" />
+            <input type="submit" class="btn btn-success btn-md" value="добавить курс" />
+        </form>
+    </div><br />
+</div>
+<br />
+<br />
 <table class="table table-bordered">
     <tr>
         <th>Id</th>
-        <th>Name</th>
-        <th>Created Date</th>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Рисунок</th>
+        <th>Дата создание</th>
+        <th>Действия</th>
     </tr>
-@foreach(var a in Model)
-{
-    <tr>
-        <td>@a.Id</td>
-        <td>@a.Name</td>
-        <td>@a.dateTime</td>
-    </tr>
-}
+    @foreach (var a in Model)
+    {
+        <tr>
+            <td>@a.Id</td>
+            <td>@a.Name</td>
+            <td>@a.Decription</td>
+            <td><img src="~/Kurs/@a.Url_Img" style="width:250px;height:250px;" alt="нет рисунок" /></td>
+            <td>@a.dateTime</td>
+            <td><a  onclick="GetAjax(@a.Id)" @*data-toggle="modal" data-target="#myModal"*@ ><i class="fas fa-pencil-alt edt"></i></a> <a href="/matsau/DelKurs?id=@a.Id"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+    }
 </table>
 
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Изменить курс</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="matsau" asp-action="editcourse" method="post" enctype="multipart/form-data">
+                    <input hidden name="id" id="eid" />
+                    <label class="label label-info">название курса</label>
+                    <input id="edname" type="text" class="form-control" name="name" required /><br />
+                    <label class="label label-info">описание</label>
+                    <textarea id="eddesc" rows="4" type="text" class="form-control" name="decription" required></textarea><br />
+                    <label class="label label-info">Рисунок курса</label><br />
+                    <img id="edimg" style="width:250px;height:250px;" alt="нет рисунка"/><br />
+                    <br />
+                    <label class="label label-danger">Изменить рисунок</label>
+                    <input id="edfile" type="file" onchange="readURL(this)" name="Url_Img" /><br />
+                    <input type="submit" class="btn btn-success btn-md" value="Сохранить курс" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыт</button>
+            </div>
+        </div>
+    </div>
+</div>
