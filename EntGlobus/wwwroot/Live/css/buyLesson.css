@@ -1,0 +1,166 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* font-family: Sylfaen; */
+    font-size: 16px;
+}
+html{
+    background-color: #fff;
+}
+.wrap{
+    width: 100%;
+}
+.main{
+    width: 100%;
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* -----------------HEADER----------------------------------- */
+.main > header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    text-transform: uppercase;
+    background-color: #5298ed;
+}
+.back{
+    padding-right: 5px;
+}
+.content{
+    width: 100%;
+    height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #fff;
+}
+
+.buyPresent{
+    width: 550px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.buyPresent > h3{
+    color: #5298ed;
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 15px;
+}
+.buy-btn{
+    color: #fff;
+    background-color: #9ec74c;
+    box-shadow: 0 0 15px #b1b0b0;
+    padding: 15px 35px;
+    margin: 0 15px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+.buyPresent > iframe{
+    width: 100%;
+    height: 300px;
+    box-shadow: 0 0 15px #b1b0b0;
+    border-radius: 5px;
+}
+
+
+
+@media (max-width: 640px){
+    .buyPresent{
+        width: 100%;
+        padding: 5px;
+    }
+}
+@media (max-width: 600px){
+    .buyPresent > iframe{
+        height: 280px;
+    }
+}
+
+@media (max-width: 570px){
+    .buyPresent > iframe{
+        height: 265px;
+    }
+}
+
+@media (max-width: 540px){
+    .buyPresent > iframe{
+        height: 255px;
+    }
+}
+@media (max-width: 500px){
+    .buyPresent > iframe{
+        height: 245px;
+    }
+}
+@media (max-width: 470px){
+    .buyPresent > iframe{
+        height: 230px;
+    }
+}
+@media (max-width: 450px){
+    .buyPresent > iframe{
+        height: 220px;
+    }
+}
+@media (max-width: 425px){
+    .buyPresent > iframe{
+        height: 210px;
+    }
+    .buyPresent > h3 {
+        font-size: 20px;
+    }
+    .buy-btn{
+        padding: 12px 35px;
+        margin: 0 12px;
+    }
+}
+
+@media (max-width: 400px){
+    .buyPresent > iframe{
+        height: 200px;
+    }
+}
+@media (max-width: 375px){
+    .main > header > p{
+        font-size: 14px;
+    }
+    .buyPresent > iframe{
+        height: 190px;
+    }
+    .buyPresent > h3 {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+}
+@media (max-width: 360px){
+    .buyPresent > iframe{
+        height: 180px;
+    }
+}
+@media (max-width: 320px){
+    .back{
+        font-size: 14px;
+    }
+    .buyPresent > iframe{
+        height: 155px;
+    }
+    .buyPresent > h3 {
+        margin-bottom: 10px;
+    }
+    .buy-btn{
+        padding: 10px 30px;
+        margin: 0 10px;
+    }
+}

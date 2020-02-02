@@ -1,0 +1,43 @@
+﻿@model EntGlobus.ViewModels.LiveLessonViewModel.CreateLiveLessonModel
+
+@{
+    ViewData["Title"] = "RemoveLiveLesson";
+}
+
+<h2>Remove Live Lesson</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="RemoveLiveLesson" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Information" class="control-label"></label>
+                <input asp-for="Information" class="form-control" />
+                <span asp-validation-for="Information" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <img src="@Model.Photo" style="height:150px!important;" />
+                <p></p>
+                <input type="file" name="img" class="form-control btn btn-warning" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+

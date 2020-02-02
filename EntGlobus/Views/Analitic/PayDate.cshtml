@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewData["Title"] = "PayDate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int x1=0, x2=0, x3=0, x4 = 0;
+    int f1 = 0;
+    int p1 = 0, p2 = 0, p3 = 0, p4 = 0, p5 = 0;
+
+    int all = 0;
+}
+
+<h2>Статистика продажи</h2>
+
+
+<ul>
+    <li>
+        Сентябрь::
+        @foreach (var d in ViewBag.Qiwi) { if (d.pay == true && d.txn_date >= Convert.ToDateTime("2019-09-01") && d.txn_date <= Convert.ToDateTime("2019-09-30")) { p1++; } }
+        @foreach (var d in ViewBag.Paybox) { if (d.success == true && d.date >= Convert.ToDateTime("2019-09-01") && d.date <= Convert.ToDateTime("2019-09-30")) { p1++; } }
+        @p1;
+    </li>
+    <li>
+        Октябрь::
+        @foreach (var d in ViewBag.Qiwi) { if (d.pay == true && d.txn_date >= Convert.ToDateTime("2019-10-01") && d.txn_date <= Convert.ToDateTime("2019-10-30")) { p2++; } }
+        @foreach (var d in ViewBag.Paybox) { if (d.success == true && d.date >= Convert.ToDateTime("2019-10-01") && d.date <= Convert.ToDateTime("2019-10-30")) { p2++; } }
+        @p2;
+    </li>
+    <li>
+        Ноябрь::
+        @foreach (var d in ViewBag.Qiwi) { if (d.pay == true && d.txn_date >= Convert.ToDateTime("2019-11-01") && d.txn_date <= Convert.ToDateTime("2019-11-30")) { p3++; } }
+        @foreach (var d in ViewBag.Paybox) { if (d.success == true && d.date >= Convert.ToDateTime("2019-11-01") && d.date <= Convert.ToDateTime("2019-11-30")) { p3++; } }
+        @p3;
+    </li>
+    <li>
+        Декабрь::
+        @foreach (var d in ViewBag.Qiwi) { if (d.pay == true && d.txn_date >= Convert.ToDateTime("2019-12-01") && d.txn_date <= Convert.ToDateTime("2019-12-30")) { p4++; } }
+        @foreach (var d in ViewBag.Paybox) { if (d.success == true && d.date >= Convert.ToDateTime("2019-12-01") && d.date <= Convert.ToDateTime("2019-12-30")) { p4++; } }
+        @p4;
+    </li>
+    <li>
+        Январь::
+        @foreach (var d in ViewBag.Qiwi) { if (d.pay == true && d.txn_date >= Convert.ToDateTime("2020-01-01") && d.txn_date <= Convert.ToDateTime("2020-01-30")) { p5++; } }
+        @foreach (var d in ViewBag.Paybox) { if (d.success == true && d.date >= Convert.ToDateTime("2020-01-01") && d.date <= Convert.ToDateTime("2020-01-30")) { p5++; } }
+        @p5;
+    </li>
+</ul>
+
+
+<hr />
+
+<ul>
+    <li>Счета по Qiwi::: @foreach (var d in ViewBag.Qiwi) { x1++; } @x1</li>
+    <li>Оплата по qiwi::: @foreach (var d in ViewBag.Qiwi) { if (d.pay == true) { x2++; }  } @x2</li>
+</ul>
+<hr />
+<ul>
+    <li>Счета по Paybox::: @foreach (var d in ViewBag.Paybox) { x3++; } @x3</li>
+    <li>Оплата по Paybox::: @foreach (var d in ViewBag.Paybox) { if (d.success == true) { x4++; } } @x4</li>
+</ul>
+<hr />
+<ul>
+    Привязки
+
+        @foreach(var d in ViewBag.Qiwi)
+        {
+            if(d.pay == false)
+            {
+                foreach(var f in ViewBag.Paybox)
+                {
+                    if(d.UserId == f.IdentityId && d.type == f.type)
+                    {
+                        f1++;
+                    }
+                }
+            }
+        }
+
+    <li>@f1</li>
+</ul>
+<hr />
+<h2>В итоге</h2>
+<p>Онлайн оплата::: @{ all =  x2 + x4; } @all</p>

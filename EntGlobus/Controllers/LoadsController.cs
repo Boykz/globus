@@ -14,7 +14,7 @@ using Microsoft.Extensions.Caching.Memory;
 namespace EntGlobus.Controllers
 {
     [Authorize(Roles = "admin")]
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 300)]
+    // [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 300)]
     public class LoadsController : Controller
     {
         private readonly IHostingEnvironment _appEnvironment;
@@ -26,13 +26,15 @@ namespace EntGlobus.Controllers
             db = _db;
             cache = Icache;
         }
+
+        [HttpGet]
         public ActionResult Post()
         {
             return View();
         }
 
         [HttpPost] 
-        public async Task<IActionResult> Post(PostViewModel post)
+        public async Task<IActionResult> PostSave(PostViewModel post)
         {
             if (post.file == null || post.file.Length == 0) return Content("file not found");
 
@@ -44,12 +46,15 @@ namespace EntGlobus.Controllers
             {
                 await post.file.CopyToAsync(stream);
             }
+
             await db.Posts.AddAsync(new Post { subject = post.subject,text = post.text,date = DateTime.Now,pathimg = imgname,hashtag = post.hashtag,pathvideo = post.pathvideo  });
             await db.SaveChangesAsync();
-            var posts = await db.Posts.OrderByDescending(x => x.Id).ToListAsync();
-          //  cache.Set("posts", posts, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(24)));
-            return RedirectToAction(nameof(List));
+
+            return RedirectToAction("List");
         }
+
+
+
         [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 300)]
         public async Task<ActionResult> List()
         {

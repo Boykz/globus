@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewData["Title"] = "All";
+}
+
+<link rel="stylesheet" href="~/css/MessageChat.css" />
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"
+
+<div class="messaging">
+    <div class="inbox_msg">
+        <div class="inbox_people">
+            <div class="headind_srch">
+                <div class="recent_heading">
+                    <h4>Recent</h4>
+                </div>
+            </div>
+            <div class="inbox_chat">
+                @*<div class="chat_list active_chat">
+                    <div class="chat_people">
+                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                        <div class="chat_ib">
+                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                            <p>
+                                Test, which is a new approach to have all solutions
+                                astrology under one roof.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat_list">
+                    <div class="chat_people">
+                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                        <div class="chat_ib">
+                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                            <p>
+                                Test, which is a new approach to have all solutions
+                                astrology under one roof.
+                            </p>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+        <div class="mesgs">
+            <div class="msg_history" id="chat-block-add">
+                <div class="incoming_msg">
+                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="received_msg">
+                        <div class="received_withd_msg">
+                            <p class="person-name-color">Bakytzhan...</p>
+                            <p>
+                                Test which is a new approach to have all
+                                solutions
+                            </p>
+                            <span class="time_date"> 11:01 AM    |    June 9</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="outgoing_msg">
+                    <div class="sent_msg">
+
+                        <p>
+                        Test which is a new approach to have all
+                        solutions
+                        </p>
+                        <span class="time_date"> 11:01 AM    |    June 9</span>
+                    </div>
+                </div>
+            </div>
+            <div class="type_msg">
+                <div class="input_msg_write">
+                    <input type="text" class="write_msg" placeholder="Type a message" />
+                    <button onclick="ClickFunc()"  class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="container">
+            <div class="row chat-block1">
+                <p>Общии чат</p>
+                <a><span class="fa-circle"></span> @User.Identity.Name</a>
+            </div>
+            <div class="row">
+                <div class="col-2">User</div>
+                <div class="col-4"><input type="text" disabled id="userInput" value="@User.Identity.Name" /></div>
+            </div>
+            <div class="row">
+                <div class="col-2">Message</div>
+                <div class="col-4"><input type="text" id="messageInput" /></div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-6">
+                    <input type="button" id="sendButton" value="Send Message" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <ul id="messagesList"></ul>
+            </div>
+        </div>
+
+</div>
+
+
+<script>
+    function ClickFunc(n, m) {
+    var btn = document.createElement("BUTTON");
+  btn.innerHTML = "CLICK ME";
+        document.getElementById("chat-block-add").appendChild(btn);
+
+           var div = document.createElement("div");
+    div.className = "incoming_msg";
+
+    var div2 = document.createElement("div");
+    div2.className = "incoming_msg_img";
+
+    var img = document.createElement("img");
+    img.src = "https://ptetutorials.com/images/user-profile.png";
+    img.alt = "sunil";
+    div2.appendChild(img);
+    div.appendChild(div2);
+
+    var div3 = document.createElement("div");
+    div3.className = "received_msg";
+
+    var div4 = document.createElement("div");
+    div4.className = "received_withd_msg";
+
+    var p1 = document.createElement("p");
+    p1.className = "person-name-color";
+    p1.innerHTML = n;
+
+    var p2 = document.createElement("p");
+    p2.innerHTML = m;
+
+    var span = document.createElement("span");
+    span.className = "time_date";
+    span.innerHTML = "11:01 AM | June 9";
+    div4.appendChild(p1);
+    div4.appendChild(p2);
+    div4.appendChild(span);
+    div3.appendChild(div4);
+    div.appendChild(div3);
+
+    document.getElementById("chat-block-add").appendChild = div;
+    }
+</script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/Chat.js"></script>
+

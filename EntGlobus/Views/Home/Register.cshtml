@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/EduLayout.cshtml";
+}
+
+    <link rel="stylesheet" href="/edu/css/register.css">
+
+    <div class="main">
+        <div class="home">
+            <header>
+                <a href="index.html" class="logo" title="EntGlobusEducation">EntGlobusEducation</a>
+                <div class="nav">
+                    <a href="#" class="video-nav">Видеокурс</a>
+                    <a href="#" class="online-nav">Онлайн тест</a>
+                    <a href="#" class="nuska-nav">Нұсқа талдау</a>
+                    <a href="#" class="contact-nav">Контакты</a>
+                </div>
+                <div class="auth">
+                    <a href="#" class="login">Кіру</a>
+                    <div class="login-modal">
+                        <h3>Сайтқа кіру</h3>
+                        <form>
+                            <label>
+                                <p>Телефон номері:</p>
+                                <input type="text" name="phone" placeholder="Телефон номері" required>
+                            </label>
+                            <label>
+                                <p>Құпиясөз:</p>
+                                <input type="password" name="password" placeholder="Құпиясөз" required>
+                            </label>
+                            <button type="submit">Кіру</button>
+                            <div class="social">
+                                <a href="#"><i class="fa fa-vk"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-whatsapp"></i></a>
+                            </div>
+                        </form>
+                    </div>
+                    <a href="#" class="regist">Тіркелу</a>
+                </div>
+            </header>
+        </div>
+        <div class="content">
+            <div class="form">
+                <h3>Жүйеге тіркелу</h3>
+                <form>
+                    <label>
+                        <p>Телефон номері:</p>
+                        <input type="text" name="phone" placeholder="Телефон номері" required>
+                    </label>
+                    <label>
+                        <p>Құпиясөз:</p>
+                        <input type="password" name="password" placeholder="Құпиясөз" required>
+                    </label>
+                    <label>
+                        <p>Құпиясөз қайталау:</p>
+                        <input type="password" name="password" placeholder="Құпиясөз" required>
+                    </label>
+                    <button type="submit">Тіркелу</button>
+                </form>
+            </div>
+            <!-- <form class="vhod">
+            <h3>Жүйеге тіркелу</h3>
+            <input type="text" placeholder="Name" required>
+            <input type="text" placeholder="Phone" required>
+            <input type="password" placeholder="Придумайте пароль" required>
+            <p>Не менее 8 символов</p>
+            <button type="submit">Тіркелу</button>
+        </form> -->
+        </div>
+        <footer>
+            +7 700 700 70 70
+        </footer>
+    </div>

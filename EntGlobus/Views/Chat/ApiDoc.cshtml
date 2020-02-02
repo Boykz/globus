@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "ApiDoc";
+}
+
+<h2>Документация API - по Онлайн тест талдау</h2>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 btn btn-success">
+            Список предметов по прямой эфир
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-info">POST</button>
+        </div>
+        <div class="col-md-6">
+            /chatapi/getmess
+        </div>
+    </div>
+    <div>
+        <code>
+            {<p></p>
+            "LiveId" : string /// id-видео<p></p>
+            }
+        </code>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 btn btn-success">
+            Сохранить сообщению по прямой эфир
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-info">POST</button>
+        </div>
+        <div class="col-md-6">
+            /chatapi/savemess
+        </div>
+    </div>
+    <div>
+        <code>
+            }<p></p>
+            "UserName" - имя<p></p>
+            "Number" - номер пользователя<p></p>
+            "Message" - текст сообщения<p></p>
+            "MessDate" - время сообщения<p></p>
+            "LiveId" - id видео<p></p>
+            }
+        </code>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 btn btn-success">
+            Канал для подключения SignalR
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-6">
+            /chatHub
+        </div>
+    </div>
+    <div>
+        <code>
+            var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();<p></p>
+            <p></p>
+
+            document.getElementById("sendButton").disabled = true;<p></p>
+            <p></p>
+            connection.on("ReceiveMessage", function (Number, Message) {<p></p>
+            ClickFunc(Number, Message);<p></p>
+            var msg = Message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");<p></p>
+            var encodedMsg = Number + " says " + msg;<p></p>
+            var li = document.createElement("li");<p></p>
+            li.textContent = encodedMsg;<p></p>
+            document.getElementById("messagesList").appendChild(li);<p></p>
+
+            });<p></p>
+            <p></p>
+            connection.start().then(function () {<p></p>
+            document.getElementById("sendButton").disabled = false;<p></p>
+            }).catch(function (err) {<p></p>
+            return console.error(err.toString());<p></p>
+            });
+            <p></p><p></p>
+            document.getElementById("sendButton").addEventListener("click", function (event) {<p></p>
+            var Number = document.getElementById("userInput").value;<p></p>
+            var Message = document.getElementById("messageInput").value;<p></p>
+            connection.invoke("SendMessage", Number, Message).catch(function (err) {<p></p>
+            return console.error(err.toString());<p></p>
+            });<p></p>
+            event.preventDefault();<p></p>
+            });
+        </code>
+    </div>
+
+</div>
+

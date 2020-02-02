@@ -26,7 +26,7 @@ namespace EntGlobus.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Spisok");
         }        
 
         public async Task<IActionResult> Personal()
@@ -48,6 +48,7 @@ namespace EntGlobus.Controllers
         {
             string id = userManager.GetUserName(User);
 
+            AppUsern user = await userManager.FindByNameAsync(id);
             if (!ModelState.IsValid)
             {
                 return BadRequest();
@@ -65,7 +66,7 @@ namespace EntGlobus.Controllers
             var oldorder = await db.Qiwipays.Where(x => x.number == id & x.type == pan & x.pay == false).FirstOrDefaultAsync();
             if (oldorder == null)
             {
-                await db.Qiwipays.AddAsync(new Qiwipay { account = acount, txn_date = DateTime.Now, sum = 1000, type = pan, number = id, prv_txn = prv, pan = true});
+                await db.Qiwipays.AddAsync(new Qiwipay { account = acount, txn_date = DateTime.Now, sum = 1000, type = pan, number = id, prv_txn = prv, pan = true, UserId = user.Id});
             }
             else
             {

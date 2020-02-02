@@ -23,11 +23,12 @@
     </div>
     <div class="col-md-6">
         <form action="/admin/resetpass" method="post">
-
+            <p></p>
+            <p>Пароль ауыстыру!!!</p>
             <input name="Id" value="@ViewBag.user_id" hidden />
 
             <input type="text" name="NewPassword" required /> <br />
-
+            <p></p>
 
             <input type="submit" name="name" value="Өзгерту" class="btn btn-success" />
             <p style="color:green;"> @ViewBag.change</p>
@@ -48,9 +49,9 @@
                     int i = 20;
                     int j = 2;
                 }
-                <option>Выберите предмет</option>
-                <option id="1">search</option>
-                <option id="2">bloks</option>
+                 <option>Выберите предмет</option>
+                    <option id="1">search</option>
+                    <option id="2">bloks</option>
                 @foreach (var st in Model.Satilims)
                 {
                     j++;
@@ -80,6 +81,24 @@
 
         }
     </div>
+    <br />
+    <hr />
+    <br />
+    <div>
+        <h2>Online Test Video:</h2>
+        @foreach(var d in ViewBag.Live)
+        {
+            if(d.OpenClose == true)
+            {
+                <p style="color:red;">@d.Name</p>
+            }
+            else
+            {
+                <p>@d.Name ||| <a class="btn btn-success" href="~/LiveLesson/OpenLiveTest?Id=@ViewBag.user_id&LessonId=@d.PanId">Доступ ашу</a></p>
+            }
+        }
+    </div>
+    
 
 </div>
 <script>

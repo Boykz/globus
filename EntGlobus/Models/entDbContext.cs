@@ -37,5 +37,11 @@ namespace EntGlobus.Models
         public DbSet<Suvariant> Suvariants { get; set; }
         public DbSet<Su_right_ans> Su_Right_Ans { get; set; }
         public DbSet<Phtest_pay> Phtest_Pays { get; set; }
+
+
+        public DbSet<LiveLesson> liveLessons { get; set; }
+        public DbSet<PodLiveLesson> PodLiveLessons { get; set; }
+        public DbSet<LiveChat> LiveChats { get; set; }
+        public DbSet<PayLiveTest> PayLiveTests { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EntGlobus.Helpers;
 using EntGlobus.Models;
 using EntGlobus.ViewModels;
+using EntGlobus.ViewModels.LiveLessonViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +32,6 @@ namespace EntGlobus.Controllers
         }
 
 
-        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Index(string search, int? page)
         {
             if (search != null)
@@ -56,7 +56,9 @@ namespace EntGlobus.Controllers
             var md = await PaginatedLists<AppUsern>.CreateAsync(user.AsNoTracking(), page ?? 1, pageSize);
             return View(md);
         }
-        [Authorize(Roles = "admin")]
+        
+
+
         public async Task<IActionResult> Edit(string userId, string change)
         {
            
@@ -94,7 +96,28 @@ namespace EntGlobus.Controllers
                     Bought = openItems
                 };
                 ViewBag.change = change;
-          
+
+                var live = db.liveLessons.ToList();
+                var livepay = db.PayLiveTests.Where(p => p.UserId == userId & p.EndDate > DateTime.Now).ToList();
+
+                List<PayAndBuyLiveTestViewModel> pabltv = new List<PayAndBuyLiveTestViewModel>();
+                foreach (var d in live)
+                {
+                    pabltv.Add( new PayAndBuyLiveTestViewModel { PanId = d.Id, OpenClose = false, Name = d.Name });
+                }
+                foreach (var d in pabltv)
+                {
+                    foreach(var f in livepay)
+                    {
+                        if(d.PanId == f.LiveLessonId)
+                        {
+                            d.OpenClose = true;
+                        }
+                    }
+                }
+                ViewBag.Live = pabltv;
+
+
                 return View(model);
             }
             return NotFound();
@@ -114,6 +137,7 @@ namespace EntGlobus.Controllers
             return RedirectToAction(nameof(Edit), new { userId = model.userId });
 
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, string pans,string fg)
         {
@@ -121,53 +145,59 @@ namespace EntGlobus.Controllers
 
             if (user != null)
             {
-                if (pans == "search")
-                {
-                    var serch = await db.Searches.FirstOrDefaultAsync(x => x.IdentityId == userId);
-                    serch.pay = true;
-                    serch.enable = false;
-                    serch.count = 0;
-                    serch.date = DateTime.Now;
+                #region
+                //if (pans == "search")
+                //{
+                //    var serch = await db.Searches.FirstOrDefaultAsync(x => x.IdentityId == userId);
+                //    serch.pay = true;
+                //    serch.enable = false;
+                //    serch.count = 0;
+                //    serch.date = DateTime.Now;
 
-                    await db.SaveChangesAsync();
+                //    await db.SaveChangesAsync();
 
-                    return RedirectToAction("Edit", new { userId = userId });
-                }
+                //    return RedirectToAction("Edit", new { userId = userId });
+                //}
 
-                if (pans == "bloks")
-                {
-                    var bloks = await db.Bloks.FirstOrDefaultAsync(x => x.IdentityId == userId);
-                    if (bloks != null)
-                    {
-                        bloks.enable = true;
-                        bloks.blok = "all";
-                        bloks.BuyDate = DateTime.Now;
-                        await db.SaveChangesAsync();
-                        return RedirectToAction("Edit", new { userId = userId });
-                    }
-                    else
-                    {
-                        Blok blok = new Blok
-                        {
-                            blok = "all",
-                            enable = true,
-                            BuyDate = DateTime.Now,
-                            IdentityId = userId
-                        };
-                        db.Bloks.Add(blok);
-                        await db.SaveChangesAsync();
+                //if (pans == "bloks")
+                //{
+                //    var bloks = await db.Bloks.FirstOrDefaultAsync(x => x.IdentityId == userId);
+                //    if (bloks != null)
+                //    {
+                //        bloks.enable = true;
+                //        bloks.blok = "all";
+                //        bloks.BuyDate = DateTime.Now;
+                //        await db.SaveChangesAsync();
+                //        return RedirectToAction("Edit", new { userId = userId });
+                //    }
+                //    else
+                //    {
+                //        Blok blok = new Blok
+                //        {
+                //            blok = "all",
+                //            enable = true,
+                //            BuyDate = DateTime.Now,
+                //            IdentityId = userId
+                //        };
+                //        db.Bloks.Add(blok);
+                //        await db.SaveChangesAsync();
 
-                    }
+                //    }
 
-                    return RedirectToAction("Edit", new { userId = userId });
-                }
+                //    return RedirectToAction("Edit", new { userId = userId });
+                //}
+
+
+                #endregion
+
                 var sum = await db.Satilims.FirstOrDefaultAsync();
 
                 Ofpay addof = new Ofpay
                 {
                     IdentityId = userId,
                     type = pans,
-                    Price = String.Format("{0:0.##}", sum.Price)
+                    Price = String.Format("{0:0.##}", sum.Price),
+                    Time = DateTime.Now,
                 };
                 db.Ofpays.Add(addof);
                 await db.SaveChangesAsync();
@@ -177,6 +207,8 @@ namespace EntGlobus.Controllers
 
             return NotFound();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Resetpass(ResetPassViewModel model)
         {
@@ -211,8 +243,6 @@ namespace EntGlobus.Controllers
 
 
 
-   
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Money()
         {
             var ofpay = await db.Ofpays.Where(x => x.Id > 8544).ToListAsync();
@@ -241,7 +271,9 @@ namespace EntGlobus.Controllers
             return View(await data.AsNoTracking().OrderByDescending(x => x.Buycount).ToListAsync());
         }
 
-        [Authorize(Roles = "admin")]
+
+
+
         public async Task<IActionResult> Delete(string pan, string userId)
         {
             if (pan == null || userId == null)
@@ -273,7 +305,8 @@ namespace EntGlobus.Controllers
             return RedirectToAction("Edit", new { userId = userId });
         }
 
-        [Authorize(Roles = "admin")]
+
+
         public async Task<IActionResult> Todayqs()
         {
             var stilim = await db.Satilims.ToListAsync();
@@ -283,6 +316,7 @@ namespace EntGlobus.Controllers
             };
             return View(tq);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Todayqs(TodayQsViewModel request)
@@ -467,6 +501,8 @@ namespace EntGlobus.Controllers
             ViewBag.cnt = model.Count;
             return View(fulmodel);
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Users(SatesViewModel body)
         {
@@ -586,6 +622,7 @@ namespace EntGlobus.Controllers
             return View(md);
         }
 
+
         [HttpPost]
         public async Task<ActionResult> Checktest(SuTestViewModel model)
         {
@@ -607,6 +644,7 @@ namespace EntGlobus.Controllers
 
             return View(mod);
         }
+
         [HttpPost]
         public async Task<ActionResult> SuTestView(SuTestViewModel model)
         {

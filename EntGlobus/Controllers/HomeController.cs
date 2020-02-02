@@ -8,6 +8,8 @@ using EntGlobus.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using EntGlobus.ViewModels;
+using EntGlobus.ApiServece;
+using EntGlobus.ViewModels.HomeView;
 
 namespace EntGlobus.Controllers
 {
@@ -16,14 +18,18 @@ namespace EntGlobus.Controllers
     {
         private readonly RoleManager<IdentityRole> role;
         private readonly UserManager<AppUsern> muser;
+        private readonly SignInManager<AppUsern> signInManager;
         private readonly entDbContext db;
-        public HomeController(RoleManager<IdentityRole> _role, UserManager<AppUsern> _user, entDbContext _db)
+        public HomeController(RoleManager<IdentityRole> _role, UserManager<AppUsern> _user, entDbContext _db, SignInManager<AppUsern> _signInManager)
         {
             role = _role;
             muser = _user;
             db = _db;
+            signInManager = _signInManager;
         }
-        //[Authorize(Roles = "admin")]
+
+
+
         public IActionResult Index()
         {
             var users = db.Usernew.Count();
@@ -40,14 +46,9 @@ namespace EntGlobus.Controllers
             }
             return View(regdate);
         }
-        [Authorize(Roles = "admin")]
-        public IActionResult About()
-        {
 
-            return View();
-        }
 
-        //[Authorize(Roles = "admin")]
+
         public async Task<IActionResult> Role(string id)
         {
            AppUsern user = await muser.FindByIdAsync(id);
@@ -74,6 +75,36 @@ namespace EntGlobus.Controllers
 
 
             return Json(userRoles);
+        }
+
+
+
+
+        public IActionResult Edu()
+        {
+            return View();
+        }
+
+        public async Task<JsonResult> Login([FromBody]LoginApiModel model)
+        {
+            var sign = await signInManager.PasswordSignInAsync(model.Number, model.Password, false, false);
+            if (sign.Succeeded)
+            {
+                return new JsonResult("true");
+            }
+            return new JsonResult("false");
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterModel model)
+        {
+            return View();
         }
     }
 }

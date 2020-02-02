@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "Index2";
+    Layout = "~/Views/Shared/LiveLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Live/css/font-awesome.css">
+<link rel="stylesheet" href="~/Live/css/classSelect.css">
+
+<div class="wrap">
+    <div class="main">
+        <header>
+            <p><a href="~/Live/Index" class="back"><i class="fa fa-chevron-left"></i></a> Онлайн пәндік сабақ</p>
+            <p class="panName">Химия</p>
+        </header>
+        <div class="content">
+            <div class="tabs">
+                <h1>Сыныбыңды таңдау</h1>
+                <div class="tab-header">
+                    <div class="title-block">
+                        <div class="title c8">8<span>-сынып</span></div>
+                    </div>
+                    <div class="title-block">
+                        <div class="title c9">9<span>-сынып</span></div>
+                    </div>
+                    <div class="title-block">
+                        <div class="title c10">10<span>-сынып</span></div>
+                    </div>
+                    <div class="title-block">
+                        <div class="title c11">11<span>-сынып</span></div>
+                    </div>
+                </div>
+                <div class="groups">
+                    <div class="tab-body first">
+                        <a href="~/Live/Index3" class="group">1-топ</a>
+                        <a href="~/Live/Index3" class="group">2-топ</a>
+                        <a href="~/Live/Index3" class="group">3-топ</a>
+                        <a href="~/Live/Index3" class="group">4-топ</a>
+                    </div>
+                    <div class="tab-body">
+                        <a href="~/Live/Index3" class="group">11-топ</a>
+                        <a href="~/Live/Index3" class="group">22-топ</a>
+                        <a href="~/Live/Index3" class="group">33-топ</a>
+                        <a href="~/Live/Index3" class="group">44-топ</a>
+                    </div>
+                    <div class="tab-body">
+                        <a href="~/Live/Index3" class="group">111-топ</a>
+                        <a href="~/Live/Index3" class="group">222-топ</a>
+                        <a href="~/Live/Index3" class="group">333-топ</a>
+                        <a href="~/Live/Index3" class="group">444-топ</a>
+                    </div>
+                    <div class="tab-body">
+                        <a href="~/Live/Index3" class="group">1111-топ</a>
+                        <a href="~/Live/Index3" class="group">2222-топ</a>
+                        <a href="~/Live/Index3" class="group">3333-топ</a>
+                        <a href="~/Live/Index3" class="group">4444-топ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Live/js/jquery-3.4.1.min.js"></script>
+<script>
+    $('.tab-header').on('click', '.title', function () {
+        $('.tab-header').css('flex-wrap', 'nowrap');
+        $('.title-block').removeClass('title-block-active');
+        $('.title-block').addClass('title-block-active');
+        $('.title-block').css('background-color', '#ccc');
+        $(this).parent().css('background-color', '#fff');
+        $('.groups').css({ 'height': 'auto' });
+        $('.c8, .c9, .c10, .c11').addClass('class-active');
+        if (!$('.tabs').hasClass('tabs-active')) {
+            $('.tabs').addClass('tabs-active');
+            $('.tabs > h1').css('display', 'none');
+        }
+        if ($('.title').hasClass('title-passive')) {
+            $('.title').removeClass('title-passive');
+        }
+        if (!$('.title').hasClass('title-active')) {
+            $('.title').addClass('title-active');
+            if ($('.title > span').css('display', 'none')) {
+                $('.title > span').css('display', 'inline-block')
+            }
+        }
+        if ($(this).parent().index() == 0) {
+            $('.tab-body').eq($(this).parent().index()).css('border-top-left-radius', 0);
+        }
+        if ($(this).parent().index() == 3) {
+            $('.tab-body').eq($(this).parent().index()).css('border-top-right-radius', 0);
+        }
+        $('.title').removeClass('title-passive');
+        $('.title').removeClass('active');
+        $('.title').addClass('title-active');
+        $(this).addClass('active');
+        // console.log($(this).index());
+        $('.tab-body').removeClass('first');
+        $('.tab-body').eq($(this).parent().index()).addClass('first');
+    });</script>

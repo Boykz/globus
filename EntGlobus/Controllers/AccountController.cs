@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using EntGlobus.ApiServece;
 using EntGlobus.Helpers;
 using EntGlobus.Models;
 using EntGlobus.ViewModels;
@@ -85,10 +86,12 @@ namespace EntGlobus.Controllers
             var result = await userManager.CreateAsync(userIdentity, body.Password);
             if (!result.Succeeded)
             {
+                ext.offenable = false;
+                await userManager.UpdateAsync(ext);
                 return BadRequest("jj");
             }
 
-            AppUsern newuser = await userManager.FindByNameAsync(body.TelNum);
+            // AppUsern newuser = await userManager.FindByNameAsync(body.TelNum);
             // newuser.regdate = DateTime.Today.Date;
 
             //if (body.Type == "on")
@@ -228,45 +231,47 @@ namespace EntGlobus.Controllers
             //}
             #endregion
 
-            AppUsern reUser = await userManager.FindByNameAsync(request.TelTrue);
+            AppUsern reUser = await userManager.FindByNameAsync(request.TelNum);
             if (reUser == null)
             {
                 return new ObjectResult(new { result = "not found" });
             }
-            var sign = signInManager.PasswordSignInAsync(reUser.UserName, request.Password, false, false);
-            //if (enables)
-            //{
-            if (sign.Result.Succeeded)
+            if(reUser.offenable == true)
             {
-                #region
-                //        if (bar)
-                //        {
-                //            var claims = new[]
-                //                    {
-                //                    new Claim(ClaimTypes.Name, request.TelNum)
-                //                 };
-                //            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("dfghdfghdfghjsfjgwtyieyutlhknljsad"));
-                //            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                //            var token = new JwtSecurityToken(
-                //                issuer: "Issuer",
-                //                audience: "Audience",
-                //                claims: claims,
-                //                //expires: DateTime.Now.AddMinutes(30),
-                //                signingCredentials: creds);
+                var sign = signInManager.PasswordSignInAsync(reUser.UserName, request.Password, false, false);
+                if (sign.Result.Succeeded)
+                {
+                    reUser.offenable = false;
+                    await userManager.UpdateAsync(reUser);
 
-                //            var tokenstring = new JwtSecurityTokenHandler().WriteToken(token);
-                //            reUser.offenable = false;
-                //            await db.SaveChangesAsync();
-                //            return new OkObjectResult(new { tokenstring = tokenstring, reUser.Id });
-                //        }
-                #endregion
-                var tokenstring = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiODc0NzkwODE4OTgiLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.pjbZR4Ac6Axl4qrM1YucW1lokXjPshbcOZEXLm2nj3c";
-                return new OkObjectResult(new { tokenstring, reUser.Id });
+                    #region
+                    //        if (bar)
+                    //        {
+                    //            var claims = new[]
+                    //                    {
+                    //                    new Claim(ClaimTypes.Name, request.TelNum)
+                    //                 };
+                    //            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("dfghdfghdfghjsfjgwtyieyutlhknljsad"));
+                    //            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    //            var token = new JwtSecurityToken(
+                    //                issuer: "Issuer",
+                    //                audience: "Audience",
+                    //                claims: claims,
+                    //                //expires: DateTime.Now.AddMinutes(30),
+                    //                signingCredentials: creds);
+
+                    //            var tokenstring = new JwtSecurityTokenHandler().WriteToken(token);
+                    //            reUser.offenable = false;
+                    //            await db.SaveChangesAsync();
+                    //            return new OkObjectResult(new { tokenstring = tokenstring, reUser.Id });
+                    //        }
+                    #endregion
+                    var tokenstring = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiODc0NzkwODE4OTgiLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.pjbZR4Ac6Axl4qrM1YucW1lokXjPshbcOZEXLm2nj3c";
+                    return new OkObjectResult(new { tokenstring, reUser.Id });
+                }
             }
-            //    
-            //}
             return new ObjectResult(new { result = "username or password" });
-
+            
         }
 
         [HttpPost("resetpass")]
@@ -402,9 +407,30 @@ namespace EntGlobus.Controllers
 
 
 
-        public async Task<JsonResult> Social()
+        public async Task<JsonResult> Social([FromBody]SocialRegisterInput sri)
         {
-            return Json("");
+            if(sri == null)
+            {
+                return Json(new ApiError { Error = "Data Null" });
+            }
+
+            var user = await userManager.FindByNameAsync(sri.Account);
+            if(user == null)
+            {
+                user = new AppUsern { UserName = sri.Account, FirstName = sri.FirstName };
+                var result = await userManager.CreateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return Json("error");
+                }
+                await userManager.AddToRoleAsync(user, "user");
+                await db.SaveChangesAsync();
+            }
+
+            user = await userManager.FindByNameAsync(sri.Account);
+
+            var tokenstring = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiODc0NzkwODE4OTgiLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.pjbZR4Ac6Axl4qrM1YucW1lokXjPshbcOZEXLm2nj3c";
+            return Json(new { result = "success", user.Id, tokenstring });
         }
     }
 }

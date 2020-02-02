@@ -1,0 +1,70 @@
+﻿@model EntGlobus.ViewModels.LiveLessonViewModel.LiveTestVideoModel
+
+
+@{
+    ViewData["Title"] = "Index3";
+    Layout = "~/Views/Shared/LiveLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Live/css/font-awesome.css">
+<link rel="stylesheet" href="~/Live/css/live.css">
+
+
+<div class="wrap">
+    <div class="main">
+        <header>
+            <p><a href="~/LiveTest/LiveTest/Index" class="back"><i class="fa fa-chevron-left"></i></a> Онлайн пәндік сабақ</p>
+            <p class="panName">Химия</p>
+        </header>
+        <div class="content">
+            @{
+                if (Model.PodLiveLesson != null)
+                {
+                    <div class="live live-new">
+                        <a href="~/LiveTest/LiveTest/Index3" class="video-baner">
+                            <img src="~/Live/img/user.png">
+                            <i class="fa fa-play"></i>
+                        </a>
+                        <div class="live-cont">
+                            <p class="lesson-number"><span class="live-true">Live</span>@Model.PodLiveLesson.Nuska</p>
+                            <div class="live-text">
+                                <p>Басталуы:</p>
+                                <p class="timeLesson">19:00, 20 наурыз</p>
+                            </div>
+                            <div class="live-text">
+                                <p>Такырыбы:</p>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            <br />
+            <hr />
+
+            @foreach (var d in Model.HistoryPodLiveLesson)
+            {
+                <div class="live live-new">
+                    <a href="~/LiveTest/LiveTest/Index3" class="video-baner">
+                        <img src="~/Live/img/user.png">
+                        <i class="fa fa-play"></i>
+                    </a>
+                    <div class="live-cont">
+                        <p class="lesson-number"><span class="live-true">Live</span>@d.Nuska</p>
+                        <div class="live-text">
+                            <p>Басталуы:</p>
+                            <p class="timeLesson">19:00, 20 наурыз</p>
+                        </div>
+                        <div class="live-text">
+                            <p>Такырыбы:</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Live/js/jquery-3.4.1.min.js"></script>
+<script></script>

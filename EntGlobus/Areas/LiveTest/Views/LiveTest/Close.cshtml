@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Close";
+    Layout = "~/Views/Shared/LiveLayout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/Live/css/font-awesome.css">
+<link rel="stylesheet" href="~/Live/css/closed.css">
+
+
+<div class="wrap">
+    <div class="main">
+        <header>
+            <p><a href="#" class="back"><i class="fa fa-chevron-left"></i></a> Онлайн пәндік сабақ</p>
+            <p class="panName">Химия</p>
+        </header>
+        <div class="content">
+            <div class="closed">
+                <img src="~/Live/img/closed.png">
+                <h3>@ViewBag.Pan</h3>
+                <p>Пән уақытша өшірулі!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Live/js/jquery-3.4.1.min.js"></script>
+<script>
+
+</script>

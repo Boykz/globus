@@ -15,7 +15,7 @@ namespace EntGlobus.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -62,6 +62,8 @@ namespace EntGlobus.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<int?>("AuthType");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -96,6 +98,8 @@ namespace EntGlobus.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<int?>("WalletPrice");
 
                     b.Property<bool>("enable");
 
@@ -230,6 +234,52 @@ namespace EntGlobus.Migrations
                     b.ToTable("Kurs");
                 });
 
+            modelBuilder.Entity("EntGlobus.Models.LiveChat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("MessDate");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("Number");
+
+                    b.Property<Guid>("PodLiveLessonId");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PodLiveLessonId");
+
+                    b.ToTable("LiveChats");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.LiveLesson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Icon");
+
+                    b.Property<string>("Information");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool?>("OpenClose");
+
+                    b.Property<string>("Photo");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("liveLessons");
+                });
+
             modelBuilder.Entity("EntGlobus.Models.Newqs", b =>
                 {
                     b.Property<int>("Id")
@@ -263,6 +313,8 @@ namespace EntGlobus.Migrations
 
                     b.Property<string>("Price");
 
+                    b.Property<DateTime?>("Time");
+
                     b.Property<string>("type");
 
                     b.HasKey("Id");
@@ -270,6 +322,33 @@ namespace EntGlobus.Migrations
                     b.HasIndex("IdentityId");
 
                     b.ToTable("Ofpays");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.PayLiveTest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<int>("LiveLessonId");
+
+                    b.Property<int>("PayLiveTestType");
+
+                    b.Property<int>("Price");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LiveLessonId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PayLiveTests");
                 });
 
             modelBuilder.Entity("EntGlobus.Models.Phtest_pay", b =>
@@ -289,6 +368,32 @@ namespace EntGlobus.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Phtest_Pays");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.PodLiveLesson", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("LiveLessonId");
+
+                    b.Property<string>("Nuska");
+
+                    b.Property<DateTime?>("StartDate");
+
+                    b.Property<bool?>("Status");
+
+                    b.Property<int?>("TypeVideo");
+
+                    b.Property<string>("UrlPhoto");
+
+                    b.Property<string>("UrlVideo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LiveLessonId");
+
+                    b.ToTable("PodLiveLessons");
                 });
 
             modelBuilder.Entity("EntGlobus.Models.Post", b =>
@@ -322,6 +427,8 @@ namespace EntGlobus.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("UserId");
+
                     b.Property<string>("account");
 
                     b.Property<string>("number");
@@ -341,6 +448,8 @@ namespace EntGlobus.Migrations
                     b.Property<string>("type");
 
                     b.HasKey("id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Qiwipays");
                 });
@@ -692,11 +801,46 @@ namespace EntGlobus.Migrations
                         .HasForeignKey("IdentityId");
                 });
 
+            modelBuilder.Entity("EntGlobus.Models.LiveChat", b =>
+                {
+                    b.HasOne("EntGlobus.Models.PodLiveLesson", "PodLiveLesson")
+                        .WithMany()
+                        .HasForeignKey("PodLiveLessonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("EntGlobus.Models.Ofpay", b =>
                 {
                     b.HasOne("EntGlobus.Models.AppUsern", "Identity")
                         .WithMany()
                         .HasForeignKey("IdentityId");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.PayLiveTest", b =>
+                {
+                    b.HasOne("EntGlobus.Models.LiveLesson", "LiveLesson")
+                        .WithMany()
+                        .HasForeignKey("LiveLessonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EntGlobus.Models.AppUsern", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.PodLiveLesson", b =>
+                {
+                    b.HasOne("EntGlobus.Models.LiveLesson", "LiveLesson")
+                        .WithMany()
+                        .HasForeignKey("LiveLessonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.Qiwipay", b =>
+                {
+                    b.HasOne("EntGlobus.Models.AppUsern", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("EntGlobus.Models.Search", b =>

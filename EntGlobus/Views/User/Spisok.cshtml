@@ -2,11 +2,57 @@
 @{
     ViewData["Title"] = "Spisok";
 }
-   <style>
-       #hehe{
-           display:none;            
-       }
-   </style>
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+<style>
+    #hehe {
+        display: none;
+    }
+</style>
+
+<div class="navout">
+    <p><a href="/Acount/"><img src="~/images/ico_white.png" alt="Alternate Text" /></a></p>
+    <div class="navigs" onclick="myFunction(this)">
+
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+</div>
+
+<div class="navout">
+    <p><a href="/Acount/"><img src="~/images/ico_white.png" alt="Alternate Text" /></a></p>
+    <div class="navigs" onclick="myFunction(this)">
+
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+</div>
+<div class="headMenu">
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="#">О&nbsp;нас</a></li>
+        <li><a href="#">Контакты</a></li>
+    </ul>
+</div>
+<div class="toggle2"></div>
+
+<div class="mnav" id="mnav">
+    <div class="container">
+        <p> <a href="/Acount/">Главная</a></p>
+        <p> <a href="/User/Spisok">Купить</a></p>
+        <p><a href="/User/Personal">Личный кабинет</a></p>
+        <div class="pull-right log">
+            <form method="post" asp-controller="Acount" asp-action="Logoff">
+                <input type="submit" value="Выход" /><span class="glyphicon glyphicon-log-out"></span>
+            </form>
+        </div>
+
+        <p class="pull-right">(@User.Identity.Name)</p>
+    </div>
+</div>
+
 <h2>Сатып алу</h2>
 <p style="color:green;">Әр пәннің қасында сәкес төлем жолдары берілген. Сәтті төлемнен кейін  автоматты түрде "Личный кабинет"-те пайда болады.  </p>
 <p style="color:red;">ЕСКЕРТУ! НАҒЫЗ ҰБТ-ДА ЖАУАПТАРДЫҢ ШЫҒУЫНА ГАРАНТИЯ ЖОҚ! ПРОБНЫЙДЫҢ СҰРАҚТАРЫ ҚОСЫЛҒАН. ҰБТ-ДА ҚОЛДАНУҒА БОЛМАЙДЫ!</p>
@@ -22,23 +68,25 @@
     }
     @foreach (var md in Model)
     {
-        i++;        
+        i++;
         <tr>
 
             <td>@md.Name</td>
             <td>@md.Price тг</td>
-            <td id="@i"><a class="btn btn-success gettt" target="_blank" href="http://ansar-gsa.kz/pp.php?type=@md.Name&user_id=@ViewBag.user_id&price=@md.Price&description=@md.Name&pan=pan">Карт/Ед</a></td>
-            <td id="@i"><form action="/user/qiwiorder" method="post">
-                            <input hidden name="pan" value="@md.Name" />
-    <img src="~/images/qiwi_logo.jpg" alt="Alternate Text" style="width:70px;cursor:pointer;" />
-    <input type="submit" class="btn btn-info" name="name" value="Төлем" />
-</form>  </td>
+            <td id="@i"><a class="btn btn-success gettt" target="_blank" href="http://ansar-gsa.kz/pp.php?type=@md.Name&user_id=@ViewBag.user_id&price=20&description=@md.Name&pan=pan">Карт/Ед</a></td>
+            <td id="@i">
+                <form action="/user/qiwiorder" method="post">
+                    <input hidden name="pan" value="@md.Name" />
+                    <img src="~/images/qiwi_logo.jpg" alt="Alternate Text" style="width:70px;cursor:pointer;" />
+                    <input type="submit" class="btn btn-info" name="name" value="Төлем" />
+                </form>
+            </td>
         </tr>
-       
+
     }
 
 </table>
-<button hidden  onclick="Modal()">fhgsd</button>
+<button hidden onclick="Modal()">fhgsd</button>
 
 <script>
     function Modal() {

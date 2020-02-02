@@ -1,0 +1,15 @@
+﻿@model EntGlobus.ViewModels.AnaliticsModel.DoPayViewModel
+@{
+    ViewData["Title"] = "DoPay";
+    Layout = "~/Views/Shared/EduLayout.cshtml";
+}
+
+<hr />
+@foreach(var d in Model.DoPayQiwis)
+{
+    <h2>@d.Fio</h2>
+    <p>@d.Number</p>
+    <p>@d.DateTime.ToString(format:"dd:MM:yyyy")</p>
+    <p>@d.Pan</p>
+    <hr />
+}

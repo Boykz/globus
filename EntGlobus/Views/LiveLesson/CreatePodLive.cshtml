@@ -1,0 +1,47 @@
+﻿@model EntGlobus.ViewModels.LiveLessonViewModel.PodLiveLessonModel
+
+@{
+    ViewData["Title"] = "CreatePodLive";
+}
+
+<h2>Сабақ қосу</h2>
+
+<a href="~/LiveLesson/PodLive/@Model.LiveLessonId"><span class="glyphicon glyphicon-circle-arrow-left">Назад</span></a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreatePodLive" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="LiveLessonId" type="hidden" class="form-control" />
+            <div class="form-group">
+                <label asp-for="UrlVideo" class="control-label"></label>
+                <input asp-for="UrlVideo" class="form-control" />
+                <span asp-validation-for="UrlVideo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="file" name="img" class="btn btn-warning form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeVideo" class="control-label"></label>
+                <input asp-for="TypeVideo" class="form-control" />
+                <span asp-validation-for="TypeVideo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

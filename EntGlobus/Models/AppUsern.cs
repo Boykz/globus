@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EntGlobus.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 
 
@@ -17,11 +18,16 @@ namespace EntGlobus.Models
         public bool offenable { get; set; }
         public DateTime regdate { get; set; }
 
+        public int? WalletPrice { get; set; }
+
         public List<Search> Searches { get; set; }
 
         public AppUsern()
         {
             Searches = new List<Search>();
         }
+
+
+        public AuthType? AuthType { get; set; }
     }
 }

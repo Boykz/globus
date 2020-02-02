@@ -6,7 +6,8 @@
 
 <h2>Post</h2>
 
-<form method="post" enctype="multipart/form-data" asp-controller="loads" asp-action="post">
+
+<form asp-controller="Loads" asp-action="PostSave" method="post" enctype="multipart/form-data">
 
     <label>Тақырыбы:</label>
     <input name="subject" type="text" class="form-control" required />
@@ -21,9 +22,10 @@
     <img id="blah" src="#" alt="your image" />
 
     <input type="submit" value="Жариялау" class="btn btn-success" />
-    <a href="/Loads/List">Все новости</a>
-
+    
 </form>
+
+<a href="/Loads/List">Все новости</a>
 <script>
 
     function readURL(input) {

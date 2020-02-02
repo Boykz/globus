@@ -20,7 +20,7 @@ namespace EntGlobus.Controllers
         public AcountController(RoleManager<IdentityRole> _role, SignInManager<AppUsern> _signInManager,UserManager<AppUsern> _userManager)
         {
             signInManager = _signInManager;
-                userManager = _userManager;
+            userManager = _userManager;
             _roleManager = _role;
         }
         [HttpGet]
@@ -75,6 +75,14 @@ namespace EntGlobus.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (signInManager.IsSignedIn(User))
+            {
+                if(User.IsInRole("user"))
+                {
+                    return RedirectToAction("Spisok", "User");
+                }
+                return RedirectToAction("Index", "Admin");
+            }
             return View();
         }
 

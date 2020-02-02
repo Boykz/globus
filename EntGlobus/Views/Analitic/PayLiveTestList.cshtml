@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "PayLiveTestList";
+    Layout = "~/Views/Shared/LiveLayout.cshtml";
+
+    int x1 = 0, x2 = 0, x3 = 0, x4 = 0;
+    int c1 = 0, c2 = 0, c3 = 0;
+}
+
+<h2>Pay Live Test</h2>
+
+<div>
+    Онлайн оплаты: @ViewBag.Pay.Count
+    <p></p>
+    @foreach (var d in ViewBag.Pay)
+    {
+        if (d.PayLiveTestType == EntGlobus.Models.PayLiveTestType.Default)
+        {
+            c1++;
+        }
+        if (d.PayLiveTestType == EntGlobus.Models.PayLiveTestType.Qiwi)
+        {
+            c2++;
+        }
+        if (d.PayLiveTestType == EntGlobus.Models.PayLiveTestType.Paybox)
+        {
+            c3++;
+        }
+        if (d.StartDate >= Convert.ToDateTime("2020/01/01") && d.StartDate <= Convert.ToDateTime("2020/01/31")) { x1++; }
+        if (d.StartDate >= Convert.ToDateTime("2020/02/01") && d.StartDate <= Convert.ToDateTime("2020/02/29")) { x2++; }
+        if (d.StartDate >= Convert.ToDateTime("2020/03/01") && d.StartDate <= Convert.ToDateTime("2020/03/31")) { x3++; }
+    }
+    <ul>
+        <li>Default: @c1</li>
+        <li>Qiwi: @c2</li>
+        <li>Paybox: @c3</li>
+    </ul>
+    <br />
+    <ul>
+        <li>Январь:  @x1</li>
+        <li>Февраль: @x2</li>
+        <li>Февраль: @x3</li>
+    </ul>
+</div>

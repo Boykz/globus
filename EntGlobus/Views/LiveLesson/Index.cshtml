@@ -1,0 +1,94 @@
+﻿@model IEnumerable<EntGlobus.ViewModels.LiveLessonViewModel.CreateLiveLessonModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Пәндер</h1>
+<button style="font-size:13px;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Пән қосу</button>
+<p></p>
+<table class="table table-hover table-bordered" style="font-size:13px!important;">
+    <thead>
+        <tr>
+            <th>Ава</th>
+            <th>Icon</th>
+            <th>Название</th>
+            <th>Титулка</th>
+            <th>Информация</th>
+            <th></th>
+        </tr>
+    </thead>
+    <thead>
+        @foreach(var d in Model)
+        {
+            <tr>
+                <td><img src="@d.Photo" style="height:150px;" /></td>
+                <td><img src="@d.Icon" style="height:100px" /></td>
+                <td>@d.Name</td>
+                <td>@d.Title</td>
+                <td>@d.Information</td>
+                <td class="dropup"><button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/LiveLesson/RemoveLiveLesson/@d.Id">Редактировать</a></li>
+                        <li class="disabled"><a href="#">Удалить</a></li>
+                    </ul>
+                <a style="font-size:40px!important;" href="~/LiveLesson/PodLive/@d.Id"><span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+                </td>
+            </tr>
+        }
+    </thead>
+</table>
+
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3>Добавить Прямой эфир</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="padding-top:30px;">
+                    <div class="col-md-12">
+                        <form asp-action="LiveCreate" asp-controller="LiveLesson" method="post" enctype="multipart/form-data">
+
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Название..." class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="title" placeholder="Титул..." class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="date" name="date" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="img" class="btn btn-warning" />
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="icon" class="btn btn-warning" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="info" placeholder="Информация..." class="form-control" style="min-height: 200px;" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="Добавить" class="btn btn-success" />
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>*@
+        </div>
+
+    </div>
+</div>
+
+
+
+    

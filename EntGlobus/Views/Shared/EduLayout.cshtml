@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="~/edu/css/font-awesome.css">
+    <link rel="stylesheet" href="~/edu/css/index.css">
+    <title>EntGlobus Education</title>
+</head>
+<body>
+    <div class="wrap">
+        @RenderBody()
+    </div>
+
+
+    <script src="/edu/js/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(window).on('scroll', function() {
+				if($(window).scrollTop() > 40){
+					$('.home >header').addClass('fix-header');
+				} else{
+					$('.home > header').removeClass('fix-header');
+				}
+			});
+            $('.login').click(function(e){
+                e.preventDefault();
+                $('.login-modal').addClass('login-modal-active');
+            })
+            $('.auth-mob > .login').click(function(e){
+                e.preventDefault();
+                $('.login-modal').addClass('login-modal-active');
+            })
+            $('.close-modal, .home-cont, .services, .sect, .main > footer').click(function(e){
+                e.preventDefault();
+                if($('.login-modal').hasClass('login-modal-active')){
+                    $('.login-modal').removeClass('login-modal-active');
+                }
+            })
+			$('.video-nav').click(function(e) {
+                e.preventDefault();
+				var offset = 0;
+				$('.nav > a').removeClass('active-nav');
+				$('.video-nav').addClass('active-nav');
+				$('html, body').animate({
+					scrollTop: $('.sect1').offset().top
+				}, 1000);
+			});
+			$('.online-nav').click(function(e) {
+                e.preventDefault();
+				var offset = 0;
+				$('.nav > a').removeClass('active-nav');
+				$('.online-nav').addClass('active-nav');
+				$('html, body').animate({
+					scrollTop: $('.sect2').offset().top
+				}, 1000);
+			});
+			$('.down-btn').click(function(e) {
+                e.preventDefault();
+				var offset = 0;
+				$('html, body').animate({
+					scrollTop: $('.down-btn').offset().top
+				}, 1000);
+			});
+			$('.nuska-nav').click(function(e) {
+                e.preventDefault();
+				var offset = 0;
+				$('.nav > a').removeClass('active-nav');
+				$('.nuska-nav').addClass('active-nav');
+				$('html, body').animate({
+					scrollTop: $('.sect3').offset().top
+				}, 1000);
+			});
+            $('.burger').click(function(){
+                $(this).toggleClass('active-burger');
+                if(!$('.menu').hasClass('active-menu')){
+                    $('.menu').addClass('active-menu');
+                }else{
+                    $('.menu').removeClass('active-menu');
+                }
+            })
+            $('.burger').mouseout(function(){
+                if($('.menu').hasClass('active-menu')){
+                    $(this).removeClass('active-burger');
+                    $('.menu').removeClass('active-menu');
+                }
+            })
+        })
+
+    </script>
+</body>
+</html>

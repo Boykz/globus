@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using EntGlobus.Models;
+using EntGlobus.SignalrHUB;
+using EntGlobus.Telegram;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +21,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
+
 namespace EntGlobus
 {
     public class Startup
@@ -30,7 +33,6 @@ namespace EntGlobus
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             ////services.Configure<CookiePolicyOptions>(options =>
@@ -44,11 +46,10 @@ namespace EntGlobus
             
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<entDbContext>(options => options.UseSqlServer(connection));
-            //services.AddTransient<entDbContext>();
 
             services.AddAuthorization();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>           
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>  
             {
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -99,13 +100,14 @@ namespace EntGlobus
 
             services.AddSession();
 
+            services.AddSignalR();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-        
-
-
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
+
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -117,28 +119,38 @@ namespace EntGlobus
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-        
+
+            
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
-
-            //         app.UseCors(builder => builder
-            //.AllowAnyOrigin()
-            //.AllowAnyMethod()
-            //.AllowAnyHeader()
-            //.AllowCredentials());
             app.UseSession();
+
+            //app.UseEndPoints(endpoints =>
+            //{
+            //    endpoints.MapRazorPages();
+            //    endpoints.MapHub<ChatHub>("/chatHub");
+            //});
+
+            app.UseSignalR(hubs =>
+            {
+                hubs.MapHub<ChatHub>("/chatHub");
+            });
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                    name: "areas",
-                   template: "{area:exists}/{controller=Home}/{action=Index}");
+                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Acount}/{action=Index}/{id?}");
             });
+
+            Bot.GetBotClientAsync().Wait();
         }
     }
 }
