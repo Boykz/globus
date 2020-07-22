@@ -148,5 +148,27 @@ namespace EntGlobus.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("List");
         }
+
+
+        public IActionResult SaveVideo()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveVideo(IFormFile video)
+        {
+            var imgname = video.FileName;
+            string path_Root = _appEnvironment.WebRootPath;
+
+            string path_to_Images = path_Root + "\\video\\" + imgname;
+            using (var stream = new FileStream(path_to_Images, FileMode.Create))
+            {
+                await video.CopyToAsync(stream);
+            }
+
+            return View();
+        }
     }
 }

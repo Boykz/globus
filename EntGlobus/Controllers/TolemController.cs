@@ -27,6 +27,7 @@ namespace EntGlobus.Controllers
         [HttpGet]
         public async Task<IActionResult> Tolem(string user_id, string type, int pg_result, string pg_amount, DateTime pg_payment_date, string pg_user_phone, string ptype)
         {
+
             AppUsern user = await userManager.FindByIdAsync(user_id);
             
             if (pg_result == 1)
@@ -67,6 +68,40 @@ namespace EntGlobus.Controllers
             }
             return BadRequest();
         }
+
+
+
+        [HttpGet]
+        [Route("livetest")]
+        public async Task<IActionResult> LiveTestPay(string user_id, string type, int pg_result, string pg_amount, DateTime pg_payment_date, string pg_user_phone, string ptype)
+        {
+
+            if(pg_result == 1)
+            {
+                AppUsern user = await userManager.FindByIdAsync(user_id);
+                if(user == null)
+                {
+                    return BadRequest();
+                }
+                var res = await db.liveLessons.FirstOrDefaultAsync(p => p.Name == type);
+                if(res == null)
+                {
+                    return BadRequest();
+                }
+                if (ptype == "livetest")
+                {
+                    string price = pg_amount.Split(".")[0];
+                    await db.PayLiveTests.AddAsync(new PayLiveTest { UserId = user.Id, Price = Convert.ToInt16(price), StartDate = pg_payment_date, EndDate = DateTime.Now.AddDays(30), PayLiveTestType = PayLiveTestType.Paybox, LiveLessonId = res.Id });
+
+                    await db.SaveChangesAsync();
+
+                    return new OkObjectResult(new { result = type, bl = "pann" });
+                }
+            }
+           
+            return BadRequest();
+        }
+
 
 
         [HttpGet("qiwi")]

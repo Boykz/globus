@@ -1,0 +1,81 @@
+﻿@model IEnumerable<EntGlobus.Models.AnaliticaDbFolder.QiwiAnalitic>
+
+@{
+    ViewData["Title"] = "DoPayAnalitic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int df = 0;
+}
+
+<h2>DoPayAnalitic</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Call)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Result)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @{
+                    df = df + 1;
+                 }
+
+                @df
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @item.Date
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Call)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Result)
+            </td>
+            <td>
+                <form>
+                    <input name="call" type="checkbox" />
+                    <input type="text" name="result" />
+                    <input type="hidden" value="@item.Id" />
+                    <input type="submit" value="D" />
+                </form>
+            </td>
+            <td>
+                <a href="~/Analitic/DeleteDoPayAnalitic/@item.Id">delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

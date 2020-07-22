@@ -29,5 +29,9 @@ namespace EntGlobus.Models
 
 
         public AuthType? AuthType { get; set; }
+
+        public string UserToken { get; set; }
+
+        public int? ResetCount { get; set; }
     }
 }

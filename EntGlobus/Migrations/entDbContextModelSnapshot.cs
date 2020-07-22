@@ -15,7 +15,7 @@ namespace EntGlobus.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -55,6 +55,52 @@ namespace EntGlobus.Migrations
                     b.ToTable("Allowkurs");
                 });
 
+            modelBuilder.Entity("EntGlobus.Models.AnaliticaDbFolder.ForUserCallAnalitics", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Call");
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("Number");
+
+                    b.Property<int>("Result");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ForUserCallAnalitics");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.AnaliticaDbFolder.QiwiAnalitic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("Call");
+
+                    b.Property<string>("Date");
+
+                    b.Property<string>("Pan");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("Result");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QiwiAnalitics");
+                });
+
             modelBuilder.Entity("EntGlobus.Models.AppUsern", b =>
                 {
                     b.Property<string>("Id")
@@ -92,12 +138,16 @@ namespace EntGlobus.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<int?>("ResetCount");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<string>("UserToken");
 
                     b.Property<int?>("WalletPrice");
 
@@ -199,6 +249,23 @@ namespace EntGlobus.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dayliquestions");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.DbFolder1.LiveTestVisitor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateTime");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("LiveTestVisitor");
                 });
 
             modelBuilder.Entity("EntGlobus.Models.Kurs", b =>
@@ -303,11 +370,55 @@ namespace EntGlobus.Migrations
                     b.ToTable("Newqs");
                 });
 
+            modelBuilder.Entity("EntGlobus.Models.NishDbFolder.NishCourse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NishCourses");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.NishDbFolder.NishPay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CloseDate");
+
+                    b.Property<int>("NishCourseId");
+
+                    b.Property<DateTime>("OpenDate");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NishCourseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("NishPays");
+                });
+
             modelBuilder.Entity("EntGlobus.Models.Ofpay", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdminNumber");
 
                     b.Property<string>("IdentityId");
 
@@ -375,13 +486,17 @@ namespace EntGlobus.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("DurationTime");
+
                     b.Property<int>("LiveLessonId");
 
                     b.Property<string>("Nuska");
 
-                    b.Property<DateTime?>("StartDate");
+                    b.Property<DateTime>("StartDate");
 
                     b.Property<bool?>("Status");
+
+                    b.Property<string>("Title");
 
                     b.Property<int?>("TypeVideo");
 
@@ -454,6 +569,56 @@ namespace EntGlobus.Migrations
                     b.ToTable("Qiwipays");
                 });
 
+            modelBuilder.Entity("EntGlobus.Models.QR.QrBook", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BookName");
+
+                    b.Property<DateTime>("DateTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QrBooks");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.QR.QrUserIdentity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("QrBookId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QrBookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("QrUserIdentities");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.QR.QrVideo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("QrBookId");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("VideoUrl");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QrBookId");
+
+                    b.ToTable("QrVideos");
+                });
+
             modelBuilder.Entity("EntGlobus.Models.Reseption", b =>
                 {
                     b.Property<int>("Id")
@@ -486,6 +651,57 @@ namespace EntGlobus.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Satilims");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.SchoolDbFolder.ClassLesson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LessonName");
+
+                    b.Property<int>("SchoolClassId");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolClassId");
+
+                    b.ToTable("ClassLessons");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.SchoolDbFolder.School", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("SchoolName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GetSchools");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.SchoolDbFolder.SchoolClass", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClassName");
+
+                    b.Property<int>("SchoolId");
+
+                    b.Property<DateTime?>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("SchoolClasses");
                 });
 
             modelBuilder.Entity("EntGlobus.Models.Search", b =>
@@ -801,12 +1017,31 @@ namespace EntGlobus.Migrations
                         .HasForeignKey("IdentityId");
                 });
 
+            modelBuilder.Entity("EntGlobus.Models.DbFolder1.LiveTestVisitor", b =>
+                {
+                    b.HasOne("EntGlobus.Models.AppUsern", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("EntGlobus.Models.LiveChat", b =>
                 {
                     b.HasOne("EntGlobus.Models.PodLiveLesson", "PodLiveLesson")
                         .WithMany()
                         .HasForeignKey("PodLiveLessonId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.NishDbFolder.NishPay", b =>
+                {
+                    b.HasOne("EntGlobus.Models.NishDbFolder.NishCourse", "NishCourse")
+                        .WithMany()
+                        .HasForeignKey("NishCourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EntGlobus.Models.AppUsern", "AppUsern")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("EntGlobus.Models.Ofpay", b =>
@@ -841,6 +1076,42 @@ namespace EntGlobus.Migrations
                     b.HasOne("EntGlobus.Models.AppUsern", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.QR.QrUserIdentity", b =>
+                {
+                    b.HasOne("EntGlobus.Models.QR.QrBook", "QrBook")
+                        .WithMany()
+                        .HasForeignKey("QrBookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EntGlobus.Models.AppUsern", "AppUsern")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.QR.QrVideo", b =>
+                {
+                    b.HasOne("EntGlobus.Models.QR.QrBook", "QrBook")
+                        .WithMany()
+                        .HasForeignKey("QrBookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.SchoolDbFolder.ClassLesson", b =>
+                {
+                    b.HasOne("EntGlobus.Models.SchoolDbFolder.SchoolClass", "SchoolClass")
+                        .WithMany()
+                        .HasForeignKey("SchoolClassId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntGlobus.Models.SchoolDbFolder.SchoolClass", b =>
+                {
+                    b.HasOne("EntGlobus.Models.SchoolDbFolder.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EntGlobus.Models.Search", b =>

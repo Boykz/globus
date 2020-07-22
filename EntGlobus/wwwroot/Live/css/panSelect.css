@@ -79,6 +79,7 @@
     text-transform: uppercase;
     text-decoration: none;
     border-radius: 5px;
+    position: relative;
 }
 .img-block{
     /* width: 75%; */
@@ -97,6 +98,70 @@
     line-height: 20px;
     text-align: center;
 }
+
+.live-effect{
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 10px;
+    /* animation: live-effect 3s ease-in-out infinite; */
+}
+.live-effect, .live-effect > span, .live-effect > span::after,  .live-effect > p{
+    background-color: #fff;
+    border-radius: 25px;
+    position: absolute;
+}
+.live-effect > span{
+    width: 20px;
+    height: 20px;
+    top: 0;
+    right: 0;
+    border: 2px solid red;
+    z-index: 10;
+}
+.live-effect > span::after{
+    content: "";
+    width: 10px;
+    height: 10px;
+    top: 3px;
+    right: 3px;
+    background-color: red;
+    animation: live-effect2 2s ease-in-out infinite;
+}
+.live-effect > p{
+    width: 28px;
+    height: 28px;
+    top: -4px;
+    right: -4px;
+    z-index: 5;
+    opacity: 0.7;
+    animation: live-effect 2s ease-in-out infinite;
+}
+
+@keyframes live-effect {
+    50% {
+        transform: scale(0.9);
+        opacity: 1;
+    }   
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
+@keyframes live-effect2 {
+    50% {
+        transform: scale(1.1);
+    }   
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+
+
+
 
 @media (max-width:1024px){
     .content{
@@ -210,6 +275,29 @@
         width: 60px;
         height: 60px;
         margin-bottom: 10px;
+    }
+    .live-effect{
+        top: 6px;
+        right: 6px;
+    }
+    .live-effect, .live-effect > span{
+        width: 12px;
+        height: 12px;
+    }
+    .live-effect > span{
+        border-width: 1px;
+    }
+    .live-effect > span::after{
+        width: 6px;
+        height: 6px;
+        top: 2px;
+        right: 2px;
+    }
+    .live-effect > p{
+        width: 18px;
+        height: 18px;
+        top: -3px;
+        right: -3px
     }
 }
 @media (max-width:600px){

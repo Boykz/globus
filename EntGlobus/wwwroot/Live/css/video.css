@@ -1,0 +1,504 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* font-family: Sylfaen; */
+    font-size: 16px;
+}
+
+.wrap{
+    width: 100%;
+}
+.main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* -----------------HEADER----------------------------------- */
+.main > header{
+    width: 100%;
+    padding: 15px 14%;
+    font-size: 20px;
+    text-transform: uppercase;
+    background-color: #5298ed;
+}
+.content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 14%;
+}
+
+/* ----------------VIDEO-BLOCK----------------------------------- */
+.video-block{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.video-block > iframe, .video-block > video{
+    width: 100%;
+    height: 550px;
+    border-radius: 5px;
+}
+.video-item{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #5298ed;
+}
+.video-text{
+    width: 80%;
+    color: #222;
+    font-size: 28px;
+}
+.video-view{
+    width: 20%;
+    text-align: right;
+}
+i.fa-heart{
+    color: #cf3a0c;
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+i.fa-eye{
+    color: #5298ed;
+    font-size: 20px;
+}
+
+/* ----------------LIVE----------------------------------- */
+.live{
+    width: 100%;
+    display: flex;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    background-color: #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+.video-baner{
+    display: block;
+    cursor: default;
+    min-width: 150px;
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.video-baner > img{
+    width: 100%;
+    height: 100%;
+}
+.video-baner > i{
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    color: #5298ed;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -15px;
+    margin-left: -11px;
+}
+
+.live-cont{
+    margin-left: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.lesson-number{
+    display: block;
+    padding: 10px 40px;
+    background-color: #5298ed;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+.live-true{
+    margin-right: 25px;
+    text-transform: uppercase;
+    /* font-weight: bold; */
+    font-size: 24px;
+}
+.live-text{
+    display: flex;
+    margin-bottom: 5px;
+}
+.live-text > p{
+    font-size: 20px;
+    color: #222;
+}
+.live-text > p:first-child{
+    min-width: 135px;
+    font-weight: bold;
+}
+.timeLesson{
+    color: #5298ed !important;
+}
+
+
+
+
+.live-effect{
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 10px;
+}
+.live-effect, .live-effect > span, .live-effect > span::after,  .live-effect > p{
+    background-color: #fff;
+    border-radius: 25px;
+    position: absolute;
+}
+.live-effect > span{
+    width: 20px;
+    height: 20px;
+    top: 0;
+    right: 0;
+    border: 2px solid red;
+    z-index: 10;
+}
+.live-effect > span::after{
+    content: "";
+    width: 10px;
+    height: 10px;
+    top: 3px;
+    right: 3px;
+    background-color: red;
+    animation: live-effect2 2s ease-in-out infinite;
+}
+.live-effect > p{
+    width: 28px;
+    height: 28px;
+    top: -4px;
+    right: -4px;
+    z-index: 5;
+    opacity: 0.7;
+    animation: live-effect 2s ease-in-out infinite;
+}
+
+@keyframes live-effect {
+    50% {
+        transform: scale(0.9);
+        opacity: 1;
+    }   
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
+@keyframes live-effect2 {
+    50% {
+        transform: scale(1.1);
+    }   
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 1024px){
+    .main > header{
+        padding: 15px 5%;
+    }
+    .content{
+        padding: 25px 5%;
+    }
+    .video-text{
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px){
+    .content{
+        padding: 0;
+        padding-bottom: 25px;
+    }
+
+    .video-block > iframe, .video-block > video{
+        height: 432px;
+        border-radius: 0;
+    }
+    .video-item{
+        padding: 15px 5%;
+    }
+    .video-text{
+        width: 85%;
+        font-size: 20px;
+    }
+    .video-view{
+        width: 15%;
+    }
+    i.fa-heart {
+        font-size: 35px;
+    }
+    .live{
+        width: 90%;
+    }
+    .lesson-number{
+        padding: 10px 25px;
+        font-size: 20px;
+    }
+    .live-true{
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 720px){
+    .video-block > iframe, .video-block > video {
+        height: 405px;
+    }
+    .lesson-number, .live-true, .live-text > p{
+        font-size: 18px;
+    }
+    .live-text > p:first-child{
+        min-width: 115px;
+    }
+}
+
+@media (max-width: 680px){
+    .video-block > iframe, .video-block > video {
+        height: 382px;
+    }
+    .video-text{
+        font-size: 18px;
+    }
+    i.fa-heart {
+        font-size: 32px;
+    }
+    .live{
+        padding: 7px;
+    }
+    .video-baner{
+        min-width: 130px;
+        width: 130px;
+        height: 130px;
+    }
+    .lesson-number{
+        padding: 7px 20px;
+    }
+    .lesson-number, .live-true, .live-text > p{
+        font-size: 17px;
+    }
+    .live-true{
+        margin-right: 15px;
+    }
+}
+@media (max-width: 640px){
+    .video-block > iframe, .video-block > video{
+        height: 360px;
+    }
+    .video-text{
+        font-size: 17px;
+    }
+    i.fa-eye {
+        font-size: 18px;
+    }
+    .lesson-number, .live-true, .live-text > p{
+        font-size: 16px;
+    }
+    .live-text > p:first-child{
+        min-width: 105px;
+    }
+    .live-effect{
+        top: 6px;
+        right: 6px;
+    }
+    .live-effect, .live-effect > span{
+        width: 12px;
+        height: 12px;
+    }
+    .live-effect > span{
+        border-width: 1px;
+    }
+    .live-effect > span::after{
+        width: 6px;
+        height: 6px;
+        top: 2px;
+        right: 2px;
+    }
+    .live-effect > p{
+        width: 18px;
+        height: 18px;
+        top: -3px;
+        right: -3px
+    }
+}
+@media (max-width: 600px){
+    .video-block > iframe, .video-block > video {
+        height: 337px;
+    }
+}
+@media (max-width: 571px){
+    .video-block > iframe, .video-block > video {
+        height: 321px;
+    }
+    .video-text{
+        font-size: 16px;
+    }
+    .live-cont{
+        margin-left: 20px;
+    }
+    .lesson-number, .live-true, .live-text > p{
+        font-size: 15px;
+    }
+}
+@media (max-width: 525px){
+    .video-block > iframe, .video-block > video{
+        height: 295px;
+    }
+    .live-cont{
+        margin-left: 15px;
+    }
+    .lesson-number{
+        padding: 6px 15px;
+    }
+    .live-text > p:first-child {
+        min-width: 95px;
+    }
+}
+@media (max-width: 490px){
+    .video-baner{
+        min-width: 115px;
+        width: 115px;
+        height: 115px;
+    }
+    .lesson-number, .live-true, .live-text > p {
+        font-size: 14px;
+    }
+}
+@media (max-width: 460px){
+    .video-block > iframe, .video-block > video{
+        height: 260px;
+    }
+    .video-text{
+        font-size: 15px;
+    }
+    i.fa-heart {
+        font-size: 30px;
+    }
+    i.fa-eye {
+        font-size: 16px;
+    }
+    .lesson-number{
+        margin-bottom: 8px;
+    }
+}
+@media (max-width: 425px){
+    .video-block > iframe, .video-block > video{
+        height: 239px;
+    }
+    .video-text, i.fa-eye{
+        font-size: 14px;
+    }
+    .live{
+        padding: 5px;
+    }
+    .video-baner{
+        min-width: 100px;
+        width: 100px;
+        height: 100px;
+    }
+    .lesson-number, .live-true,  .live-text > p{
+        font-size: 13px;
+    }
+    .lesson-number{
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+    .live-true{
+        font-weight: bold;
+    }
+    .live-text{
+        margin-bottom: 0;
+    }
+    .live-text > p:first-child{
+        min-width: 85px;
+    }
+}
+
+@media (max-width: 375px){
+    .main > header > p{
+        font-size: 14px;
+    }
+    .video-block > iframe, .video-block > video{
+        height: 211px;
+    }
+    .video-text{
+        width: 80%;
+        font-size: 13px;
+    }
+    .live-cont{
+        margin-left: 10px;
+    }
+    .video-baner{
+        min-width: 80px;
+        width: 80px;
+        height: 80px;
+    }
+    .lesson-number, .live-true,  .live-text > p{
+        font-size: 12px;
+    }
+    .lesson-number{
+        margin-bottom: 0;
+    }
+    .live-true{
+        margin-right: 10px;
+    }
+    .live-text > p:first-child{
+        min-width: 75px;
+    }
+    /* .live-cont{
+        position: relative;
+    }
+    .timeLesson{
+        display: block;
+        position: absolute;
+        top: 5px;
+        right: 15px;
+    } */
+    /* .live-text > p:first-child{
+        display: none;
+    } */
+}
+@media (max-width: 360px){
+    /* .timeLesson{
+        right: 5px;
+    } */
+    .video-block > iframe, .video-block > video{
+        height: 204px;
+    }
+    .lesson-number, .live-true,  .live-text > p{
+        font-size: 11px;
+    }
+}
+@media (max-width: 320px){
+    .back{
+        font-size: 14px;
+    }
+    .video-block > iframe, .video-block > video{
+        height: 180px;
+    }
+    .video-text{
+        font-size: 12px;
+    }
+    /* .video-baner{
+        min-width: 60px;
+        width: 60px;
+        height: 60px;
+    } */
+    .live-true{
+        margin-right: 8px;
+    }
+    .lesson-number{
+        margin-bottom: 0;
+    }
+}

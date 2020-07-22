@@ -65,5 +65,22 @@ namespace EntGlobus.Controllers
 
             return new JsonResult(plwhm);
         }
+
+
+        [HttpGet("Geto")]
+        public JsonResult Geto()
+        {
+            return new JsonResult("hello...");
+        }
+
+        [HttpPost("Posto")]
+        public JsonResult Posto()
+        {
+            return new JsonResult("hello...");
+        }
+
     }
+
+
+
 }

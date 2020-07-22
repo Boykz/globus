@@ -1,0 +1,19 @@
+﻿@model IEnumerable<EntGlobus.Models.QR.QrBook>
+@{
+    ViewData["Title"] = "QrAdmin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Qr Admin</h2>
+
+<a class="btn btn-success" href="/Admin/CreateQrBook">Create</a>
+
+<div class="row">
+    @foreach (var d in Model)
+    {
+        <a href="/Admin/InQrBook/@d.Id" class="jumbotron">
+            @d.BookName
+        </a>
+    }
+
+</div>

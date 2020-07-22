@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using EntGlobus.Models.AnaliticaDbFolder;
+using EntGlobus.Models.DbFolder1;
+using EntGlobus.Models.SchoolDbFolder;
+using EntGlobus.Models.NishDbFolder;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EntGlobus.Models.QR;
 
 namespace EntGlobus.Models
 {
@@ -43,5 +48,37 @@ namespace EntGlobus.Models
         public DbSet<PodLiveLesson> PodLiveLessons { get; set; }
         public DbSet<LiveChat> LiveChats { get; set; }
         public DbSet<PayLiveTest> PayLiveTests { get; set; }
+
+
+        public DbSet<LiveTestVisitor> LiveTestVisitor { get; set; }
+
+        /// <summary>
+        ///                   Nish LiveLessons
+        /// </summary>
+        public DbSet<NishCourse> NishCourses { get; set; }
+        public DbSet<NishPay> NishPays { get; set; }
+
+        public DbSet<ForUserCallAnalitics> ForUserCallAnalitics { get; set; }
+
+
+        /// <summary>
+        ///               School live lessons
+        /// </summary>
+        public DbSet<School> GetSchools { get; set; }
+        public DbSet<SchoolClass> SchoolClasses { get; set; }
+        public DbSet<ClassLesson> ClassLessons { get; set; }
+
+
+        ////                    QR
+        public DbSet<QrBook> QrBooks { get; set; }
+        public DbSet<QrUserIdentity> QrUserIdentities { get; set; }
+        public DbSet<QrVideo> QrVideos { get; set; }
+
+
+
+        ///
+        ///           Qiwi Pay Analitica
+        ///
+        public DbSet<QiwiAnalitic> QiwiAnalitics { get; set; }
     }
 }

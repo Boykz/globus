@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Video";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Video Save</h2>
+
+<div class="row">
+    <form class="form-group" asp-action="SaveVideo" asp-controller="Loads" enctype="multipart/form-data">
+        <p>Video</p>
+        <input type="file" name="video" class="form-control" />
+
+        <input type="submit" class="btn btn-success" />
+    </form>
+</div>

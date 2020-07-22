@@ -1,25 +1,37 @@
 ﻿@model IEnumerable<EntGlobus.ViewModels.PanSatilimViewModel>
 @{
     ViewData["Title"] = "Money";
+
+    DateTime date = Convert.ToDateTime("2020-06-07");
 }
 
 
 
-    <h2>Пәндер сатылымы туралы ақпарат.</h2>
+<h2>Пәндер сатылымы туралы ақпарат.</h2>
 
 
 
-    <p>Жалпы сатылым:<span style="color:blue"> ( @ViewBag.o600<sub>600T</sub>  +  @ViewBag.o800<sub>800T</sub>+  @ViewBag.o1000<sub>1000T</sub>  ) =  @(@ViewBag.o1000 + @ViewBag.o600 + @ViewBag.o800) </span></p>
+<p>Жалпы сатылым:<span style="color:blue"> (@ViewBag.o1000<sub>1000T</sub>  ) =  @(@ViewBag.o1000) </span></p>
 
-    <p>Сатып алушылар саны:<span style="color:blue"> (@ViewBag.usercount4<sub>400T</sub>  +@ViewBag.usercount6<sub>600T</sub>  ) =  @ViewBag.usercount адам</span></p>
+<p>Сатып алушылар саны:<span style="color:blue"> (<sub>1000T</sub>  ) =  @ViewBag.usercount адам</span></p>
 
-    <hr>
-    <p> Пәндер сатылымы:</p>
-    @{
-        int i = 0;
-    }
-    @foreach (var item in Model)
-    {
-        i++;
-        <p>№@i @item.Pan:<span style="color:blue"> @item.Buycount рет</span></p>
-    }
+<p>В Май: @ViewBag.May шт</p>
+
+<hr>
+<p> Пәндер сатылымы:</p>
+@{
+    int i = 0;
+}
+@foreach (var item in Model)
+{
+    i++;
+    <p>№@i @item.Pan:<span style="color:blue"> @item.Buycount рет</span></p>
+}
+
+
+
+<hr />
+
+<p>Медеу ага: @ViewBag.Medey</p>
+<p>Адик: @ViewBag.Adik</p>
+<p>Баха: @ViewBag.Baha</p>

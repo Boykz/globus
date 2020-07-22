@@ -12,6 +12,8 @@ namespace EntGlobus.ViewModels.LiveLessonViewModel
         public string Title { get; set; }
         public string Information { get; set; }
 
+        public bool? OpenClose { get; set; }
+
         public string Photo { get; set; }
         public string Icon { get; set; }
     }

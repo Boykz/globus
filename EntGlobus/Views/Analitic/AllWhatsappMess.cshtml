@@ -1,0 +1,47 @@
+﻿@model IEnumerable<EntGlobus.Controllers.AllWhatsappList>
+
+@{
+    ViewData["Title"] = "AllWhatsappMess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int x = 0;
+}
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                №
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @{ 
+                    x += 1;
+                }
+                @x;
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                <a target="_blank" class="btn btn-success" href="https://api.whatsapp.com/send?phone=@item.Phone">WhatsApp</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "LoginPage";
+    Layout = "~/Views/Shared/EduLayout.cshtml";
+}
+
+
+<link rel="stylesheet" href="/edu/css/register.css">
+
+<div class="main">
+    <div class="home">
+        <header>
+            <a href="Edu" class="logo" title="EntGlobusEducation">EntGlobusEducation</a>
+            <div class="nav">
+                <a href="~/Home/Live" class="">Онлайн сабақ</a>
+                <a href="#" class="online-nav">Онлайн тест</a>
+                <a href="#" class="nuska-nav">Видеокурс</a>
+                <a href="#" class="contact-nav">Контакты</a>
+            </div>
+            <div class="auth">
+                <a href="~/Home/LoginPage" class="regist">Кіру</a>
+                <a href="~/Home/Register" class="regist">Тіркелу</a>
+                <div class="@*login-modal*@" style="display:none;">
+                    <h3>Сайтқа кіру</h3>
+                    <form>
+                        <label>
+                            <p>Телефон номері:</p>
+                            <input type="text" name="Number" placeholder="Телефон номері" required>
+                        </label>
+                        <label>
+                            <p>Құпиясөз:</p>
+                            <input type="password" name="Password" placeholder="Құпиясөз" required>
+                        </label>
+                        <button type="submit">Кіру</button>
+                        <div class="social">
+                            <a href="#"><i class="fa fa-vk"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-whatsapp"></i></a>
+                        </div>
+                    </form>
+                </div>
+                <div class="burger">
+                    <span><span></span></span>
+                </div>
+                <div class="menu">
+                    <div class="nav-mob">
+                        <a href="~/Home/Live" class="">Онлайн сабақ</a>
+                        <a href="#" class="online-nav">Онлайн тест</a>
+                        <a href="#" class="nuska-nav">Видеокурс</a>
+                        <a href="#" class="contact-nav">Контакты</a>
+                    </div>
+                    <div class="auth-mob">
+                        <a href="~/Home/LoginPage" class="regist">Кіру</a>
+                        <a href="~/Home/Register" class="regist">Тіркелу</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="content">
+        <div class="form">
+            <h3>Жүйеге кіру</h3>
+            <form asp-controller="Home" asp-action="LoginPage" method="post">
+                <label>
+                    <p>Телефон номері:</p>
+                    <input type="text" name="Number" placeholder="Телефон номері" required>
+                </label>
+                <label>
+                    <p>Құпиясөз:</p>
+                    <input type="password" name="Password" placeholder="Құпиясөз" required>
+                </label>
+                <button type="submit">Тіркелу</button>
+            </form>
+        </div>
+
+    </div>
+    <footer>
+        +7 775 717 1714
+    </footer>
+</div>

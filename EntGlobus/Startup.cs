@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using EntGlobus.Models;
+using EntGlobus.OAuthFolder;
 using EntGlobus.SignalrHUB;
 using EntGlobus.Telegram;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -49,6 +50,44 @@ namespace EntGlobus
 
             services.AddAuthorization();
 
+            #region
+
+            /*
+             
+             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            // укзывает, будет ли валидироваться издатель при валидации токена
+                            ValidateIssuer = true,
+                            // строка, представляющая издателя
+                            ValidIssuer = AuthOptions.ISSUER,
+
+                            // будет ли валидироваться потребитель токена
+                            ValidateAudience = true,
+                            // установка потребителя токена
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            // будет ли валидироваться время существования
+                            ValidateLifetime = true,
+
+                            // установка ключа безопасности
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            // валидация ключа безопасности
+                            ValidateIssuerSigningKey = true,
+                        };
+                    });
+             
+             */
+
+            #endregion
+
+
+
+            #region
+            
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>  
             {
                 options.SaveToken = true;
@@ -69,6 +108,9 @@ namespace EntGlobus
                 };
             });
             
+            #endregion
+
+
             services.AddIdentity<AppUsern, IdentityRole>().AddEntityFrameworkStores<entDbContext>()
                .AddDefaultTokenProviders(); 
 
@@ -91,7 +133,8 @@ namespace EntGlobus
                 // Cookie settings  
                // options.Cookie.HttpOnly = true;
                 //options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                options.LoginPath = "/Acount/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login  
+                options.LoginPath = "/home/newlogin"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login  
+                
                 options.LogoutPath = "/Acount/Logoff"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout  
                 options.AccessDeniedPath = "/Acount/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied  
                options.SlidingExpiration = false;
@@ -129,11 +172,6 @@ namespace EntGlobus
             app.UseCookiePolicy();
             app.UseSession();
 
-            //app.UseEndPoints(endpoints =>
-            //{
-            //    endpoints.MapRazorPages();
-            //    endpoints.MapHub<ChatHub>("/chatHub");
-            //});
 
             app.UseSignalR(hubs =>
             {
@@ -147,7 +185,7 @@ namespace EntGlobus
                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Acount}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
             Bot.GetBotClientAsync().Wait();

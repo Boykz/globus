@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "RegDateUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    var v1 = Convert.ToDateTime("2020-06-05 00:00");
+    var v2 = Convert.ToDateTime("2020-06-05 23:59");
+
+}
+
+
+@foreach (var d in ViewBag.Users)
+{
+
+    if(d.regdate >= Convert.ToDateTime("2020-06-05 00:00") && d.regdate <= Convert.ToDateTime("2020-06-05 23:59"))
+    {
+        <hr />
+        <p></p>
+        <hr />
+    }
+
+}
+
+
+
+<h1>@v1</h1>
+<h2>@v2</h2>

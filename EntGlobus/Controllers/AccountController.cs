@@ -70,6 +70,9 @@ namespace EntGlobus.Controllers
                 return new ObjectResult(new { result = "all required" });
             }
             var userIdentity = mapper.Map<AppUsern>(body);
+
+            userIdentity.regdate = DateTime.Now.AddHours(14);
+
             var ext = await userManager.FindByNameAsync(body.TelNum);
 
             if (ext != null)

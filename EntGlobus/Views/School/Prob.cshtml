@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Prob";
+    Layout = "~/Views/Shared/LiveLayout.cshtml";
+}
+
+@model IEnumerable<EntGlobus.Areas.LiveTest.ViewModels.LiveLessonViewModel>
+@{
+    ViewData["Title"] = "Lesson";
+    Layout = "~/Views/Shared/LiveLayout.cshtml";
+
+    string email = User.Identity.Name.ToString() + "@mail.ru";
+}
+
+
+
+
+<link rel="stylesheet" href="~/Live/css/font-awesome.css">
+<link rel="stylesheet" href="~/Live/css/panSelect.css">
+
+<div class="wrap">
+    <div class="main">
+        <header>
+            <a href="~/LiveTest/LiveTest/Index" class="back"><i class="fa fa-chevron-left"></i></a> Онлайн нұсқа талдау
+        </header>
+        <div class="content">
+
+                    <a href="https://demo.bigbluebutton.org/gl/ent-tz7-gxr" class="pan">
+                        <span class="live-effect">
+                            <span></span>
+                            <p></p>
+                        </span>
+                        <div class="img-block">
+                            <img src="~/Live/img/matem-select.png">
+                        </div>
+                        <p class="panName">Мат Сауаттылық</p>
+                    </a>
+           
+        </div>
+    </div>
+</div>
+
+<script src="~/Live/js/jquery-3.4.1.min.js"></script>

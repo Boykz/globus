@@ -1,0 +1,78 @@
+﻿@model EntGlobus.ViewModels.adminview.nishviewmodel
+
+@{
+    ViewData["Title"] = "InNish";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Редактировать</h2>
+
+<hr />
+<h1>@Model.NishCourse.Name</h1>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Admin" asp-action="InNish">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="display:none">
+                <label asp-for="NishCourse.Id" class="control-label"></label>
+                <input asp-for="NishCourse.Id" class="form-control" />
+                <span asp-validation-for="NishCourse.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none">
+                <label asp-for="NishCourse.Name" class="control-label"></label>
+                <input asp-for="NishCourse.Name" class="form-control" />
+                <span asp-validation-for="NishCourse.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ссылка:</label>
+                <input asp-for="NishCourse.Url" class="form-control" />
+                <span asp-validation-for="NishCourse.Url" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none">
+                <label asp-for="NishCourse.StartDate" class="control-label"></label>
+                <input asp-for="NishCourse.StartDate" class="form-control" />
+                <span asp-validation-for="NishCourse.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none">
+                <label asp-for="NishCourse.EndDate" class="control-label"></label>
+                <input asp-for="NishCourse.EndDate" class="form-control" />
+                <span asp-validation-for="NishCourse.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </form>
+
+        <hr />
+        <h1></h1>
+        <table class="table table-bordered">
+
+            <tbody>
+                @foreach (var d in Model.NishPays)
+                {
+                    <tr>
+                        <td>@d.AppUsern.FirstName</td>
+                        <td>@d.AppUsern.UserName</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+           
+        </table>
+    </div>
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-5">
+        <div class="form-group">
+            <form asp-action="NishUser" asp-controller="Admin">
+                <input name="userid" type="text" class="form-control" />
+                <p></p>
+                <input value="@Model.NishCourse.Id" name="id" type="hidden" />
+                <p></p>
+                <input type="submit" class="btn btn-success" value="Открыть доступ" />
+            </form>
+        </div>
+    </div>
+</div>
+

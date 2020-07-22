@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<EntGlobus.ViewModels.LiveLessonViewModel.CreateLiveLessonModel>
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Пәндер</h1>
+<h3>@DateTime.Now.ToString(format:"dd/MM/yyyy HH:mm")</h3>
+<h4>@DateTime.UtcNow.ToString(format:"dd/MM/yyyy HH:mm")</h4>
 <button style="font-size:13px;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Пән қосу</button>
 <p></p>
 <table class="table table-hover table-bordered" style="font-size:13px!important;">
@@ -22,7 +25,7 @@
         {
             <tr>
                 <td><img src="@d.Photo" style="height:150px;" /></td>
-                <td><img src="@d.Icon" style="height:100px" /></td>
+                <td style="background-color:cornflowerblue;"><img src="@d.Icon" style="height:60px" /></td>
                 <td>@d.Name</td>
                 <td>@d.Title</td>
                 <td>@d.Information</td>

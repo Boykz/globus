@@ -32,20 +32,72 @@ namespace EntGlobus.Controllers
 
         public IActionResult Index()
         {
-            var users = db.Usernew.Count();
-            ViewBag.users = users;
-            var regdate = db.Usernew.Select(x => x.regdate.ToString()).Distinct().ToList();
-            var usr = from x in db.Usernew select x ;
-            int i = 0;
-            foreach(var a in usr)
-            {
-                if (a.regdate.Equals(regdate))
-                {
-                    i++;                  
-                }
-            }
-            return View(regdate);
+            return View();
         }
+
+
+        public IActionResult NewLogin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NewLogin(LoginApiModel model)
+        {
+            var sign = await signInManager.PasswordSignInAsync(model.Number, model.Password, false, false);
+
+            if (sign.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+
+        public IActionResult NewRegister(string result)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NewRegister(LoginApiModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var ext = await muser.FindByNameAsync(model.Number);
+
+            if (ext != null)
+            {
+                ViewBag.Result = "Бұл номер тіркелген";
+                return View(model);
+            }
+            AppUsern appUsern = new AppUsern { UserName = model.Number, FirstName = model.Name };
+
+            var result = await muser.CreateAsync(appUsern, model.Password);
+
+            await signInManager.SignInAsync(appUsern, false);
+
+
+            await muser.AddToRoleAsync(appUsern, "user");
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("Edu", "Home");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -82,7 +134,7 @@ namespace EntGlobus.Controllers
 
         public IActionResult Edu()
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<JsonResult> Login([FromBody]LoginApiModel model)
@@ -102,9 +154,58 @@ namespace EntGlobus.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> Register(LoginApiModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var ext = await muser.FindByNameAsync(model.Number);
+
+            if (ext != null)
+            {
+                return RedirectToAction("NewRegister", "home", new { result = "Бұл номер тіркелген" });
+            }
+            AppUsern appUsern = new AppUsern { UserName = model.Number, FirstName = model.Name };
+
+            var result = await muser.CreateAsync(appUsern, model.Password);
+
+            await signInManager.SignInAsync(appUsern, false);
+
+
+            await muser.AddToRoleAsync(appUsern, "user");
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("LiveTest/Index","LiveTest");
+        }
+
+
+        public IActionResult LoginPage()
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> LoginPage(LoginApiModel model)
+        {
+            var sign = await signInManager.PasswordSignInAsync(model.Number, model.Password, false, false);
+
+            if (sign.Succeeded)
+            {
+                return RedirectToAction("LiveTest/Index", "LiveTest");
+            }
+            return View();
+        }
+             
+
+        public async Task<IActionResult> Live()
+        {
+            if(User.Identity.Name != null)
+            {
+                return RedirectToAction("LiveTest/Index", "LiveTest");
+            }
+            return RedirectToAction("LoginPage", "Home");
+        }
+
     }
 }

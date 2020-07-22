@@ -52,6 +52,9 @@ namespace EntGlobus.Controllers
                 var user = await userManager.FindByNameAsync(message.Contact.PhoneNumber);
                 if(user != null)
                 {
+                    ///
+                    ///           пән сатып алгандарга руксат бермеу керек
+                    ///
                     string code = ran.Next(11111, 99999).ToString();
 
                     var _passwordValidator =

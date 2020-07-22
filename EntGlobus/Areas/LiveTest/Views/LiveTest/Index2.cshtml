@@ -4,6 +4,8 @@
 @{
     ViewData["Title"] = "Index3";
     Layout = "~/Views/Shared/LiveLayout.cshtml";
+
+    string email = User.Identity.Name.ToString() + "@mail.ru";
 }
 
 <link rel="stylesheet" href="~/Live/css/font-awesome.css">
@@ -13,58 +15,96 @@
 <div class="wrap">
     <div class="main">
         <header>
-            <p><a href="~/LiveTest/LiveTest/Index" class="back"><i class="fa fa-chevron-left"></i></a> Онлайн пәндік сабақ</p>
-            <p class="panName">Химия</p>
+            <p><a href="~/LiveTest/LiveTest/Lesson" class="back"><i class="fa fa-chevron-left"></i></a> Онлайн сабақ</p>
+            <p class="panName">@ViewBag.Pan</p>
         </header>
         <div class="content">
             @{
                 if (Model.PodLiveLesson != null)
                 {
-                    <div class="live live-new">
-                        <a href="~/LiveTest/LiveTest/Index3" class="video-baner">
-                            <img src="~/Live/img/user.png">
-                            <i class="fa fa-play"></i>
+                    if (Model.PodLiveLesson.UrlVideo == "#")
+                    {
+                        <a href="#" onclick="UserAwait()" class="live live-new">
+                            <div class="video-baner">
+                                <span class="live-effect">
+                                    <img style="height:30px!important;" src="~/Live/live-gif.gif" />
+                                </span>
+                                <img src="~/Live/img/user.png">
+                                <i class="fa fa-play"></i>
+                            </div>
+                            <div class="live-cont">
+                                <p class="lesson-number"><span class="live-true">Live</span>@Model.PodLiveLesson.Nuska</p>
+                                <div class="live-text">
+                                    <p>Басталуы:</p>
+                                    <p class="timeLesson">@Model.PodLiveLesson.StartDate.ToString(format: "H:mm") @Model.PodLiveLesson.StartDate.ToString(format: "MMMM dd")</p>
+                                </div>
+                                <div class="live-text">
+                                    <p>Такырыбы:</p>
+                                    <p>@Model.PodLiveLesson.Title</p>
+                                </div>
+                            </div>
                         </a>
-                        <div class="live-cont">
-                            <p class="lesson-number"><span class="live-true">Live</span>@Model.PodLiveLesson.Nuska</p>
-                            <div class="live-text">
-                                <p>Басталуы:</p>
-                                <p class="timeLesson">19:00, 20 наурыз</p>
+                    }
+                    else
+                    {
+                        <a href="@Model.PodLiveLesson.UrlVideo?attendee_name=@User.Identity.Name&attendee_email=@email" class="live live-new">
+                            <div class="video-baner">
+                                <span class="live-effect">
+                                    <img style="height:30px!important;" src="~/Live/live-gif.gif" />
+                                </span>
+                                <img src="~/Live/img/user.png">
+                                <i class="fa fa-play"></i>
                             </div>
-                            <div class="live-text">
-                                <p>Такырыбы:</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                            <div class="live-cont">
+                                <p class="lesson-number"><span class="live-true">Live</span>@Model.PodLiveLesson.Nuska</p>
+                                <div class="live-text">
+                                    <p>Басталуы:</p>
+                                    <p class="timeLesson">@Model.PodLiveLesson.StartDate.ToString(format: "H:mm") @Model.PodLiveLesson.StartDate.ToString(format: "MMMM dd")</p>
+                                </div>
+                                <div class="live-text">
+                                    <p>Такырыбы:</p>
+                                    <p>@Model.PodLiveLesson.Title</p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </a>
+                    }
                 }
             }
-            <br />
-            <hr />
+            <div class="history">История <i class="fa fa-chevron-down"></i></div>
+
 
             @foreach (var d in Model.HistoryPodLiveLesson)
             {
-                <div class="live live-new">
-                    <a href="~/LiveTest/LiveTest/Index3" class="video-baner">
+                <a href="~/LiveTest/LiveTest/HistoryVideo/@d.Id" class="live live-old">
+                    <div class="video-baner">
                         <img src="~/Live/img/user.png">
                         <i class="fa fa-play"></i>
-                    </a>
+                    </div>
                     <div class="live-cont">
-                        <p class="lesson-number"><span class="live-true">Live</span>@d.Nuska</p>
+                        <p class="lesson-number"><span class="live-true">Нұсқа: </span> @d.Nuska</p>
                         <div class="live-text">
-                            <p>Басталуы:</p>
-                            <p class="timeLesson">19:00, 20 наурыз</p>
+                            <p>Такырыбы: </p>
+                            <p>@d.Title</p>
                         </div>
                         <div class="live-text">
-                            <p>Такырыбы:</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                            <p>Түсірілді:</p>
+                            <p class="timeLesson">@d.StartDate.ToString(format: "H:mm") @d.StartDate.ToString(format: "MMMM dd")</p>
                         </div>
                     </div>
-                </div>
+                </a>
             }
         </div>
     </div>
 </div>
 
+<div style="display:none">
+
+</div>
+
 <script src="~/Live/js/jquery-3.4.1.min.js"></script>
-<script></script>
+<script>
+    function UserAwait() {
+
+
+    }
+</script>

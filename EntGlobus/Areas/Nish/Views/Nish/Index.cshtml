@@ -1,0 +1,30 @@
+﻿@model IEnumerable<EntGlobus.Models.NishDbFolder.NishCourse>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/LiveLayout.cshtml";
+
+
+}
+
+<link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+
+<link rel="stylesheet" href="~/Live/css/font-awesome.css">
+<link rel="stylesheet" href="~/Live/css/onlineNuska.css">
+
+
+<div class="wrap">
+    <div class="main">
+        <header>
+            Онлайн пәндік сабақ
+        </header>
+        <div class="content">
+            @foreach (var b in Model)
+            {
+                <a href="@b.Url" class="jumbotron" style="background-color: dodgerblue;margin-top: 10px;height: 120px;width: 100%;border-radius: 5px;">
+                    <h2 style="margin-left:10px;">@b.Name</h2>
+                </a>
+            }
+        </div>
+    </div>
+</div>

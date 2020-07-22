@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "DownFile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DownFile</h2>
+
+<div class="row">
+    <form class="form-group" asp-action="DownFile" asp-controller="Loads" enctype="multipart/form-data">
+        <p>Video</p>
+        <input type="file" class="form-control" />
+
+        <input type="submit" class="btn btn-success" />
+    </form>
+</div>

@@ -10,6 +10,8 @@
     <Compile Remove="Migrations\20200126170003_pay-live-testә.Designer.cs" />
     <Compile Remove="Migrations\20200126170044_pay-live-test2.cs" />
     <Compile Remove="Migrations\20200126170044_pay-live-test2.Designer.cs" />
+    <Compile Remove="Migrations\20200517101230_qiwi1.cs" />
+    <Compile Remove="Migrations\20200517101230_qiwi1.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Nish\Models\" />
     <Folder Include="wwwroot\LiveImg\" />
     <Folder Include="wwwroot\LiveLessonImg\" />
   </ItemGroup>

@@ -1,0 +1,26 @@
+﻿@model EntGlobus.ViewModels.adminview.nishviewmodel
+@{
+    ViewData["Title"] = "OpenNish";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>@ViewBag.info</h3>
+<div class="row">
+    <div class="col-md-5">
+        @foreach(var d in Model.NishPays)
+        {
+            <div class="jumbotron">
+                <h3>@d.AppUsern.FirstName</h3>
+                <p>@d.NishCourse.Name</p>
+            </div>
+        }
+    </div>
+
+    <div class="col-md-2">
+
+    </div>
+
+    <div class="col-md-5">
+
+    </div>
+</div>

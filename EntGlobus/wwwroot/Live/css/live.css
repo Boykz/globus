@@ -29,10 +29,41 @@ html{
     padding: 15px 5%;
     text-transform: uppercase;
     background-color: #5298ed;
+    position: relative;
 }
 .back{
     padding-right: 5px;
 }
+.panName{
+    margin-right: 30px;
+}
+.fa-bars{
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 20px;
+    position: absolute;
+    right: 5%;
+    text-align: right;
+}
+.link-menu{
+    display: flex;
+    flex-direction: column;
+    background-color: #5298ed;
+    padding: 10px 40px;
+    position: absolute;
+    right: 5%;
+    top: 50px;
+    z-index: 5;
+}
+.link-menu > a{
+    text-transform: capitalize;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+
+/* ---------------CONTENT----------------------------- */
 .content{
     width: 100%;
     /* display: flex;
@@ -42,14 +73,39 @@ html{
     background-color: #fff;
 }
 
+.history{
+    color: #5298ed;
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+.history > i{
+    color: #5298ed;
+}
 .live{
     width: 100%;
     display: flex;
+    text-decoration: none;
     /* justify-content: space-between; */
     /* align-items: center; */
     background-color: #ccc;
     padding: 10px;
     border-radius: 5px;
+    margin-bottom: 15px;
+}
+.live-new{
+    margin-bottom: 30px;
+    position: relative;
+}
+.live-new::after{
+    width: 112%;
+    height: 7px;
+    content: "";
+    display: block;
+    background-color: #ccc;
+    position: absolute;
+    bottom: -21px;
+    left: -6%;
 }
 .video-baner{
     display: block;
@@ -104,18 +160,82 @@ html{
 }
 .live-text > p{
     font-size: 20px;
+    color: #222;
 }
 .live-text > p:first-child{
+    width: 135px;
     min-width: 135px;
     font-weight: bold;
 }
 .timeLesson{
-    color: #5298ed;
+    color: #5298ed !important;
 }
 
 
 
+
+.live-effect{
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 10px;
+}
+.live-effect, .live-effect > span, .live-effect > span::after,  .live-effect > p{
+    background-color: #fff;
+    border-radius: 25px;
+    position: absolute;
+}
+.live-effect > span{
+    width: 20px;
+    height: 20px;
+    top: 0;
+    right: 0;
+    border: 2px solid red;
+    z-index: 10;
+}
+.live-effect > span::after{
+    content: "";
+    width: 10px;
+    height: 10px;
+    top: 3px;
+    right: 3px;
+    background-color: red;
+    animation: live-effect2 2s ease-in-out infinite;
+}
+.live-effect > p{
+    width: 28px;
+    height: 28px;
+    top: -4px;
+    right: -4px;
+    z-index: 5;
+    opacity: 0.7;
+    animation: live-effect 2s ease-in-out infinite;
+}
+
+@keyframes live-effect {
+    50% {
+        transform: scale(0.9);
+        opacity: 1;
+    }   
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
+@keyframes live-effect2 {
+    50% {
+        transform: scale(1.1);
+    }   
+    100% {
+        transform: scale(1);
+    }
+}
+
+
 @media (max-width: 768px){
+    .history{
+        font-size: 20px;
+    }
     .lesson-number{
         padding: 10px 25px;
         font-size: 20px;
@@ -129,6 +249,7 @@ html{
         font-size: 18px;
     }
     .live-text > p:first-child{
+        width: 115px;
         min-width: 115px;
     }
 }
@@ -152,11 +273,38 @@ html{
     }
 }
 @media (max-width: 640px){
+    .history{
+        font-size: 18px;
+    }
     .lesson-number, .live-true, .live-text > p{
         font-size: 16px;
     }
     .live-text > p:first-child{
+        width: 105px;
         min-width: 105px;
+    }
+    .live-effect{
+        top: 6px;
+        right: 6px;
+    }
+    .live-effect, .live-effect > span{
+        width: 12px;
+        height: 12px;
+    }
+    .live-effect > span{
+        border-width: 1px;
+    }
+    .live-effect > span::after{
+        width: 6px;
+        height: 6px;
+        top: 2px;
+        right: 2px;
+    }
+    .live-effect > p{
+        width: 18px;
+        height: 18px;
+        top: -3px;
+        right: -3px
     }
 }
 @media (max-width: 600px){
@@ -171,6 +319,9 @@ html{
     }
 }
 @media (max-width: 525px){
+    .history{
+        font-size: 16px;
+    }
     .live-cont{
         margin-left: 15px;
     }
@@ -178,6 +329,7 @@ html{
         padding: 6px 15px;
     }
     .live-text > p:first-child {
+        width: 95px;
         min-width: 95px;
     }
 }
@@ -197,6 +349,9 @@ html{
     }
 }
 @media (max-width: 425px){
+    .history{
+        font-size: 15px;
+    }
     .live{
         padding: 5px;
     }
@@ -219,12 +374,16 @@ html{
         margin-bottom: 0;
     }
     .live-text > p:first-child{
+        width: 85px;
         min-width: 85px;
     }
 }
 
 @media (max-width: 375px){
     .main > header > p{
+        font-size: 14px;
+    }
+    .history{
         font-size: 14px;
     }
     .live-cont{
@@ -245,6 +404,7 @@ html{
         margin-right: 10px;
     }
     .live-text > p:first-child{
+        width: 75px;
         min-width: 75px;
     }
     /* .live-cont{
@@ -271,6 +431,9 @@ html{
 @media (max-width: 320px){
     .back{
         font-size: 14px;
+    }
+    .history{
+        font-size: 13px;
     }
     /* .video-baner{
         min-width: 60px;

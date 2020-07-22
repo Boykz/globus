@@ -1,0 +1,58 @@
+﻿@model IEnumerable<EntGlobus.Models.AnaliticaDbFolder.ForUserCallAnalitics>
+
+@{
+    ViewData["Title"] = "OnlineUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>OnlineUser</h2>
+
+<p>
+    <a>@ViewBag.Count</a>
+</p>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Call)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Result)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Call)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Result)
+            </td>
+            <td>
+                <a class="btn btn-success" href="/Analitic/RemoveUserCall/@item.UserId">Өзгеріс жасау</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

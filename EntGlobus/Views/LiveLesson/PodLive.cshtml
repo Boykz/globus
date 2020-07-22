@@ -16,9 +16,6 @@
                 @Html.DisplayNameFor(model => model.UrlVideo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UrlPhoto)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
@@ -37,9 +34,6 @@
                 @Html.DisplayFor(modelItem => item.UrlVideo)
             </td>
             <td>
-                <img src="@item.UrlPhoto" style="height:150px!important;" />
-            </td>
-            <td>
                 @if(item.Status == true)
                 {
                     <p style="color:green;">Активный</p>
@@ -53,13 +47,13 @@
                 @Html.DisplayFor(modelItem => item.TypeVideo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                @item.StartDate.ToString(format:"dd/MM/yyyy | HH:mm")
             </td>
             <td class="dropup">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="~/LiveLesson/RemovePodLiveLesson/@item.Id">Редактировать</a></li>
-                    <li class="disabled"><a href="#">Удалить</a></li>
+                    <li><a href="~/LiveLesson/EditPodLive/@item.Id">Редактировать</a></li>
+                    <li class=""><a href="~/LiveLesson/Delete/@item.Id">Удалить</a></li>
                 </ul>
             </td>
         </tr>

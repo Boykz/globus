@@ -1,0 +1,145 @@
+﻿@model IEnumerable<EntGlobus.Controllers.UserPanView>
+
+@{
+    ViewData["Title"] = "TandauPanStatic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int mathem = 0, fizika = 0, himia = 0, biolog = 0, geograph = 0, tarih = 0, kaz_til = 0, akk = 0, english = 0, kaz_adebiet = 0;
+}
+
+<h2>TandauPanStatic</h2>
+
+
+@foreach (var item in Model)
+{
+    if(item.Pan1 == "МАТЕМАТИКА")
+    {
+        mathem++;
+    }
+    if(item.Pan1 == "ФИЗИКА")
+    {
+        fizika++;
+    }
+    if(item.Pan1 == "ХИМИЯ")
+    {
+        himia++;
+    }
+    if(item.Pan1 == "БИОЛОГИЯ")
+    {
+        biolog++;
+    }
+    if(item.Pan1 == "ГЕОГРАФИЯ")
+    {
+        geograph++;
+    }
+    if(item.Pan1 == "ТАРИХ")
+    {
+        tarih++;
+    }
+    if(item.Pan1 == "ҚАЗАҚ ТІЛІ")
+    {
+        kaz_til++;
+    }
+    if(item.Pan1 == "АДАМ. ҚОҒАМ. ҚҰҚЫҚ")
+    {
+        akk++;
+    }
+    if(item.Pan1 == "АҒЫЛШЫН ТІЛІ")
+    {
+        english++;
+    }
+    if(item.Pan1 == "ҚАЗАҚ ӘДЕБИЕТ")
+    {
+        kaz_adebiet++;
+    }
+
+
+
+
+     if(item.Pan2 == "МАТЕМАТИКА")
+    {
+        mathem++;
+    }
+    if(item.Pan2 == "ФИЗИКА")
+    {
+        fizika++;
+    }
+    if(item.Pan2 == "ХИМИЯ")
+    {
+        himia++;
+    }
+    if(item.Pan2 == "БИОЛОГИЯ")
+    {
+        biolog++;
+    }
+    if(item.Pan2 == "ГЕОГРАФИЯ")
+    {
+        geograph++;
+    }
+    if(item.Pan2 == "ТАРИХ")
+    {
+        tarih++;
+    }
+    if(item.Pan2 == "ҚАЗАҚ ТІЛІ")
+    {
+        kaz_til++;
+    }
+    if(item.Pan2 == "АДАМ. ҚОҒАМ. ҚҰҚЫҚ")
+    {
+        akk++;
+    }
+    if(item.Pan2 == "АҒЫЛШЫН ТІЛІ")
+    {
+        english++;
+    }
+    if(item.Pan2 == "ҚАЗАҚ ӘДЕБИЕТ")
+    {
+        kaz_adebiet++;
+    }
+}
+
+<table class="table">
+    <tbody>
+        <tr>
+            <td>МАТЕМАТИКА</td>
+            <td>@mathem</td>
+        </tr>
+        <tr>
+            <td>Физика</td>
+            <td>@fizika</td>
+        </tr>
+        <tr>
+            <td>химия</td>
+            <td>@himia</td>
+        </tr>
+        <tr>
+            <td>биология</td>
+            <td>@biolog</td>
+        </tr>
+        <tr>
+            <td>география</td>
+            <td>@geograph</td>
+        </tr>
+        <tr>
+            <td>тарих</td>
+            <td>@tarih</td>
+        </tr>
+        <tr>
+            <td>казак тілі</td>
+            <td>@kaz_til</td>
+        </tr>
+        <tr>
+            <td>акк</td>
+            <td>@akk</td>
+        </tr>
+        <tr>
+            <td>агылшын</td>
+            <td>@english</td>
+        </tr>
+        <tr>
+            <td>казак тілі</td>
+            <td>@kaz_adebiet</td>
+        </tr>
+
+    </tbody>
+</table>

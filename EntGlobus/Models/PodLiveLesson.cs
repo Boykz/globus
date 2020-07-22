@@ -13,10 +13,12 @@ namespace EntGlobus.Models
         public string UrlVideo { get; set; }
         public string UrlPhoto { get; set; }
         public string Nuska { get; set; }
+
+        public string Title { get; set; }
         public bool? Status { get; set; }
         public TypeLiveLesson? TypeVideo { get; set; }
-        public DateTime? StartDate { get; set; }
-
+        public DateTime StartDate { get; set; }
+        public DateTime DurationTime { get; set; }
 
 
         [ForeignKey("LiveLesson")]

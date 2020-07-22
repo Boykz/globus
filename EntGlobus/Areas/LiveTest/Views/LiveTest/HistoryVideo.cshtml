@@ -1,0 +1,74 @@
+﻿@model EntGlobus.Models.PodLiveLesson
+@{
+    ViewData["Title"] = "HistoryVideo";
+    Layout = "~/Views/Shared/LiveLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Live/css/font-awesome.css">
+<link rel="stylesheet" href="~/Live/css/video.css">
+
+
+<div class="wrap">
+    <div class="main">
+        <header>
+            <p><a href="~/LiveTest/LiveTest/Index2/@Model.LiveLessonId" class="back"><i class="fa fa-chevron-left"></i></a> @Model.LiveLesson.Name | @Model.Nuska</p>
+        </header>
+        <div class="content">
+            <div class="video-block">
+
+                <!-- <video controls="controls" poster="img/user.png">
+                    <source src="video/test.mov" type='video/ogg; codecs="theora, vorbis"'>
+                    <source src="video/test.mov" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                    <source src="video/test.mov" type='video/webm; codecs="vp8, vorbis"'>
+                    </video> -->
+                <!-- YouTube bolsa -->
+
+                <iframe src="@Model.UrlVideo"  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture;" zoom="true" allowfullscreen></iframe>
+
+                <div class="video-item">
+                    <div class="video-text">
+                        @Model.Title
+                    </div>
+                    <div class="video-view">
+                        <i class="fa fa-heart"></i><br>
+                        <i class="fa fa-eye">1294</i>
+                    </div>
+                </div>
+            </div>
+            @*<div class="live live-new">
+                <a href="#" class="video-baner">
+                    <span class="live-effect">
+                        <span></span>
+                        <p></p>
+                    </span>
+                    <img src="img/user.png">
+                    <i class="fa fa-play"></i>
+                </a>
+                <div class="live-cont">
+                    <p class="lesson-number"><span class="live-true">Live</span>3-сабак</p>
+                    <div class="live-text">
+                        <p>Басталуы:</p>
+                        <p class="timeLesson">19:00, 20 наурыз</p>
+                    </div>
+                    <div class="live-text">
+                        <p>Такырыбы:</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </div>*@
+
+        </div>
+    </div>
+</div>
+<script src="~/Live/js/jquery-3.4.1.min.js"></script>
+<script>
+        $('.link-menu').slideUp();
+        $('.fa-bars').click(function(e){
+            e.preventDefault();
+            $('.link-menu').slideToggle();
+        });
+        $('.content').click(function(e){
+            e.preventDefault();
+            $('.link-menu').slideUp();
+        })
+</script>

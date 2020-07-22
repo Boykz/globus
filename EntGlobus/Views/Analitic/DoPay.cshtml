@@ -1,15 +1,19 @@
 ﻿@model EntGlobus.ViewModels.AnaliticsModel.DoPayViewModel
 @{
     ViewData["Title"] = "DoPay";
-    Layout = "~/Views/Shared/EduLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <hr />
 @foreach(var d in Model.DoPayQiwis)
 {
-    <h2>@d.Fio</h2>
-    <p>@d.Number</p>
+    <h2>@d.Fio | <i>@d.Number</i></h2>
     <p>@d.DateTime.ToString(format:"dd:MM:yyyy")</p>
-    <p>@d.Pan</p>
+    <p>@d.Pan | @if (d.pay == true)
+    { <b style="color:green;">Сатып алған</b> }
+    else 
+    { <b style="color:red;">Звандау керек</b> }</p>
+
+    <a target="_blank" href="https://api.whatsapp.com/send?phone=@d.Number">@d.Fio WhatsApp</a>
     <hr />
 }

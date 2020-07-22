@@ -93,5 +93,12 @@ namespace EntGlobus.Controllers
             return PartialView();
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("newlogin", "Home");
+        }
     }
 }

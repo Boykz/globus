@@ -5,7 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using EntGlobus.Helpers;
 using EntGlobus.Models;
+using EntGlobus.Models.NishDbFolder;
+using EntGlobus.Models.QR;
 using EntGlobus.ViewModels;
+using EntGlobus.ViewModels.adminview;
 using EntGlobus.ViewModels.LiveLessonViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +58,16 @@ namespace EntGlobus.Controllers
             int pageSize = 20;
             var md = await PaginatedLists<AppUsern>.CreateAsync(user.AsNoTracking(), page ?? 1, pageSize);
             return View(md);
+        }
+
+
+        public async Task<IActionResult> RegDateUser()
+        {
+            var users = await _userManager.Users.Where(p => p.regdate >= Convert.ToDateTime("2020-06-01")).ToListAsync();
+
+            ViewBag.Users = users;
+
+            return View();
         }
         
 
@@ -123,6 +136,7 @@ namespace EntGlobus.Controllers
             return NotFound();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Entry(EntryViewModel model)
         {
@@ -138,10 +152,13 @@ namespace EntGlobus.Controllers
 
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, string pans,string fg)
         {
             AppUsern user = await _userManager.FindByIdAsync(userId);
+
+            var admin = await _userManager.FindByNameAsync(User.Identity.Name);
 
             if (user != null)
             {
@@ -198,6 +215,7 @@ namespace EntGlobus.Controllers
                     type = pans,
                     Price = String.Format("{0:0.##}", sum.Price),
                     Time = DateTime.Now,
+                    AdminNumber = admin.UserName,
                 };
                 db.Ofpays.Add(addof);
                 await db.SaveChangesAsync();
@@ -217,12 +235,11 @@ namespace EntGlobus.Controllers
             {
                 return new ObjectResult(new { result = "not found" });
             }
-         
-            if (model.Id != user.Id)
-            {
-                return new ObjectResult(new { result = "not found" });
-            }
-       
+
+            string text = user.UserName;
+
+            model.NewPassword = text.Substring(7);
+
             var _passwordValidator =
                HttpContext.RequestServices.GetService(typeof(IPasswordValidator<AppUsern>)) as IPasswordValidator<AppUsern>;
             var _passwordHasher =
@@ -234,7 +251,17 @@ namespace EntGlobus.Controllers
             {
                var aa =   "Пароль сәтті ауысты";
                 user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
+                if(user.ResetCount >= 1)
+                {
+                    user.ResetCount += 1;
+                }
+                else
+                {
+                    user.ResetCount = 1;
+                }
+                
                 await _userManager.UpdateAsync(user);
+                await db.SaveChangesAsync();
                return RedirectToAction(nameof(Edit), new { userId = model.Id , change = aa });
             }
             return BadRequest();
@@ -247,11 +274,16 @@ namespace EntGlobus.Controllers
         {
             var ofpay = await db.Ofpays.Where(x => x.Id > 8544).ToListAsync();
             ViewBag.sat = ofpay.Count();
-           ViewBag.o600 = ofpay.Where(x => x.Price == "600").Count()*600;
-            ViewBag.o800 = ofpay.Where(x => x.Price == "800").Count()*800;
             ViewBag.o1000 = ofpay.Where(x => x.Price == "1000").Count()*1000;
 
-          //  ViewBag.sum = o600 +o800 +o1000;
+            ViewBag.May = db.Ofpays.Where(p => p.Time >= Convert.ToDateTime("01-06-2020")).ToList().Count();
+
+            var WhenAdmin = ofpay.Where(p => p.AdminNumber != null).ToList();
+
+            ViewBag.Medey = WhenAdmin.Where(p => p.AdminNumber == "77472400089").ToList().Count();
+            ViewBag.Adik = WhenAdmin.Where(p => p.AdminNumber == "77006406004").ToList().Count();
+            ViewBag.Baha = WhenAdmin.Where(p => p.AdminNumber == "77089274498").ToList().Count();
+
 
             var usercount = db.Ofpays.Select(x => x.IdentityId.ToString()).Distinct().ToList();
             ViewBag.usercount = usercount.Count();
@@ -1497,6 +1529,150 @@ namespace EntGlobus.Controllers
             model.Blok_id = suTestView.Blok;
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Sutest));
+        }
+
+
+
+
+
+
+        public IActionResult NishAdmin()
+        {
+            var res = db.NishCourses.ToList();
+
+            return View(res);
+        }
+
+
+        public IActionResult InNish(int Id)
+        {
+            nishviewmodel nvm = new nishviewmodel();
+
+            nvm.NishCourse = db.NishCourses.Where(p => p.Id == Id).FirstOrDefault();
+            nvm.NishPays = db.NishPays.Where(p => p.NishCourseId == Id).Include(p=>p.AppUsern).ToList();
+
+            return View(nvm);
+        }
+
+
+        [HttpPost]
+        public IActionResult InNish(nishviewmodel model)
+        {
+            db.NishCourses.Update(model.NishCourse);
+            db.SaveChanges();
+
+            return RedirectToAction("NishAdmin","Admin");
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> NishUser(int id, string userid)
+        {
+            var curs = db.NishCourses.FirstOrDefault(p => p.Id == id);
+
+            NishPay np = new NishPay { NishCourseId = curs.Id, UserId = userid, OpenDate=DateTime.Now, CloseDate=DateTime.Now.AddDays(30) };
+            await db.NishPays.AddAsync(np);
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("InNish", "Admin", new { Id = id });
+        }
+
+
+        public IActionResult OpenNish()
+        {
+            var res = db.NishPays.Include(p=>p.AppUsern).Include(p=>p.NishCourse).ToList();
+
+            List<NishPay> np = new List<NishPay>();
+
+            
+
+            foreach (var d in res)
+            {
+                    foreach (var t in np)
+                    {
+
+                        if (t.UserId != d.UserId)
+                        {
+                            np.Add(new NishPay { UserId = d.UserId, NishCourseId = d.NishCourseId, CloseDate = d.CloseDate, OpenDate = d.OpenDate, AppUsern = d.AppUsern, NishCourse = d.NishCourse });
+                        }
+                    }                
+            }
+
+            nishviewmodel nvm = new nishviewmodel { NishPays = res, NishPaysIdentity = np };
+
+
+
+            return View(nvm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> OpenNish(string number, int Id, DateTime date)
+        {
+            var res = await _userManager.FindByNameAsync(number);
+            if(res == null)
+            {
+                ViewBag.Error = "такой номера нет";
+                return View();
+            }
+
+            NishPay nishPay = new NishPay { UserId = res.Id, NishCourseId = Id, CloseDate = DateTime.Now.AddHours(30), OpenDate = date };
+            db.NishPays.Add(nishPay);
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("NishAdmin", "Admin");
+
+        }
+
+
+
+
+
+
+        public IActionResult QrAdmin()
+        {
+            var res = db.QrBooks.ToList();
+            return View(res);
+        }
+       
+        public IActionResult CreateQrBook()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateQrBook(string name)
+        {
+            QrBook qb = new QrBook { BookName=name, DateTime=DateTime.Now };
+            db.QrBooks.Add(qb);
+            db.SaveChanges();
+            return RedirectToAction("QrAdmin","Admin");
+        }
+
+        public async Task<IActionResult> InQrBook(Guid Id)
+        {
+            var res = await db.QrVideos.Where(p => p.QrBookId == Id).ToListAsync();
+
+            return View(res);
+        }
+
+
+        public async Task<IActionResult> CreDb()
+        {
+
+            var res = await db.QrBooks.FirstAsync();
+
+            List<QrVideo> qv = new List<QrVideo>();
+
+            for(int i=0; i<20; i++)
+            {
+                qv.Add(new QrVideo { QrBookId=res.Id, Title="1 - нуска" });
+            }
+
+            await db.QrVideos.AddRangeAsync(qv);
+
+            await db.SaveChangesAsync();
+
+            return Content("True");
         }
     }
 }
