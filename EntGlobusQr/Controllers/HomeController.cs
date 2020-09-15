@@ -19,19 +19,19 @@ namespace EntGlobusQr.Controllers
             Color blue = Color.FromArgb(255, 82, 157, 237);
 
 
-            //for (int i = 1000; i <= 1600; i++)
-            //{
-            //    QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            for (int i = 100; i <= 800; i++)
+            {
+                QRCodeGenerator qrGenerator = new QRCodeGenerator();
 
-            //    QRCodeData qrCodeData = qrGenerator.CreateQrCode($"{i}", QRCodeGenerator.ECCLevel.Q);
-            //    QRCode qrCode = new QRCode(qrCodeData);
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode($"{i}", QRCodeGenerator.ECCLevel.Q);
+                QRCode qrCode = new QRCode(qrCodeData);
 
-            //    Bitmap qrCodeImage = qrCode.GetGraphic(3, blue, Color.White, false);
+                Bitmap qrCodeImage = qrCode.GetGraphic(3, blue, Color.White, false);
 
-            //    qrCodeImage.Save($"C:\\zipgrade\\qr\\{i}.jpg");
-            //}
+                qrCodeImage.Save($"C:\\zipgrade\\qr\\{i}.jpg");
+            }
 
-            
+
 
             return View();
         }
