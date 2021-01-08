@@ -4,14 +4,16 @@ using EntGlobus.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntGlobus.Migrations
 {
     [DbContext(typeof(entDbContext))]
-    partial class entDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201024100446_qr-mig-new-qruseriden")]
+    partial class qrmignewqruseriden
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -578,28 +580,9 @@ namespace EntGlobus.Migrations
 
                     b.Property<DateTime>("DateTime");
 
-                    b.Property<string>("PhotoUrl");
-
                     b.HasKey("Id");
 
                     b.ToTable("QrBooks");
-                });
-
-            modelBuilder.Entity("EntGlobus.Models.QR.QrNuska", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("NuskaNumber");
-
-                    b.Property<Guid>("QrBookId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QrBookId");
-
-                    b.ToTable("QrNuskas");
                 });
 
             modelBuilder.Entity("EntGlobus.Models.QR.QrUserIdentity", b =>
@@ -627,9 +610,9 @@ namespace EntGlobus.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("QrCode");
+                    b.Property<Guid>("QrBookId");
 
-                    b.Property<int?>("QrNuskaId");
+                    b.Property<int>("QrCode");
 
                     b.Property<bool>("Stats");
 
@@ -639,7 +622,7 @@ namespace EntGlobus.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QrNuskaId");
+                    b.HasIndex("QrBookId");
 
                     b.ToTable("QrVideos");
                 });
@@ -1103,14 +1086,6 @@ namespace EntGlobus.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("EntGlobus.Models.QR.QrNuska", b =>
-                {
-                    b.HasOne("EntGlobus.Models.QR.QrBook", "QrBook")
-                        .WithMany()
-                        .HasForeignKey("QrBookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("EntGlobus.Models.QR.QrUserIdentity", b =>
                 {
                     b.HasOne("EntGlobus.Models.QR.QrBook", "QrBook")
@@ -1125,9 +1100,10 @@ namespace EntGlobus.Migrations
 
             modelBuilder.Entity("EntGlobus.Models.QR.QrVideo", b =>
                 {
-                    b.HasOne("EntGlobus.Models.QR.QrNuska", "QrNuska")
+                    b.HasOne("EntGlobus.Models.QR.QrBook", "QrBook")
                         .WithMany()
-                        .HasForeignKey("QrNuskaId");
+                        .HasForeignKey("QrBookId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EntGlobus.Models.SchoolDbFolder.ClassLesson", b =>

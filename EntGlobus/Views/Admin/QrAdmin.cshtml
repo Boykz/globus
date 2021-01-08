@@ -4,16 +4,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Qr Admin</h2>
 
-<a class="btn btn-success" href="/Admin/CreateQrBook">Create</a>
 
+<h2>Qr Кітаптар</h2>
+
+<div style="padding:30px;">
+    <a class="btn btn-success" href="/Admin/CreateQrBook">Жаңа Кітап қосу</a>
+</div>
+
+<hr />
 <div class="row">
-    @foreach (var d in Model)
-    {
-        <a href="/Admin/InQrBook/@d.Id" class="jumbotron">
-            @d.BookName
-        </a>
-    }
+    <table class="table table-bordered">
+        @foreach (var d in Model)
+        {
+            
+
+            <tr>
+                <td>#</td>
+                <td>@d.BookName</td>
+                <td>
+                    <a href="/Admin/InQrBook/@d.Id" class="btn btn-default">
+                        Ссылка
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+    
 
 </div>

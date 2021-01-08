@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EntGlobus.ModelFolder.PostRegisterView>
+
+@{
+    ViewData["Title"] = "UserPostRegister";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int h = 0;
+}
+
+<h2>UserPostRegister</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@{h++;} @h</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @item.Time.ToString(format:("dd/MM/yyyy"))
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>

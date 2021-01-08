@@ -15,49 +15,6 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136580103-1"></script>
 
 
-
-    @*<script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-136580103-1');
-    </script>*@
-    @*<style>
-        .navigs {
-            display: inline-block;
-            cursor: pointer;
-            float: right;
-            right: 17px;
-            position: fixed;
-            z-index: 99999;
-            top: 3px;
-        }
-
-        .bar1, .bar2, .bar3 {
-            width: 35px;
-            height: 5px;
-            background-color: #fcf8e3;
-            margin: 6px 0;
-            transition: 0.4s;
-        }
-
-        .change .bar1 {
-            -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-            transform: rotate(-45deg) translate(-9px, 6px);
-        }
-
-        .change .bar2 {
-            opacity: 0;
-        }
-
-        .change .bar3 {
-            -webkit-transform: rotate(45deg) translate(-8px, -8px);
-            transform: rotate(45deg) translate(-8px, -8px);
-        }
-    </style>*@
-
-
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
@@ -66,15 +23,6 @@
 
 </head>
 <body>
-    @*<div class="navout">
-            <p><a href="/Acount/"><img src="~/images/ico_white.png" alt="Alternate Text" /></a></p>
-            <div class="navigs" onclick="myFunction(this)">
-
-                <div class="bar1"></div>
-                <div class="bar2"></div>
-                <div class="bar3"></div>
-            </div>
-        </div>*@
 
 
 
@@ -127,12 +75,11 @@
                 <div class="collapse navbar-collapse" id="myNavbarmenu">
                     <ul class="nav navbar-nav">
                         <li><a href="/Admin/Index">Админ</a></li>
-                        
+
                         <li><a href="/Admin/Money">Покупки</a></li>
 
                         <li><a href="/Loads/Post">Пост</a></li>
                         <li><a href="/Admin/Offers">Вопросы ???</a></li>
-                        <li><a href="/Admin/Users?pageSize=20">Связь</a></li>
 
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -169,21 +116,14 @@
                                 <li><a href="/LiveTest/LiveTest">Live</a></li>
                                 <li><a href="/Home/Edu">Online Lesson</a></li>
                                 <li><a href="/Admin/NishAdmin">Nish admin</a></li>
-                                <li><a href="/Admin/QrAdmin">QR admin</a></li>
 
                             </ul>
                         </li>
 
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                WhatsApp
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/Analitic/AllWhatsappMess">All WhatsApp</a></li>
+                        <li><a href="/Admin/QrAdmin">QR admin</a></li>
 
-                            </ul>
-                        </li>
+                        <li><a href="/Admin/UserPostRegister"> User Register Date</a></li>
+
                         <li><a href="/Acount/Logout">Exit</a></li>
                     </ul>
                 </div>

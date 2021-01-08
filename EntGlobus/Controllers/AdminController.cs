@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using EntGlobus.Helpers;
+using EntGlobus.ModelFolder;
 using EntGlobus.Models;
 using EntGlobus.Models.NishDbFolder;
 using EntGlobus.Models.QR;
@@ -1628,9 +1629,22 @@ namespace EntGlobus.Controllers
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
         public IActionResult QrAdmin()
         {
             var res = db.QrBooks.ToList();
+
             return View(res);
         }
        
@@ -1642,7 +1656,7 @@ namespace EntGlobus.Controllers
         [HttpPost]
         public IActionResult CreateQrBook(string name)
         {
-            QrBook qb = new QrBook { BookName=name, DateTime=DateTime.Now };
+            QrBook qb = new QrBook { BookName=name, DateTime=DateTime.Now, PhotoUrl = "/Pan/math.png" };
             db.QrBooks.Add(qb);
             db.SaveChanges();
             return RedirectToAction("QrAdmin","Admin");
@@ -1650,29 +1664,150 @@ namespace EntGlobus.Controllers
 
         public async Task<IActionResult> InQrBook(Guid Id)
         {
-            var res = await db.QrVideos.Where(p => p.QrBookId == Id).ToListAsync();
+            ViewBag.BookId = Id;
+
+            var res = await db.QrNuskas.Where(o => o.QrBookId == Id).ToListAsync();
 
             return View(res);
         }
 
-
-        public async Task<IActionResult> CreDb()
+        public IActionResult AddNuska(Guid Id)
         {
+            return View(new QrNuska { QrBookId = Id });
+        }
 
-            var res = await db.QrBooks.FirstAsync();
+        [HttpPost]
+        public IActionResult AddNuska(QrNuska modal)
+        {
+            db.QrNuskas.Add(modal);
+            db.SaveChanges();
 
-            List<QrVideo> qv = new List<QrVideo>();
-
-            for(int i=0; i<20; i++)
+            QrBook book = db.QrBooks.FirstOrDefault(p => p.Id == modal.QrBookId);
+            AdminWork aw = new AdminWork();
+            if (book != null)
             {
-                qv.Add(new QrVideo { QrBookId=res.Id, Title="1 - нуска" });
+                if(book.BookName == "Математикалық Сауаттылық")
+                {
+                    var tt = aw.AddQrVideo("Мат Сау | ", 20, modal.Id);
+                    db.QrVideos.AddRange(tt);
+                    db.SaveChanges();
+                }
             }
 
-            await db.QrVideos.AddRangeAsync(qv);
+            return RedirectToAction("InQrBook", new { Id = modal.QrBookId });
+        }
 
-            await db.SaveChangesAsync();
 
-            return Content("True");
+
+
+        public async Task<IActionResult> NuskaVideo(int Id)
+        {
+            var list = await db.QrVideos.Where(o => o.QrNuskaId == Id).ToListAsync();
+            ViewBag.NuskaId = Id;
+            ViewBag.BookId = db.QrNuskas.Where(o => o.Id == Id).Select(o => o.QrBookId).FirstOrDefault();
+            return View(list);
+        }
+
+
+
+
+        public async Task<IActionResult> AddQrVideo(int Id)
+        {
+            QrVideo qv = new QrVideo { QrNuskaId = Id };
+
+            return View(qv);
+        }
+
+        [HttpPost]
+        public IActionResult AddQrVideo(QrVideo model)
+        {
+            QrVideo qv = new QrVideo { Stats = model.Stats, Title = model.Title, VideoUrl = model.VideoUrl, QrCode = model.QrCode, QrNuskaId = model.QrNuskaId };
+
+            db.QrVideos.Add(qv);
+            db.SaveChanges();
+
+            return RedirectToAction("NuskaVideo", new { Id = model.QrNuskaId });
+
+        }
+
+
+        public IActionResult UpdateQrVideo(int Id)
+        {
+            QrVideo qv = db.QrVideos.FirstOrDefault(p => p.Id == Id);
+
+            if(qv != null)
+            {
+                return View(qv);
+            }
+
+            return RedirectToAction("QrAdmin");
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateQrVideo(QrVideo model)
+        {
+            QrVideo qv = db.QrVideos.FirstOrDefault(p => p.Id == model.Id);
+
+            qv.QrCode = model.QrCode;
+            qv.Stats = model.Stats;
+            qv.VideoUrl = model.VideoUrl;
+            qv.Title = model.Title;
+
+            db.QrVideos.Update(qv);
+            db.SaveChanges();
+
+            return RedirectToAction("NuskaVideo", new { Id = model.QrNuskaId });
+        }
+
+
+
+        public IActionResult DeleteQr(int Id)
+        {
+            var d = db.QrVideos.FirstOrDefault(p => p.Id == Id);
+            if(d != null)
+            {
+                db.QrVideos.Remove(d);
+                db.SaveChanges();
+            }
+            return RedirectToAction("InQrBook");
+        }
+
+
+
+
+
+        public async Task<IActionResult> UserPostRegister()
+        {
+            var users = await _userManager.Users.Where(o => o.regdate >= Convert.ToDateTime("01/09/2020")).OrderBy(o=>o.regdate).ToListAsync();
+
+            //  var list = (from b in users select new PostRegisterView{ Fio = b.FirstName + b.LastName, Id = b.Id, Phone = b.UserName, Time = b.regdate }).ToList();
+
+            List<PostRegisterView> prv = new List<PostRegisterView>();
+            foreach(var b in users)
+            {
+                prv.Add(new PostRegisterView { Fio = b.FirstName + " " + b.LastName, Id = b.Id, Phone = b.UserName, Time = b.regdate });
+            }
+
+            return View(prv);
+
+        }
+
+    }
+
+
+    public class AdminWork
+    {
+        public List<QrVideo> AddQrVideo(string Pan, int count, int nuskaId)
+        {
+            List<QrVideo> qrlist = new List<QrVideo>();
+
+            for (int i = 1; i <= count; i++)
+            {
+                qrlist.Add(new QrVideo { QrNuskaId = nuskaId, Stats = false, Title = Pan + i });
+            }
+
+            return qrlist;
         }
     }
 }

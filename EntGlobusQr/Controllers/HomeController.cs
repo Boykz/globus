@@ -19,11 +19,12 @@ namespace EntGlobusQr.Controllers
             Color blue = Color.FromArgb(255, 82, 157, 237);
 
 
-            for (int i = 100; i <= 800; i++)
+            for (int i = 11001; i <= 12000; i++)
             {
                 QRCodeGenerator qrGenerator = new QRCodeGenerator();
 
                 QRCodeData qrCodeData = qrGenerator.CreateQrCode($"{i}", QRCodeGenerator.ECCLevel.Q);
+
                 QRCode qrCode = new QRCode(qrCodeData);
 
                 Bitmap qrCodeImage = qrCode.GetGraphic(3, blue, Color.White, false);

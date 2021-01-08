@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace EntGlobus.Models.QR
 {
-    public class QrUserIdentity
+    public class QrNuska
     {
         public int Id { get; set; }
+        public int NuskaNumber { get; set; }
 
-
-        [ForeignKey("AppUsern")]
-        public string UserId { get; set; }
-        public AppUsern AppUsern { get; set; }
 
 
         [ForeignKey("QrBook")]

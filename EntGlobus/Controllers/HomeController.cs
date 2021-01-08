@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using EntGlobus.ViewModels;
 using EntGlobus.ApiServece;
 using EntGlobus.ViewModels.HomeView;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntGlobus.Controllers
 {
@@ -207,5 +208,14 @@ namespace EntGlobus.Controllers
             return RedirectToAction("LoginPage", "Home");
         }
 
+
+        //    EntGlobus QR - бетінде ашылатын страница. Не удалить!!!
+        public IActionResult QrView()
+        {
+            return View();
+        }
+
     }
+
+
 }

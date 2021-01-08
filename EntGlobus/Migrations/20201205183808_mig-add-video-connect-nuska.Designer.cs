@@ -4,14 +4,16 @@ using EntGlobus.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntGlobus.Migrations
 {
     [DbContext(typeof(entDbContext))]
-    partial class entDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201205183808_mig-add-video-connect-nuska")]
+    partial class migaddvideoconnectnuska
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -577,8 +579,6 @@ namespace EntGlobus.Migrations
                     b.Property<string>("BookName");
 
                     b.Property<DateTime>("DateTime");
-
-                    b.Property<string>("PhotoUrl");
 
                     b.HasKey("Id");
 

@@ -145,6 +145,15 @@ namespace EntGlobus
 
             services.AddSignalR();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("http://localhost:3000", "http://localhost:57108")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -163,12 +172,12 @@ namespace EntGlobus
                 app.UseHsts();
             }
 
-            
 
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseAuthentication();
+            app.UseAuthentication(); 
             app.UseCookiePolicy();
             app.UseSession();
 
@@ -183,12 +192,15 @@ namespace EntGlobus
                 routes.MapRoute(
                    name: "areas",
                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Bot.GetBotClientAsync().Wait();
+            // Bot.GetBotClientAsync().Wait();
+
         }
+
     }
 }

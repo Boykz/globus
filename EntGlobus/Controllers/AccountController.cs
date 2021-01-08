@@ -110,18 +110,7 @@ namespace EntGlobus.Controllers
             //await db.Searches.AddAsync(new Search { IdentityId = userIdentity.Id, count = 30, enable = true, date = DateTime.Now });
             await userManager.AddToRoleAsync(userIdentity, "user");
             await db.SaveChangesAsync();
-            //var claims = new[]
-            //              {
-            //                    new Claim(ClaimTypes.Name,userIdentity.UserName)
-            //              };
-            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("dfghdfghdfghjsfjgwtyieyutlhknljsad"));
-            //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            //var token = new JwtSecurityToken(
-            //    issuer: "Issuer",
-            //    audience: "Audience",
-            //    claims: claims,
-            //    //expires: DateTime.Now.AddMinutes(30),
-            //    signingCredentials: creds);
+            
 
             var tokenstring = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiODc0NzkwODE4OTgiLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.pjbZR4Ac6Axl4qrM1YucW1lokXjPshbcOZEXLm2nj3c";
             var id = userIdentity.Id;
@@ -434,6 +423,49 @@ namespace EntGlobus.Controllers
 
             var tokenstring = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiODc0NzkwODE4OTgiLCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.pjbZR4Ac6Axl4qrM1YucW1lokXjPshbcOZEXLm2nj3c";
             return Json(new { result = "success", user.Id, tokenstring });
+        }
+
+
+        [HttpPost]
+        [Route("LoginQr")]
+        public async Task<JsonResult> LoginQr([FromBody] LoginAuthQrModel model)
+        {
+            AppUsern reUser = await userManager.FindByNameAsync(model.Number);
+
+            if (reUser == null)
+            {
+                return new JsonResult(new { result = "Бұл номер жүйеде тіркелмеген!" });
+            }
+            var sign = signInManager.PasswordSignInAsync(reUser.UserName, model.Password, false, false);
+            if (sign.Result.Succeeded)
+            {
+                return new JsonResult(new { reUser.Id, reUser.FirstName, reUser.LastName });
+            }
+            return new JsonResult(new { result = "Номеріңіз немесе құпия сөзіңіз дұрыс емес" });
+        }
+
+
+
+        [HttpPost]
+        [Route("RegisterQr")]
+        public async Task<JsonResult> RegisterQr([FromBody] RegisterAuthQrModel model)
+        {
+            AppUsern reUser = await userManager.FindByNameAsync(model.Number);
+
+            if (reUser != null)
+            {
+                return new JsonResult(new { result = "Бұл номер жүйеде тіркелген!" });
+            }
+
+            AppUsern auser = new AppUsern { UserName = model.Number, FirstName = model.FirstName, LastName = model.LastName, PhoneNumber = model.Number };
+
+            var result = await userManager.CreateAsync(auser, model.Password);
+            if (result.Succeeded)
+            {
+                return new JsonResult(new { auser.Id });
+            }
+
+            return new JsonResult(new { result = "error" });
         }
     }
 }

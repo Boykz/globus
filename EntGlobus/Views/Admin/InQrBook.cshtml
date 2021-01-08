@@ -1,35 +1,35 @@
-﻿@model IEnumerable<EntGlobus.Models.QR.QrVideo>
+﻿@model IEnumerable<EntGlobus.Models.QR.QrNuska>
 @{
     ViewData["Title"] = "InQrBook";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>In Qr Book</h2>
+<h2>Нұсқалар</h2>
 
-<a class="btn btn-success">Create</a>
+<a class="btn btn-success" href="/Admin/AddNuska/@ViewBag.BookId">Нұсқа қосу</a>
 
 <div class="row">
     <table class="table table-bordered table-hover">
         <thead style="background-color:slateblue;color:white;">
             <tr>
-                <th>Name</th>
-                <th>ID</th>
-                <th>QR</th>
-                <th>URL</th>
-                <th>URL Edit</th>
+                <th>Нұсқа</th>
+                <th>Вход</th>
+                <th>Действия</th>
+                <th>Действия</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var d in Model)
             {
                 <tr>
-                    <td>@d.Title</td>
-                    <td>@d.Id</td>
-                    <td><a class="btn btn-warning" style="" href="http://qrcoder.ru/code/?@d.Id&6&0" target="_blank">QR</a></td>
-                    <td>@d.VideoUrl ?</td>
-                    <td>
-                        <a class="btn btn-toolbar" disable>Edit</a>
+                    <td>@d.NuskaNumber</td>
+                    <td><a href="/Admin/NuskaVideo/@d.Id" class="btn">Видеолар</a></td>
+                    @*<td>
+                        <a class="btn btn-warning" href="/Admin/UpdateQrVideo/@d.Id" >Edit ---</a>
                     </td>
+                    <td>
+                        <a class="btn btn-danger" href="/Admin/DeleteQr/@d.Id">Удалить ---</a>
+                    </td>*@
                 </tr>
             }
 

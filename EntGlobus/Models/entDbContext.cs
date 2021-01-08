@@ -73,6 +73,7 @@ namespace EntGlobus.Models
         public DbSet<QrBook> QrBooks { get; set; }
         public DbSet<QrUserIdentity> QrUserIdentities { get; set; }
         public DbSet<QrVideo> QrVideos { get; set; }
+        public DbSet<QrNuska> QrNuskas { get; set; }
 
 
 

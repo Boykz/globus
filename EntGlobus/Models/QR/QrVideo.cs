@@ -8,12 +8,18 @@ namespace EntGlobus.Models.QR
 {
     public class QrVideo
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string VideoUrl { get; set; }
 
-        [ForeignKey("QrBook")]
-        public Guid QrBookId { get; set; }
-        public QrBook QrBook { get; set; }
+        public bool Stats { get; set; } = false;
+        public int QrCode { get; set; }
+
+
+
+
+        [ForeignKey("QrNuska")]
+        public int? QrNuskaId { get; set; }
+        public QrNuska QrNuska { get; set; }
     }
 }

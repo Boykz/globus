@@ -1,0 +1,67 @@
+﻿@model IEnumerable<EntGlobus.Models.QR.QrVideo>
+
+@{
+    ViewData["Title"] = "NuskaVideo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>NuskaVideo</h2>
+
+
+<p>
+    <a href="/Admin/InQrBook/@ViewBag.BookId" class="btn btn-warning">Артқа</a>
+    <a href="/Admin/AddQrVideo/@ViewBag.NuskaId" class="btn btn-success">Видео қосу</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stats)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QrCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                #
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoUrl)
+            </td>
+            <td>
+                @if(item.Stats == true)
+                {
+                    <p>ашық</p>
+                }
+                else
+                {
+                    <p>жабық</p>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QrCode)
+            </td>
+            <td>
+                <a href="/Admin/UpdateQrVideo/@item.Id" class="btn btn-success">Өзгерту</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

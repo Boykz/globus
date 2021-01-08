@@ -130,6 +130,7 @@ namespace EntGlobus.Controllers
         public async Task<IActionResult> TandauPanStatic()
         {
             var val = await (from b in db.Users
+                             where b.regdate >= Convert.ToDateTime("09/01/2020")
                        where b.pan1 != null
                        select new UserPanView
                        {
@@ -224,24 +225,6 @@ namespace EntGlobus.Controllers
 
 
 
-
-
-        public async Task<IActionResult> AllWhatsappMess()
-        {
-            var users = await (from b in um.Users
-                         select new AllWhatsappList {
-                             Name = b.FirstName + " " + b.LastName,
-                             Phone = b.UserName,
-                         }).ToListAsync();
-
-            return View(users);
-        }
-
-
-        public async Task<IActionResult> RegData()
-        {
-            return View();
-        }
 
     }
 

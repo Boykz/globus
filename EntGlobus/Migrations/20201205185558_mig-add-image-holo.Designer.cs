@@ -4,14 +4,16 @@ using EntGlobus.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntGlobus.Migrations
 {
     [DbContext(typeof(entDbContext))]
-    partial class entDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201205185558_mig-add-image-holo")]
+    partial class migaddimageholo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
